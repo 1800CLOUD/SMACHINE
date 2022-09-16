@@ -2,3 +2,8 @@
 	path = 1800CLOUD/Baseline
 	url = git@github.com:1800CLOUD/Baseline.git
 	branch = 15.0
+
+[submodule "OCA/bank-payment"]
+	path = OCA/bank-payment
+	url = git@github.com:OCA/bank-payment.git
+	branch = 15.0
