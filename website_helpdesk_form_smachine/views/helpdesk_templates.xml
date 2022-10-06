@@ -276,7 +276,7 @@
                                             <span class="s_website_form_label_content">Re-entry</span>
                                         </label>
                                         <div class="col-sm col-xs-12">
-                                            <input id="h_re_entry" type="text" class="form-control s_website_form_input" name="reentry" required="1" data-fill-with="name"/>
+                                            <input id="h_re_entry" type="checkbox" class="form-control s_website_form_input" name="reentry" required="0"/>
                                         </div>
                                     </div>
                                 </div>
