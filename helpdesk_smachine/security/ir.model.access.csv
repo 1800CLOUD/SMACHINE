@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_damage_type_sm_all,damage_type_sm_all,model_damage_type_sm,base.group_user,1,1,1,1
+access_damage_type_sm_public,damage_type_sm_public,model_damage_type_sm,,1,0,0,0

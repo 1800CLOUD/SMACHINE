@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <function model="ir.model.fields" name="formbuilder_whitelist">
+        <value>helpdesk.ticket</value>
+        <value eval="[
+            'partner_doc_type_id',
+            'partner_vat',
+            'partner_name',
+            'partner_email',
+            'partner_phone',
+            'customer_dealer',
+            'country_id',
+            'state_id',
+            'origin_city_id',
+            'damage_type_id',
+            'invoice_number',
+            'product_id',
+            'technician_id',
+            'tech_city_id',
+            'name',
+            'description',
+            'team_id',
+            'partner_id',
+        ]"/>
+    </function>
+</odoo>
