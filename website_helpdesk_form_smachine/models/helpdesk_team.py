@@ -18,8 +18,10 @@ class HelpdeskTeam(models.Model):
     def _ensure_submit_form_view(self):
         for team in self:
             if not team.website_form_view_id:
-                default_form = etree.fromstring(self.env.ref('website_helpdesk_form_smachine.ticket_submit_form').arch)
-                xmlid = 'website_helpdesk_form_smachine.team_form_' + str(team.id)
+                default_form = etree.fromstring(self.env.ref(
+                    'website_helpdesk_form_smachine.ticket_submit_form').arch)
+                xmlid = 'website_helpdesk_form_smachine.team_form_' + \
+                    str(team.id)
                 form_template = self.env['ir.ui.view'].create({
                     'type': 'qweb',
                     'arch': etree.tostring(default_form),
@@ -35,7 +37,7 @@ class HelpdeskTeam(models.Model):
                 })
 
                 team.write({'website_form_view_id': form_template.id})
-    
+
     def _get_data_fields_website_form(self):
         self.ensure_one()
         self = self.sudo()
@@ -45,7 +47,7 @@ class HelpdeskTeam(models.Model):
         country_id = self.company_id.country_id
         domain = []
         if country_id:
-            domain = [('country_id','=',country_id.id)]
+            domain = [('country_id', '=', country_id.id)]
         doc_type_ids = doc_type_obj.search(domain)
         out['doc_types'] = [(d.id, d.name) for d in doc_type_ids]
         # Country
@@ -70,10 +72,10 @@ class HelpdeskTeam(models.Model):
         out['products'] = [(p.id, p.display_name) for p in product_ids]
         if self.web_technician_req:
             # city
-            domain = [('country_id','=',country_id.id)]
+            domain = [('country_id', '=', country_id.id)]
             city_ids = self.env['res.city'].search(domain)
             out['cities'] = [(p.id, p.display_name) for p in city_ids]
-            domain = [('is_technician','=',True)]
+            domain = [('is_technician', '=', True)]
             tech_ids = self.env['res.partner'].search(domain)
             out['technicians'] = [(p.id, p.display_name) for p in tech_ids]
         return out

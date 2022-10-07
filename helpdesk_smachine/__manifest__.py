@@ -13,12 +13,15 @@
     'license': 'OPL-1',
     'version': '15.0.0.0.1',
     'depends': [
-        'helpdesk'
+        'helpdesk',
+        'helpdesk_repair',
     ],
     'data': [
         'security/ir.model.access.csv',
         'views/damage_type_sm_views.xml',
         'views/res_partner_views.xml',
         'views/helpdesk_team_views.xml',
+        'views/helpdesk_ticket_views.xml',
+        'views/repair_order_views.xml',
     ],
 }

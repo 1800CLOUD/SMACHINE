@@ -53,248 +53,6 @@
                     <div class="container">
                         <form id="helpdesk_ticket_form" action="/website/form/" method="post" enctype="multipart/form-data" class="o_mark_required" data-mark="*" data-model_name="helpdesk.ticket" data-success-mode="redirect" data-success-page="/your-ticket-has-been-submitted" data-editable-form="false"  hide-change-model="true">
                             <div class="s_website_form_rows row s_col_no_bgcolor">
-                                <!-- Document Type -->
-                                <div class="form-group col-12 s_website_form_field s_website_form_model_required" data-type="char" data-name="Field">
-                                    <div class="row s_col_no_resize s_col_no_bgcolor">
-                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_doc_type">
-                                            <span class="s_website_form_label_content">Document Type</span>
-                                            <span class="s_website_form_mark"> *</span>
-                                        </label>
-                                        <div class="col-sm col-xs-12">
-                                            <!-- <input id="h_doc_type" type="text" class="form-control s_website_form_input" name="doc_tyoe" required="1" data-fill-with="l10n_latam_identification_type_id"/> -->
-                                            <select id="h_doc_type" class="form-control s_website_form_input" name="partner_doc_type_id" required="1" data-fill-with="l10n_latam_identification_type_id">
-                                                <option t-att-value="''"></option>
-                                                <t t-foreach="data_fields.get('doc_types', [])" t-as="doc_type">
-                                                    <option t-att-value="doc_type[0]"><span t-esc="doc_type[1]"/></option>
-                                                </t>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Document Number -->
-                                <div class="form-group col-12 s_website_form_field s_website_form_model_required" data-type="char" data-name="Field">
-                                    <div class="row s_col_no_resize s_col_no_bgcolor">
-                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_doc_id">
-                                            <span class="s_website_form_label_content">Document Number</span>
-                                            <span class="s_website_form_mark"> *</span>
-                                        </label>
-                                        <div class="col-sm col-xs-12">
-                                            <input id="h_doc_id" type="text" class="form-control s_website_form_input" name="partner_vat" required="1" data-fill-with="name"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Name -->
-                                <div class="form-group col-12 s_website_form_field s_website_form_model_required" data-type="char" data-name="Field">
-                                    <div class="row s_col_no_resize s_col_no_bgcolor">
-                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_name">
-                                            <span class="s_website_form_label_content">Name or Social Reason</span>
-                                            <span class="s_website_form_mark"> *</span>
-                                        </label>
-                                        <div class="col-sm col-xs-12">
-                                            <input id="h_name" type="text" class="form-control s_website_form_input" name="partner_name" required="1" data-fill-with="name"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Email -->
-                                <div class="form-group col-12 s_website_form_field s_website_form_model_required" data-type="email" data-name="Field">
-                                    <div class="row s_col_no_resize s_col_no_bgcolor">
-                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="helpdesk2">
-                                            <span class="s_website_form_label_content">Your Email</span>
-                                            <span class="s_website_form_mark"> *</span>
-                                        </label>
-                                        <div class="col-sm col-xs-12">
-                                            <input id="helpdesk2" type='email' class='form-control s_website_form_input' name="partner_email" required="1" data-fill-with="email"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Movil -->
-                                <div class="form-group col-12 s_website_form_field s_website_form_model_required" data-type="char" data-name="Field">
-                                    <div class="row s_col_no_resize s_col_no_bgcolor">
-                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_movil">
-                                            <span class="s_website_form_label_content">Movil</span>
-                                            <span class="s_website_form_mark"> *</span>
-                                        </label>
-                                        <div class="col-sm col-xs-12">
-                                            <input id="h_movil" type="text" class="form-control s_website_form_input" name="partner_phone" required="1" data-fill-with="name"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Customer or Partner -->
-                                <div class="form-group col-12 s_website_form_field s_website_form_model_required" data-type="char" data-name="Field">
-                                    <div class="row s_col_no_resize s_col_no_bgcolor">
-                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_customer_dealer">
-                                            <span class="s_website_form_label_content">Customer or Dealer</span>
-                                            <span class="s_website_form_mark"> *</span>
-                                        </label>
-                                        <div class="col-sm col-xs-12">
-                                            <input id="h_customer_dealer" type="text" class="form-control s_website_form_input" name="customer_dealer" required="1" data-fill-with="name"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Country -->
-                                <div class="form-group col-12 s_website_form_field s_website_form_model_required" data-type="char" data-name="Field">
-                                    <div class="row s_col_no_resize s_col_no_bgcolor">
-                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_country">
-                                            <span class="s_website_form_label_content">Country</span>
-                                            <span class="s_website_form_mark"> *</span>
-                                        </label>
-                                        <div class="col-sm col-xs-12">
-                                            <!-- <input id="h_country" type="text" class="form-control s_website_form_input" name="partner_name" required="1" data-fill-with="name"/> -->
-                                            <select id="h_country" class="form-control s_website_form_input" name="country_id" required="1" data-fill-with="country_id">
-                                                <option t-att-value="''"></option>
-                                                <t t-foreach="data_fields.get('countries', [])" t-as="country">
-                                                    <option t-att-value="country[0]"><span t-esc="country[1]"/></option>
-                                                </t>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Department -->
-                                <div class="form-group col-12 s_website_form_field s_website_form_model_required" data-type="char" data-name="Field">
-                                    <div class="row s_col_no_resize s_col_no_bgcolor">
-                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_state">
-                                            <span class="s_website_form_label_content">Department</span>
-                                            <span class="s_website_form_mark"> *</span>
-                                        </label>
-                                        <div class="col-sm col-xs-12">
-                                            <!-- <input id="h_state" type="text" class="form-control s_website_form_input" name="partner_name" required="1" data-fill-with="name"/> -->
-                                            <select id="h_state" class="form-control s_website_form_input" name="state_id" required="1" data-fill-with="state_id">
-                                                <option t-att-value="''"></option>
-                                                <t t-foreach="data_fields.get('states', [])" t-as="state">
-                                                    <option t-att-value="state[0]"><span t-esc="state[1]"/></option>
-                                                </t>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Origin City -->
-                                <div class="form-group col-12 s_website_form_field s_website_form_model_required" data-type="char" data-name="Field">
-                                    <div class="row s_col_no_resize s_col_no_bgcolor">
-                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_city">
-                                            <span class="s_website_form_label_content">Origin City</span>
-                                            <span class="s_website_form_mark"> *</span>
-                                        </label>
-                                        <div class="col-sm col-xs-12">
-                                            <!-- <input id="h_city" type="text" class="form-control s_website_form_input" name="partner_name" required="1" data-fill-with="name"/> -->
-                                            <select id="h_origin_city" class="form-control s_website_form_input" name="origin_city_id" required="1" data-fill-with="city_id">
-                                                <option t-att-value="''"></option>
-                                                <t t-foreach="data_fields.get('cities', [])" t-as="city">
-                                                    <option t-att-value="city[0]"><span t-esc="city[1]"/></option>
-                                                </t>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Damage Type -->
-                                <div class="form-group col-12 s_website_form_field" data-type="char" data-name="Field">
-                                    <div class="row s_col_no_resize s_col_no_bgcolor">
-                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_damage">
-                                            <span class="s_website_form_label_content">Damage Type</span>
-                                        </label>
-                                        <div class="col-sm col-xs-12">
-                                            <select id="h_damage" class="form-control s_website_form_input" name="damage_type_id" required="1">
-                                                <option t-att-value="''"></option>
-                                                <t t-foreach="data_fields.get('damage_type', [])" t-as="damage">
-                                                    <option t-att-value="damage[0]"><span t-esc="damage[1]"/></option>
-                                                </t>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Invoice Number -->
-                                <!-- texto -->
-                                <div class="form-group col-12 s_website_form_field" data-type="char" data-name="Field">
-                                    <div class="row s_col_no_resize s_col_no_bgcolor">
-                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_invoice">
-                                            <span class="s_website_form_label_content">Invoice Number</span>
-                                        </label>
-                                        <div class="col-sm col-xs-12">
-                                            <input id="h_invoice" type="text" class="form-control s_website_form_input" name="invoice_number" required="1"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Product -->
-                                <!-- Seleccionar de lista de productos -->
-                                <div class="form-group col-12 s_website_form_field" data-type="char" data-name="Field">
-                                    <div class="row s_col_no_resize s_col_no_bgcolor">
-                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_product">
-                                            <span class="s_website_form_label_content">Product</span>
-                                        </label>
-                                        <div class="col-sm col-xs-12">
-                                            <!-- <input id="h_product" type="text" class="form-control s_website_form_input" name="partner_name" required="1" data-fill-with="name"/> -->
-                                            <select id="h_product" class="form-control" name="product_id" required="0">
-                                                <option t-att-value="''"></option>
-                                                <t t-foreach="data_fields.get('products', [])" t-as="product">
-                                                    <option t-att-value="product[0]"><span t-esc="product[1]"/></option>
-                                                </t>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Channel -->
-                                <t t-if="team.web_technician_req">
-                                    <!-- technician -->
-                                    <div class="form-group col-12 s_website_form_field" data-type="char" data-name="Field">
-                                        <div class="row s_col_no_resize s_col_no_bgcolor">
-                                            <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_product">
-                                                <span class="s_website_form_label_content">Technician</span>
-                                            </label>
-                                            <div class="col-sm col-xs-12">
-                                                <select id="h_technician" class="form-control" name="technician_id" required="1">
-                                                    <option t-att-value="''"></option>
-                                                    <t t-foreach="data_fields.get('technicians', [])" t-as="tech">
-                                                        <option t-att-value="tech[0]"><span t-esc="tech[1]"/></option>
-                                                    </t>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- City -->
-                                    <div class="form-group col-12 s_website_form_field s_website_form_model_required" data-type="char" data-name="Field">
-                                        <div class="row s_col_no_resize s_col_no_bgcolor">
-                                            <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_city">
-                                                <span class="s_website_form_label_content">City</span>
-                                                <span class="s_website_form_mark"> *</span>
-                                            </label>
-                                            <div class="col-sm col-xs-12">
-                                                <!-- <input id="h_city" type="text" class="form-control s_website_form_input" name="partner_name" required="1" data-fill-with="name"/> -->
-                                                <select id="h_city" class="form-control" name="tech_city_id" required="1">
-                                                    <option t-att-value="''"></option>
-                                                    <t t-foreach="data_fields.get('cities', [])" t-as="city">
-                                                        <option t-att-value="city[0]"><span t-esc="city[1]"/></option>
-                                                    </t>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </t>
-                                <!-- Re-entry -->
-                                <!-- Boleano debe habilitar otro campo que muestre tickets relacionados al cliente (?)  -->
-                                <div class="form-group col-12 s_website_form_field " data-type="char" data-name="Field">
-                                    <div class="row s_col_no_resize s_col_no_bgcolor">
-                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_re_entry">
-                                            <span class="s_website_form_label_content">Re-entry</span>
-                                        </label>
-                                        <div class="col-sm col-xs-12">
-                                            <input id="h_re_entry" type="checkbox" class="form-control s_website_form_input" name="reentry" required="0"/>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                
-                                <!-- Name -->
-                                <!-- <div class="form-group col-12 s_website_form_field s_website_form_model_required" data-type="char" data-name="Field">
-                                    <div class="row s_col_no_resize s_col_no_bgcolor">
-                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="helpdesk1">
-                                            <span class="s_website_form_label_content">Your Name</span>
-                                            <span class="s_website_form_mark"> *</span>
-                                        </label>
-                                        <div class="col-sm col-xs-12">
-                                            <input id="helpdesk1" type="text" class="form-control s_website_form_input" name="partner_name" required="1" data-fill-with="name"/>
-                                        </div>
-                                    </div>
-                                </div> -->
-                                
                                 <!-- Subject -->
                                 <div class="form-group col-12 s_website_form_field s_website_form_model_required" data-type="char" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
@@ -340,8 +98,250 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- Document Type -->
+                                <div class="form-group col-12 s_website_form_field s_website_form_model_required" data-type="char" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_doc_type">
+                                            <span class="s_website_form_label_content">Document Type</span>
+                                            <span class="s_website_form_mark"> *</span>
+                                        </label>
+                                        <div class="col-sm col-xs-12">
+                                            <!-- <input id="h_doc_type" type="text" class="form-control s_website_form_input" name="doc_tyoe" required="1" data-fill-with="l10n_latam_identification_type_id"/> -->
+                                            <select id="h_doc_type" class="form-control s_website_form_input" name="partner_doc_type_id" required="1" data-fill-with="l10n_latam_identification_type_id">
+                                                <option t-att-value="''">-</option>
+                                                <t t-foreach="data_fields.get('doc_types', [])" t-as="doc_type">
+                                                    <option t-att-value="doc_type[0]"><span t-esc="doc_type[1]"/></option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Document Number -->
+                                <div class="form-group col-12 s_website_form_field s_website_form_model_required" data-type="char" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_doc_id">
+                                            <span class="s_website_form_label_content">Document Number</span>
+                                            <span class="s_website_form_mark"> *</span>
+                                        </label>
+                                        <div class="col-sm col-xs-12">
+                                            <input id="h_doc_id" type="text" class="form-control s_website_form_input" name="partner_vat" required="1" data-fill-with="vat"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Name -->
+                                <div class="form-group col-12 s_website_form_field s_website_form_model_required" data-type="char" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_name">
+                                            <span class="s_website_form_label_content">Name or Social Reason</span>
+                                            <span class="s_website_form_mark"> *</span>
+                                        </label>
+                                        <div class="col-sm col-xs-12">
+                                            <input id="h_name" type="text" class="form-control s_website_form_input" name="partner_name" required="1" data-fill-with="name"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Email -->
+                                <div class="form-group col-12 s_website_form_field s_website_form_model_required" data-type="email" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="helpdesk2">
+                                            <span class="s_website_form_label_content">Your Email</span>
+                                            <span class="s_website_form_mark"> *</span>
+                                        </label>
+                                        <div class="col-sm col-xs-12">
+                                            <input id="helpdesk2" type='email' class='form-control s_website_form_input' name="partner_email" required="1" data-fill-with="email"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Movil -->
+                                <div class="form-group col-12 s_website_form_field s_website_form_model_required" data-type="char" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_movil">
+                                            <span class="s_website_form_label_content">Movil</span>
+                                            <span class="s_website_form_mark"> *</span>
+                                        </label>
+                                        <div class="col-sm col-xs-12">
+                                            <input id="h_movil" type="text" class="form-control s_website_form_input" name="partner_phone" required="1" data-fill-with="phone"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Customer or Partner -->
+                                <div class="form-group col-12 s_website_form_field s_website_form_model_required" data-type="char" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_customer_dealer">
+                                            <span class="s_website_form_label_content">Customer or Dealer</span>
+                                            <span class="s_website_form_mark"> *</span>
+                                        </label>
+                                        <div class="col-sm col-xs-12">
+                                            <input id="h_customer_dealer" type="text" class="form-control s_website_form_input" name="customer_dealer" required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Country -->
+                                <div class="form-group col-12 s_website_form_field s_website_form_model_required" data-type="char" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_country">
+                                            <span class="s_website_form_label_content">Country</span>
+                                            <span class="s_website_form_mark"> *</span>
+                                        </label>
+                                        <div class="col-sm col-xs-12">
+                                            <!-- <input id="h_country" type="text" class="form-control s_website_form_input" name="partner_name" required="1" data-fill-with="name"/> -->
+                                            <select id="h_country" class="form-control s_website_form_input" name="o_country_id" required="1">
+                                                <option t-att-value="''">-</option>
+                                                <t t-foreach="data_fields.get('countries', [])" t-as="country">
+                                                    <option t-att-value="country[0]"><span t-esc="country[1]"/></option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Department -->
+                                <div class="form-group col-12 s_website_form_field s_website_form_model_required" data-type="char" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_state">
+                                            <span class="s_website_form_label_content">Department</span>
+                                            <span class="s_website_form_mark"> *</span>
+                                        </label>
+                                        <div class="col-sm col-xs-12">
+                                            <!-- <input id="h_state" type="text" class="form-control s_website_form_input" name="partner_name" required="1" data-fill-with="name"/> -->
+                                            <select id="h_state" class="form-control s_website_form_input" name="o_state_id" required="1">
+                                                <option t-att-value="''">-</option>
+                                                <t t-foreach="data_fields.get('states', [])" t-as="state">
+                                                    <option t-att-value="state[0]"><span t-esc="state[1]"/></option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Origin City -->
+                                <div class="form-group col-12 s_website_form_field s_website_form_model_required" data-type="char" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_city">
+                                            <span class="s_website_form_label_content">Origin City</span>
+                                            <span class="s_website_form_mark"> *</span>
+                                        </label>
+                                        <div class="col-sm col-xs-12">
+                                            <!-- <input id="h_city" type="text" class="form-control s_website_form_input" name="partner_name" required="1" data-fill-with="name"/> -->
+                                            <select id="h_origin_city" class="form-control s_website_form_input" name="o_city_id" required="1">
+                                                <option t-att-value="''">-</option>
+                                                <t t-foreach="data_fields.get('o_cities', [])" t-as="city">
+                                                    <option t-att-value="city[0]"><span t-esc="city[1]"/></option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Damage Type -->
+                                <div class="form-group col-12 s_website_form_field" data-type="char" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_damage">
+                                            <span class="s_website_form_label_content">Damage Type</span>
+                                        </label>
+                                        <div class="col-sm col-xs-12">
+                                            <select id="h_damage" class="form-control s_website_form_input" name="damage_type_id" >
+                                                <option t-att-value="''">-</option>
+                                                <t t-foreach="data_fields.get('damage_type', [])" t-as="damage">
+                                                    <option t-att-value="damage[0]"><span t-esc="damage[1]"/></option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Invoice Number -->
+                                <!-- texto -->
+                                <div class="form-group col-12 s_website_form_field" data-type="char" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_invoice">
+                                            <span class="s_website_form_label_content">Invoice Number</span>
+                                        </label>
+                                        <div class="col-sm col-xs-12">
+                                            <input id="h_invoice" type="text" class="form-control s_website_form_input" name="invoice_number" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Product -->
+                                <!-- Seleccionar de lista de productos -->
+                                <div class="form-group col-12 s_website_form_field" data-type="char" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_product">
+                                            <span class="s_website_form_label_content">Product</span>
+                                        </label>
+                                        <div class="col-sm col-xs-12">
+                                            <!-- <input id="h_product" type="text" class="form-control s_website_form_input" name="partner_name" required="1" data-fill-with="name"/> -->
+                                            <select id="h_product" class="form-control s_website_form_input" name="product_id" >
+                                                <option t-att-value="''">-</option>
+                                                <t t-foreach="data_fields.get('products', [])" t-as="product">
+                                                    <option t-att-value="product[0]"><span t-esc="product[1]"/></option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Channel -->
+                                <t t-if="team.web_technician_req">
+                                    <!-- technician -->
+                                    <div class="form-group col-12 s_website_form_field s_website_form_model_required" data-type="char" data-name="Field">
+                                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                                            <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_product">
+                                                <span class="s_website_form_label_content">Technician</span>
+                                            </label>
+                                            <div class="col-sm col-xs-12">
+                                                <select id="h_technician" class="form-control s_website_form_input" name="technician_id" required="1">
+                                                    <option t-att-value="''">-</option>
+                                                    <t t-foreach="data_fields.get('technicians', [])" t-as="tech">
+                                                        <option t-att-value="tech[0]"><span t-esc="tech[1]"/></option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- City -->
+                                    <div class="form-group col-12 s_website_form_field s_website_form_model_required" data-type="char" data-name="Field">
+                                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                                            <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_city">
+                                                <span class="s_website_form_label_content">City</span>
+                                                <span class="s_website_form_mark"> *</span>
+                                            </label>
+                                            <div class="col-sm col-xs-12">
+                                                <!-- <input id="h_city" type="text" class="form-control s_website_form_input" name="partner_name" required="1" data-fill-with="name"/> -->
+                                                <select id="h_city" class="form-control s_website_form_input" name="tech_city_id" required="1">
+                                                    <option t-att-value="''">-</option>
+                                                    <t t-foreach="data_fields.get('cities', [])" t-as="city">
+                                                        <option t-att-value="city[0]"><span t-esc="city[1]"/></option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                                <!-- Re-entry -->
+                                <!-- Boleano debe habilitar otro campo que muestre tickets relacionados al cliente (?)  -->
+                                <div class="form-group col-12 s_website_form_field " data-type="char" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="form-check-label col-form-label col-auto s_website_form_label" style="width: 200px" for="h_re_entry">
+                                            <span class="s_website_form_label_content">Re-entry</span>
+                                        </label>
+                                        <div class="col-sm col-xs-12">
+                                            <input id="h_reentry" type="checkbox" class="form-check-sm-input s_website_form_input" name="reentry" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Tickets -->
+                                <div id="div_ticket" class="form-group col-12 s_website_form_field d-none" data-type="char" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="h_product">
+                                            <span class="s_website_form_label_content">Tickets</span>
+                                        </label>
+                                        <div class="col-sm col-xs-12">
+                                            <!-- <input id="h_product" type="text" class="form-control s_website_form_input" name="partner_name" required="1" data-fill-with="name"/> -->
+                                            <select id="h_ticket" class="form-control s_website_form_input" name="retry_ticket_id" >
+                                                <option t-att-value="''">-</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
                                 <!-- Button -->
-                                <div class="form-group col-12 s_website_form_submit" data-name="Submit Button">
+                                <div id="h_button_submit" class="form-group col-12 s_website_form_submit" data-name="Submit Button">
                                     <div style="width: 200px;" class="s_website_form_label"/>
                                     <a href="#" role="button" class="btn btn-primary btn-lg s_website_form_send">Submit</a>
                                     <span id="s_website_form_result"></span>
