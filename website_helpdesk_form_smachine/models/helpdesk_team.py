@@ -67,7 +67,7 @@ class HelpdeskTeam(models.Model):
         damage_ids = self.env['damage.type.sm'].search(domain)
         out['damage_type'] = [(c.id, c.name) for c in damage_ids]
         # Products
-        domain = []
+        domain = [('detailed_type','=','product')]
         product_ids = self.env['product.product'].search(domain)
         out['products'] = [(p.id, p.display_name) for p in product_ids]
         if self.web_technician_req:
