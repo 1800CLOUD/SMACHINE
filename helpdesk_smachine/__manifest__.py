@@ -11,7 +11,7 @@
     'website': 'https://www.1-800cloud.com',
     'category': 'Services/Helpdesk',
     'license': 'OPL-1',
-    'version': '15.0.0.0.2',
+    'version': '15.0.0.0.3',
     'depends': [
         'helpdesk',
         'helpdesk_repair',
@@ -28,4 +28,3 @@
         'data/denial_letter_mail_template_data.xml',
     ],
 }
-# FALTA AGREGAR BOTON PARA ENVIAR CARTA DE NEGACION Y AJUSTAR EL FLUJO DE LOS ESTADOS
