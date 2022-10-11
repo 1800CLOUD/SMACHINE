@@ -16,9 +16,84 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: helpdesk_smachine
+#: model:ir.actions.report,print_report_name:helpdesk_smachine.action_report_repair_order_denial_letter
+msgid "'Denial letter of ' + object.name"
+msgstr "'Carta de negación orden ' + object.name"
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields,help:helpdesk_smachine.field_repair_order__state
+msgid ""
+"* The 'Draft' status is used when a user is encoding a new and unconfirmed repair order.\n"
+"* The 'Confirmed' status is used when a user confirms the repair order.\n"
+"* The 'Ready to Repair' status is used to start to repairing, user can start repairing only after repair order is confirmed.\n"
+"* The 'Under Repair' status is used when the repair is ongoing.\n"
+"* The 'To be Invoiced' status is used to generate the invoice before or after repairing done.\n"
+"* The 'Done' status is set when repairing is completed.\n"
+"* The 'Denied' status is used when a user want to send the denial letter.\n"
+"* The 'Cancelled' status is used when user cancel repair order."
+msgstr ""
+"* El estado \"Borrador\" se utiliza cuando un usuario ha introducido una orden de reparación nueva y no está confirmada.\n"
+"* El estado \"Confirmado\" se utiliza cuando un usuario ha confirmado la orden de reparación.\n"
+"* El estado \"Listo para reparar\" indica que se puede comenzar a reparar, es obligatorio que se haya confirmado previamente.\n"
+"* El estado \"En reparación\" se usa para generar la factura antes o despues de que se repare.\n"
+"* El estado \"Para ser facturado\" se utiliza para generar la factura antes o despues de la reparación.\n"
+"* El estado \"Hecho\" se establece cuando se completa la reparación.\n"
+"* El estado \"Denegado\" se utiliza cuando un usuario quiere enviar la carta de negación.\n"
+"* El estado \"Cancelado\" indica que un usuario ha cancelado la orden."
+
+#. module: helpdesk_smachine
+#: model:mail.template,body_html:helpdesk_smachine.mail_template_repair_denial_letter
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px;font-size: 13px;\">\n"
+"        Hello <t t-out=\"object.partner_id.name or ''\">Brandon Freeman</t>,<br/><br/>\n"
+"        Your repair order <strong t-out=\"object.name or ''\">RO/00004</strong> has been denied.\n"
+"        <br/>\n"
+"        Attached you will find the denial letter for this order.\n"
+"        <br/>\n"
+"        <br/>\n"
+"        You can reply to this email if you have any questions.\n"
+"        <br/><br/>\n"
+"        Thank you,\n"
+"        <t t-if=\"user.signature\">\n"
+"            <br/>\n"
+"            <t t-out=\"user.signature or ''\">--<br/>Mitchell Admin</t>\n"
+"        </t>\n"
+"    </p>\n"
+"</div>"
+msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px;font-size: 13px;\">\n"
+"        Hola <t t-out=\"object.partner_id.name or ''\">Brandon Freeman</t>,<br/><br/>\n"
+"        Su orden de reparación <strong t-out=\"object.name or ''\">RO/00004</strong> ha sido denegada.\n"
+"        <br/>\n"
+"        Adjunto encontrará la carta de negación para esta orden.\n"
+"        <br/>\n"
+"        <br/>\n"
+"        Pruede responder a este correo electrónico si tiene alguna pregunta.\n"
+"        <br/><br/>\n"
+"        Gracias,\n"
+"        <t t-if=\"user.signature\">\n"
+"            <br/>\n"
+"            <t t-out=\"user.signature or ''\">--<br/>Mitchell Admin</t>\n"
+"        </t>\n"
+"    </p>\n"
+"</div>"
+
+#. module: helpdesk_smachine
+#: model_terms:ir.ui.view,arch_db:helpdesk_smachine.repair_order_denial_letter_document
+msgid "<span>Agregar código QWeb para formato carta de negación</span>"
+msgstr ""
+
+#. module: helpdesk_smachine
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_damage_type_sm__active
 msgid "Active"
 msgstr "Activo"
+
+#. module: helpdesk_smachine
+#: model_terms:ir.ui.view,arch_db:helpdesk_smachine.view_repair_order_form
+msgid "Add technician notes"
+msgstr "Agregar notas del técnico."
 
 #. module: helpdesk_smachine
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__tech_city_id
@@ -67,6 +142,21 @@ msgid "Damage types"
 msgstr "Tipos de daño"
 
 #. module: helpdesk_smachine
+#: model:mail.template,report_name:helpdesk_smachine.mail_template_repair_denial_letter
+msgid "Denial letter {{ (object.name or '').replace('/','_') }}"
+msgstr "Carta de negación {{ (object.name or '').replace('/','_') }}"
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields.selection,name:helpdesk_smachine.selection__repair_order__state__denied
+msgid "Denied"
+msgstr "Denegado"
+
+#. module: helpdesk_smachine
+#: model_terms:ir.ui.view,arch_db:helpdesk_smachine.view_repair_order_form
+msgid "Deny"
+msgstr "Negar"
+
+#. module: helpdesk_smachine
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__o_state_id
 msgid "Department"
 msgstr "Departamento"
@@ -75,6 +165,11 @@ msgstr "Departamento"
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_damage_type_sm__display_name
 msgid "Display Name"
 msgstr ""
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_repair_order__payment_support_fname
+msgid "File name payment support"
+msgstr "Nombre del archivo soporte de pago"
 
 #. module: helpdesk_smachine
 #: model:ir.model,name:helpdesk_smachine.model_helpdesk_team
@@ -122,6 +217,12 @@ msgstr "Nombre"
 msgid "Origin city"
 msgstr "Ciudad origen"
 
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_repair_order__payment_support
+msgid "Payment support"
+msgstr "Soporte de pago"
+
 #. module: helpdesk_smachine
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__retry_ticket_id
 msgid "Re-entry ticket"
@@ -132,15 +233,43 @@ msgstr "Ticket de reingreso"
 msgid "Register a damage type"
 msgstr "Registrar un tipo de daño"
 
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_repair_order__is_repair
+msgid "Repair"
+msgstr "Reparación"
+
 #. module: helpdesk_smachine
 #: model:ir.model,name:helpdesk_smachine.model_repair_order
 msgid "Repair Order"
 msgstr "Orden de reparación"
 
+
+#. module: helpdesk_smachine
+#: model:ir.actions.report,name:helpdesk_smachine.action_report_repair_order_denial_letter
+msgid "Repair Order: Denial Letter"
+msgstr "Orden de Reparación: Carta de Negación"
+
+#. module: helpdesk_smachine
+#: model:mail.template,name:helpdesk_smachine.mail_template_repair_denial_letter
+msgid "Repair Order: Send by email denial letter"
+msgstr "Orden de Reparación: Enviar por correo carta de negación"
+
 #. module: helpdesk_smachine
 #: model_terms:ir.ui.view,arch_db:helpdesk_smachine.helpdesk_team_view_form
 msgid "Request technician and city on the online form"
 msgstr "Solicitar técnico y ciudad en el formulario online"
+
+
+#. module: helpdesk_smachine
+#: model_terms:ir.ui.view,arch_db:helpdesk_smachine.view_repair_order_form
+msgid "Send denial letter"
+msgstr "Enviar carta de negación"
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_repair_order__state
+msgid "Status"
+msgstr "Estado"
 
 #. module: helpdesk_smachine
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__technician_id
@@ -148,6 +277,12 @@ msgstr "Solicitar técnico y ciudad en el formulario online"
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_res_users__is_technician
 msgid "Technician"
 msgstr "Técnico"
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_repair_order__technician_notes
+#: model_terms:ir.ui.view,arch_db:helpdesk_smachine.view_repair_order_form
+msgid "Technician notes"
+msgstr "Notas del técnico"
 
 #. module: helpdesk_smachine
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_team__web_technician_req
@@ -162,3 +297,17 @@ msgid ""
 "database."
 msgstr ""
 "No hay un módulo fron el nombre \"website_helpdesk_form_smachine\" en esta base de datos."
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_repair_order__is_warranty
+msgid "Warranty"
+msgstr "Garantía"
+
+#. module: helpdesk_smachine
+#: model:mail.template,subject:helpdesk_smachine.mail_template_repair_denial_letter
+msgid ""
+"{{ object.partner_id.name }} Repair Orders (Ref {{ object.name or 'n/a' }}) "
+"Denied"
+msgstr ""
+"{{ object.partner_id.name }} Orden de Reparación (Ref {{ object.name or 'n/a' }}) "
+"Denegada"

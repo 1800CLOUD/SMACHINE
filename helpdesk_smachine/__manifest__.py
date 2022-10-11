@@ -23,5 +23,9 @@
         'views/helpdesk_team_views.xml',
         'views/helpdesk_ticket_views.xml',
         'views/repair_order_views.xml',
+        'reports/repair_order_reports.xml',
+        'reports/repair_order_templates.xml',
+        'data/denial_letter_mail_template_data.xml',
     ],
 }
+# FALTA AGREGAR BOTON PARA ENVIAR CARTA DE NEGACION Y AJUSTAR EL FLUJO DE LOS ESTADOS
