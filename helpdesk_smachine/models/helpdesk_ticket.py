@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, models, _
+from odoo import api, fields, models, _
 
 
 class HelpdeskTicket(models.Model):
     _inherit = 'helpdesk.ticket'
 
-    # partner_doc_type_id = fields.Many2one('l10n_latam.document.type',
-    #     'Document type')
-    # partner_vat = fields.Char('Identification number')
     customer_dealer = fields.Char('Customer or Dealer')
     o_country_id = fields.Many2one('res.country', 'Country')
     o_state_id = fields.Many2one('res.country.state', 'Department')
@@ -18,3 +15,29 @@ class HelpdeskTicket(models.Model):
     technician_id = fields.Many2one('res.partner', 'Technician')
     tech_city_id = fields.Many2one('res.city', 'City')
     retry_ticket_id = fields.Many2one('helpdesk.ticket', 'Re-entry ticket')
+    image_sm_ids = fields.One2many('helpdesk.ticket.image.sm',
+                                   'ticket_id',
+                                   'Images')
+    date_start_sm = fields.Datetime('Date init')
+    date_due_sm = fields.Date('Date due')
+    days_after_init = fields.Integer('Days after init',
+                                     compute="_compute_days_after_init")
+    days_after_init_str = fields.Char('Alert management days',
+                                      compute="_compute_days_after_init")
+
+    def _compute_days_after_init(self):
+        for record in self:
+            if record.date_start_sm:
+                date_init = fields.Datetime.from_string(record.date_start_sm)
+                date_now = fields.datetime.now()
+                date_diff = record.team_id.resource_calendar_id.get_work_duration_data(
+                    date_init, date_now)
+                days = int(date_diff.get('days'))
+            else:
+                days = 0
+            
+            record.days_after_init = days
+            record.days_after_init_str = '%s %s' % (
+                days,
+                days == 1 and _('day') or _('days')
+            )

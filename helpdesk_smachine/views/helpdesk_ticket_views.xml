@@ -20,6 +20,36 @@
                         <field name="retry_ticket_id" options="{'no_create': True, 'no_create_edit': True}"/>
                     </group>
                 </xpath>
+                <field name="description" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="description" position="after">
+                    <notebook>
+                        <page name="description" string="Description">
+                            <field name="description" class="oe-bordered-editor field_description" placeholder="Description of the ticket..."/>
+                        </page>
+                        <page name="images" string="Images">
+                            <field name="image_sm_ids">
+                                <tree editable="top" default_order="create_date desc">
+                                    <field name="create_date" optional="hide"/>
+                                    <field name="write_date" string="Loaded on"/>
+                                    <field name="name" class="oe_read_only"/>
+                                    <field name="image" filename="name"/>
+                                    <button name="view_image" type="object" icon="fa-eye"/>
+                                </tree>
+                                <form>
+                                    <field name="image" />
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </field>
+                <field name="partner_id" position="before">
+                    <field name="date_start_sm" />
+                    <field name="date_due_sm" />
+                    <field name="days_after_init" invisible="1" />
+                    <field name="days_after_init_str" widget="badge" decoration-success="days_after_init &lt; 8" decoration-warning="days_after_init &gt;= 8 and days_after_init &lt; 12" decoration-danger="days_after_init &gt; 12"/>
+                </field>
             </field>
         </record>
 
@@ -30,6 +60,45 @@
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='%(helpdesk_repair.action_repair_order_form)d']" position="attributes">
                     <attribute name="context">{'default_product_id': product_id, 'default_lot_id': lot_id, 'default_partner_id': partner_id, 'default_ticket_id': id, 'default_company_id': company_id, 'default_invoice_number': invoice_number}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="helpdesk_ticket_image_sm_view_form" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.image.sm.view.form</field>
+            <field name="model">helpdesk.ticket.image.sm</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="image" readonly="1" widget="image"/>
+                    <footer>
+                        <button string="Close" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="helpdesk_tickets_view_tree" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.view.tree</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_tree"/>   
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="date_start_sm" optional="show"/>
+                    <field name="days_after_init" invisible="1" />
+                    <field name="date_due_sm" widget="remaining_days" optional="show"/>
+                    <field name="days_after_init_str" optional="show" widget="badge" decoration-success="days_after_init &lt; 8" decoration-warning="days_after_init &gt;= 8 and days_after_init &lt; 12" decoration-danger="days_after_init &gt; 12"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="helpdesk_ticket_view_kanban" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.view.kanban</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_kanban"/>   
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('o_kanban_record_bottom')]/div[hasclass('oe_kanban_bottom_left')]/field[@name='activity_ids']" position="after">
+                        <field name="days_after_init" invisible="1" />
+                        <field name="days_after_init_str" widget="badge" decoration-success="days_after_init &lt; 8" decoration-warning="days_after_init &gt;= 8 and days_after_init &lt; 12" decoration-danger="days_after_init &gt; 12"/>
                 </xpath>
             </field>
         </record>
