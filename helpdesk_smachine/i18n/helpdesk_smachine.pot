@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-12 20:53+0000\n"
-"PO-Revision-Date: 2022-10-12 20:53+0000\n"
+"POT-Creation-Date: 2022-10-19 17:06+0000\n"
+"PO-Revision-Date: 2022-10-19 17:06+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -71,8 +71,18 @@ msgid "Add technician notes"
 msgstr ""
 
 #. module: helpdesk_smachine
-#: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__days_after_init
-msgid "Days after init"
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__days_after_init_str
+msgid "Alert management days"
+msgstr ""
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__date_out_ctb
+msgid "CTB departure date"
+msgstr ""
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__date_in_ctb
+msgid "CTB entry date"
 msgstr ""
 
 #. module: helpdesk_smachine
@@ -139,8 +149,8 @@ msgid "Date init"
 msgstr ""
 
 #. module: helpdesk_smachine
-#: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__days_after_init_str
-msgid "Alert management days"
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__days_after_init
+msgid "Days after init"
 msgstr ""
 
 #. module: helpdesk_smachine
@@ -182,6 +192,11 @@ msgstr ""
 #. module: helpdesk_smachine
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_repair_order__payment_support_fname
 msgid "File name payment support"
+msgstr ""
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__guide_number
+msgid "Guide number"
 msgstr ""
 
 #. module: helpdesk_smachine
@@ -335,6 +350,11 @@ msgstr ""
 #. module: helpdesk_smachine
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket_image_sm__ticket_id
 msgid "Ticket"
+msgstr ""
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__url_guide
+msgid "URL guide"
 msgstr ""
 
 #. module: helpdesk_smachine

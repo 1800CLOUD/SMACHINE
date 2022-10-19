@@ -24,6 +24,19 @@ class HelpdeskTicket(models.Model):
                                      compute="_compute_days_after_init")
     days_after_init_str = fields.Char('Alert management days',
                                       compute="_compute_days_after_init")
+    guide_number = fields.Char('Guide number')
+    url_guide = fields.Char('URL guide', compute='_compute_url_guide')
+    date_in_ctb = fields.Date('CTB entry date')
+    date_out_ctb = fields.Date('CTB departure date')
+
+    @api.depends('guide_number')
+    def _compute_url_guide(self):
+        for record in self:
+            url = 'https://mobile.servientrega.com/WebSitePortal/RastreoEnvioDetalle.html?Guia=%s'
+            if not record.url_guide:
+                record.url_guide = url % record.guide_number or ''
+            else:
+                record.url_guide = False
 
     def _compute_days_after_init(self):
         for record in self:
