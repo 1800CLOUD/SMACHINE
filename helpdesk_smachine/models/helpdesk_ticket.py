@@ -33,7 +33,7 @@ class HelpdeskTicket(models.Model):
     def _compute_url_guide(self):
         for record in self:
             url = 'https://mobile.servientrega.com/WebSitePortal/RastreoEnvioDetalle.html?Guia=%s'
-            if not record.url_guide:
+            if record.guide_number:
                 record.url_guide = url % record.guide_number or ''
             else:
                 record.url_guide = False
