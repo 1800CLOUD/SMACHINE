@@ -6,6 +6,7 @@
     ''',
     'description': '''
         - Web form extension with supplemental fields.
+        - Guide number servientrega and dates CTB in tickets.
     ''',
     'author': '1-800CLOUD',
     'website': 'https://www.1-800cloud.com',
