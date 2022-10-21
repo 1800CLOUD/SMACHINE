@@ -96,9 +96,19 @@ msgid "Add technician notes"
 msgstr "Agregar notas del técnico."
 
 #. module: helpdesk_smachine
-#: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__days_after_init
-msgid "Days after init"
-msgstr "Días despues del inicio"
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__days_after_init_str
+msgid "Alert management days"
+msgstr "Gestión de alerta"
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__date_out_ctb
+msgid "CTB departure date"
+msgstr "Fecha salida CTB"
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__date_in_ctb
+msgid "CTB entry date"
+msgstr "Fecha ingreso CTB"
 
 #. module: helpdesk_smachine
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__tech_city_id
@@ -164,9 +174,9 @@ msgid "Date init"
 msgstr "Fecha inicio"
 
 #. module: helpdesk_smachine
-#: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__days_after_init_str
-msgid "Alert management days"
-msgstr "Gestión de alerta"
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__days_after_init
+msgid "Days after init"
+msgstr "Días despues del inicio"
 
 #. module: helpdesk_smachine
 #: model:mail.template,report_name:helpdesk_smachine.mail_template_repair_denial_letter
@@ -208,6 +218,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_repair_order__payment_support_fname
 msgid "File name payment support"
 msgstr "Nombre del archivo soporte de pago"
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__guide_number
+msgid "Guide number"
+msgstr "Número de guía"
 
 #. module: helpdesk_smachine
 #: model:ir.model,name:helpdesk_smachine.model_helpdesk_team
@@ -363,6 +378,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket_image_sm__ticket_id
 msgid "Ticket"
 msgstr "Ticket"
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__url_guide
+msgid "URL guide"
+msgstr "Url guía"
 
 #. module: helpdesk_smachine
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_repair_order__is_warranty
