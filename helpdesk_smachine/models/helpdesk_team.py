@@ -8,7 +8,7 @@ class HelpdeskTeam(models.Model):
     _inherit = 'helpdesk.team'
 
     web_technician_req = fields.Boolean('Technician required in web form',
-    default=False)
+                                        default=False)
 
     @api.model
     def _get_field_modules(self):
