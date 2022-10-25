@@ -1,0 +1,12 @@
+<odoo>
+    <record id="product_pricelist_view_product" model="ir.ui.view">
+        <field name="name">product.pricelist.view.form.inherit</field>
+        <field name="model">product.pricelist</field>
+        <field name="inherit_id" ref="product.product_pricelist_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='pricelist_settings']" position="inside">
+                <field name="pricelist_type" required="True" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
