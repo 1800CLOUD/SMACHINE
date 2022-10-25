@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_mark_user,access.product.mark.user,model_product_mark,purchase.group_purchase_user,1,1,0,0
+access_product_mark_manager,access.product.mark.manager,model_product_mark,purchase.group_purchase_manager,1,1,1,0
+access_product_mark_sub_user,access.product.mark.sub.user,model_product_mark_sub,purchase.group_purchase_user,1,1,0,0
+access_product_mark_sub_manager,access.product.mark.sub.manager,model_product_mark_sub,purchase.group_purchase_manager,1,1,1,0
+access_product_category_sub_user,access.product.category.sub.user,model_product_category_sub,purchase.group_purchase_user,1,1,0,0
+access_product_category_sub_manager,access.product.category.sub.manager,model_product_category_sub,purchase.group_purchase_manager,1,1,1,0
+access_purchase_order_report_wizard,access.purchase.order.report.wizard,model_purchase_order_report_wizard,purchase.group_purchase_user,1,1,1,1
