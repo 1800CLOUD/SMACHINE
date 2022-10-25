@@ -1,0 +1,36 @@
+<odoo>
+    <record id="purchase_order_report_wizard_view_form" model="ir.ui.view">
+        <field name="name">purchase.order.report.wizard.view.form</field>
+        <field name="model">purchase.order.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Purchase Report">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="products_ids" widget="many2many_tags" domain="[('purchase_ok', '=', True)]" />
+                        </group>
+                        <group>
+                            <field name="user_id" invisible="True" />
+                            <field name="company_id" groups="base.group_multi_company" />
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Generate XLSX report" name="generate_report" type="object" class="oe_highlight" context="{'report_type': 'xlsx'}" />
+                    <!-- <button string="Generate PDF report" name="generate_report" type="object" class="oe_highlight" context="{'report_type': 'pdf'}" /> -->
+                    <!-- <button string="Generate HTML report" name="generate_report" type="object" class="oe_highlight" context="{'report_type': 'html'}" /> -->
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="purchase_order_report_wizard_action" model="ir.actions.act_window">
+        <field name="name">Purchase Report</field>
+        <field name="res_model">purchase.order.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="purchase_order_report_wizard_menu" action="purchase_order_report_wizard_action" sequence="100" parent="purchase.purchase_report_main" />
+</odoo>

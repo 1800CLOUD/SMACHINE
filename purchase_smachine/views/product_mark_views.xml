@@ -1,0 +1,80 @@
+<odoo>
+    <!-- Mark -->
+    <data>
+        <record id="product_mark_view_search" model="ir.ui.view">
+            <field name="name">product.mark.view.search</field>
+            <field name="model">product.mark</field>
+            <field name="arch" type="xml">
+                <search string="Marks">
+                    <field name="name" string="Name" filter_domain="['|', ('name', 'ilike', self), ('code', 'ilike', self)]" />
+                    <separator />
+                    <filter name="active_false" string="Archived" domain="[('active', '=', False)]" />
+                </search>
+            </field>
+        </record>
+    </data>
+
+    <record id="product_mark_view_tree" model="ir.ui.view">
+        <field name="name">product.mark.view.tree</field>
+        <field name="model">product.mark</field>
+        <field name="arch" type="xml">
+            <tree string="Marks" editable="bottom">
+                <field name="sequence" widget="handle" />
+                <field name="code" />
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_mark_action" model="ir.actions.act_window">
+        <field name="name">Marks</field>
+        <field name="res_model">product.mark</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="product_mark_menu" action="product_mark_action" parent="stock.menu_product_in_config_stock" sequence="4" />
+
+    <!-- Sub-Mark -->
+    <data>
+        <record id="product_mark_sub_view_search" model="ir.ui.view">
+            <field name="name">product.mark.sub.view.search</field>
+            <field name="model">product.mark.sub</field>
+            <field name="arch" type="xml">
+                <search string="Sub-Marks">
+                    <field name="name" string="Name" filter_domain="['|', ('name', 'ilike', self), ('code', 'ilike', self)]" />
+                    <field name="mark_id" />
+                    <separator />
+                    <filter name="active_false" string="Archived" domain="[('active', '=', False)]" />
+                    <group expand="1" string="Group By">
+                        <filter string="Mark" name="group_mark" context="{'group_by':'mark_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+    </data>
+
+    <record id="product_mark_sub_view_tree" model="ir.ui.view">
+        <field name="name">product.mark.sub.view.tree</field>
+        <field name="model">product.mark.sub</field>
+        <field name="arch" type="xml">
+            <tree string="Sub-Marks" editable="bottom">
+                <field name="sequence" widget="handle" />
+                <field name="code" />
+                <field name="name" />
+                <field name="mark_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_mark_sub_action" model="ir.actions.act_window">
+        <field name="name">Sub-Marks</field>
+        <field name="res_model">product.mark.sub</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="product_mark_sub_menu" action="product_mark_sub_action" parent="stock.menu_product_in_config_stock" sequence="5" />
+</odoo>
