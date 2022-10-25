@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
+from cmath import pi
 from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 
 
 class HelpdeskTicket(models.Model):
@@ -28,11 +30,59 @@ class HelpdeskTicket(models.Model):
     url_guide = fields.Char('URL guide', compute='_compute_url_guide')
     date_in_ctb = fields.Date('CTB entry date')
     date_out_ctb = fields.Date('CTB departure date')
+    # warehouse_product_id = fields.Many2one(
+    #     'stock.warehouse',
+    #     'Warehouse',
+    #     domain="[('company_id', '=', company_id)]",
+    #     help='Warehouse for product reception'
+    # )
+    location_product_id = fields.Many2one(
+        'stock.location',
+        'Location',
+        help='Location for product reception'
+    )
+    product_picking_ids = fields.One2many(
+        'stock.picking',
+        'product_ticket_id',
+        string='Product inventory orders',
+        copy=False
+    )
+    stock_product_input_count = fields.Integer(
+        'Product entries count',
+        compute='_compute_stock_product'
+    )
+    stock_product_output_count = fields.Integer(
+        'Product outputs count',
+        compute='_compute_stock_product'
+    )
+    stock_product_picking_count = fields.Integer(
+        'Product orders count',
+        compute='_compute_stock_product'
+    )
+
+    def _compute_stock_product(self):
+        for record in self:
+            record.stock_product_input_count = len(
+                record.product_picking_ids.filtered(
+                    lambda p: p.picking_type_code == 'incoming'
+                )
+            )
+            record.stock_product_output_count = len(
+                record.product_picking_ids.filtered(
+                    lambda p: p.picking_type_code == 'outgoing'
+                )
+            )
+            record.stock_product_picking_count = len(
+                record.product_picking_ids.filtered(
+                    lambda p: p.state != 'cancel'
+                )
+            )
 
     @api.depends('guide_number')
     def _compute_url_guide(self):
         for record in self:
-            url = 'https://mobile.servientrega.com/WebSitePortal/RastreoEnvioDetalle.html?Guia=%s'
+            url = 'https://mobile.servientrega.com/' \
+                'WebSitePortal/RastreoEnvioDetalle.html?Guia=%s'
             if record.guide_number:
                 record.url_guide = url % record.guide_number or ''
             else:
@@ -43,14 +93,223 @@ class HelpdeskTicket(models.Model):
             if record.date_start_sm:
                 date_init = fields.Datetime.from_string(record.date_start_sm)
                 date_now = fields.datetime.now()
-                date_diff = record.team_id.resource_calendar_id.get_work_duration_data(
-                    date_init, date_now)
+                date_diff = \
+                    record.team_id.resource_calendar_id.get_work_duration_data(
+                        date_init, date_now
+                    )
                 days = int(date_diff.get('days'))
             else:
                 days = 0
-            
+
             record.days_after_init = days
             record.days_after_init_str = '%s %s' % (
                 days,
                 days == 1 and _('day') or _('days')
             )
+
+    def action_open_product_picking(self):
+        self.ensure_one()
+        action = {
+            'type': 'ir.actions.act_window',
+            'name': _('Product Orders'),
+            'res_model': 'stock.picking',
+            'view_mode': 'tree,form',
+            'domain': [('id', 'in', self.product_picking_ids.ids)],
+            'context': dict(
+                self._context,
+                create=False,
+                default_company_id=self.company_id.id
+            )
+        }
+        if len(self.product_picking_ids) == 1:
+            action.update({
+                'view_mode': 'form',
+                'res_id': self.product_picking_ids.id
+            })
+        return action
+
+    def action_open_product_output(self):
+        self.ensure_one()
+        action = {
+            'type': 'ir.actions.act_window',
+            'name': _('Output Orders'),
+            'res_model': 'stock.picking',
+            'view_mode': 'tree,form',
+            'domain': [('id', 'in', self.product_picking_ids.ids)],
+            'context': dict(
+                self._context,
+                create=False,
+                default_company_id=self.company_id.id
+            )
+        }
+        if len(self.product_picking_ids) == 1:
+            action.update({
+                'view_mode': 'form',
+                'res_id': self.product_picking_ids.id
+            })
+        return action
+
+    def _prepare_product_picking_in(self):
+        self.ensure_one()
+        if not self.product_id:
+            raise ValidationError(_(
+                'There is not a product to enter.'
+            ))
+        if not self.location_product_id:
+            raise ValidationError(_(
+                'There is not a location to enter the product.'
+            ))
+        warehouse_id = self.env['stock.warehouse'].search(
+            [('lot_stock_id', '=', self.location_product_id.id)]
+        )
+        picking_type_id = warehouse_id.in_type_id
+        picking_val = {
+            'picking_type_id': picking_type_id.id,
+            'partner_id': self.partner_id.id,
+            # 'user_id': self.env.user.id, TODO
+            'date': fields.Date.today(),
+            'origin': 'Ticket #%s' % self.id,
+            # 'location_dest_id': picking_type_id.default_location_dest_id.id,
+            'location_id': self.partner_id.property_stock_customer.id,
+            'company_id': self.company_id.id,
+            'owner_id': self.partner_id.id,
+            'product_ticket_id': self.id,
+            # 'move_ids_without_package': []
+        }
+        picking_line = {
+            'name': (self.product_id.display_name or '')[:2000],
+            'product_id': self.product_id.id,
+            # 'date': fields.Date.today(),
+            # 'date_deadline': False,  # TODO
+            # 'location_dest_id': picking_type_id.default_location_dest_id.id,
+            # 'location_id': self.partner_id.property_stock_customer.id,
+            # 'picking_id': picking_id.id,
+            # 'partner_id': False,  # TODO
+            # 'move_dest_ids': False,  # TODO
+            # 'state': 'draft',
+            # 'company_id': self.company_id.id,
+            # 'price_unit': False,  # TODO
+            # 'picking_type_id': picking_type_id.id,  # TODO
+            # 'group_id': False,  # TODO
+            # 'origin': 'Ticket #%s' % self.id,
+            # 'description_picking': (self.product_id.display_name or '')[:2000],
+            # 'propagate_cancel': False,  # TODO
+            # 'warehouse_id': warehouse_id.id,
+            'product_uom_qty': 1,
+            'product_uom': self.product_id.uom_id.id,
+            # 'product_packaging_id': False,  # TODO
+        }
+        picking_val['move_ids_without_package'] = [(0, 0, picking_line)]
+        return picking_val, picking_line
+    
+    def _prepare_product_picking_out(self):
+        self.ensure_one()
+        if not self.product_id:
+            raise ValidationError(_(
+                'There is not a product to deliver.'
+            ))
+        if not self.location_product_id:
+            raise ValidationError(_(
+                'There is not a location to remove the product.'
+            ))
+        warehouse_id = self.env['stock.warehouse'].search(
+            [('lot_stock_id', '=', self.location_product_id.id)]
+        )
+        picking_type_id = warehouse_id.out_type_id
+        picking_val = {
+            'picking_type_id': picking_type_id.id,
+            'partner_id': self.partner_id.id,
+            # 'user_id': self.env.user.id, TODO
+            'date': fields.Date.today(),
+            'origin': 'Ticket #%s' % self.id,
+            'location_dest_id': self.partner_id.property_stock_customer.id,
+            # 'location_id': picking_type_id.default_location_src_id.id,
+            'company_id': self.company_id.id,
+            'owner_id': self.partner_id.id,
+            'product_ticket_id': self.id,
+            # 'move_ids_without_package': []
+        }
+        picking_line = {
+            'name': (self.product_id.display_name or '')[:2000],
+            'product_id': self.product_id.id,
+            # 'date': fields.Date.today(),
+            # 'date_deadline': False,  # TODO
+            # 'location_dest_id': self.partner_id.property_stock_customer.id,
+            # 'location_id': picking_type_id.default_location_src_id.id,
+            # 'picking_id': picking_id.id,
+            # 'partner_id': False,  # TODO
+            # 'move_dest_ids': False,  # TODO
+            # 'state': 'draft',
+            # 'company_id': self.company_id.id,
+            # 'price_unit': False,  # TODO
+            # 'picking_type_id': picking_type_id.id,  # TODO
+            # 'group_id': False,  # TODO
+            # 'origin': 'Ticket #%s' % self.id,
+            # 'description_picking': (self.product_id.display_name or '')[:2000],
+            # 'propagate_cancel': False,  # TODO
+            # 'warehouse_id': warehouse_id.id,
+            'product_uom_qty': 1,
+            'product_uom': self.product_id.uom_id.id,
+            # 'product_packaging_id': False,  # TODO
+        }
+        picking_val['move_ids_without_package'] = [(0, 0, picking_line)]
+        return picking_val, picking_line
+
+    def register_product_entry(self):
+        self.ensure_one()
+        picking_in_id = self.product_picking_ids.filtered(
+            lambda p: p.picking_type_code == 'incoming' and
+            p.state != 'cancel'
+        )
+        if not picking_in_id:
+            pick_vals, pick_line_vals = self._prepare_product_picking_in()
+
+            pick_vals = {
+                'default_%s' % k: v
+                for k, v in pick_vals.items()
+            }
+            action = {
+                'type': 'ir.actions.act_window',
+                'name': _('Input Orders'),
+                'res_model': 'stock.picking',
+                'view_mode': 'form',
+                # 'res_id': picking_in_id.id,
+                # 'domain': [('id', 'in', self.product_picking_ids.ids)],
+                'context': dict(
+                    self._context,
+                    **pick_vals
+                )
+            }
+        else:
+            action = self.action_open_product_input()
+        return action
+
+    def register_product_output(self):
+        self.ensure_one()
+        picking_out_id = self.product_picking_ids.filtered(
+            lambda p: p.picking_type_code == 'outgoing' and
+            p.state != 'cancel'
+        )
+        if not picking_out_id:
+            pick_vals, pick_line_vals = self._prepare_product_picking_out()
+
+            pick_vals = {
+                'default_%s' % k: v
+                for k, v in pick_vals.items()
+            }
+            action = {
+                'type': 'ir.actions.act_window',
+                'name': _('Input Orders'),
+                'res_model': 'stock.picking',
+                'view_mode': 'form',
+                # 'res_id': picking_out_id.id,
+                # 'domain': [('id', 'in', self.product_picking_ids.ids)],
+                'context': dict(
+                    self._context,
+                    **pick_vals
+                )
+            }
+        else:
+            action = self.action_open_product_input()
+        
+        return action
