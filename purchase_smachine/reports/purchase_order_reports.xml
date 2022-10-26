@@ -1,0 +1,9 @@
+<odoo>
+    <record id="action_report_report_purchase_smachine_report_purchase_order" model="ir.actions.report">
+        <field name="name">Purchase Order Report XLSX</field>
+        <field name="model">report.purchase_smachine.report_purchase_order</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">purchase_smachine.report_purchase_order</field>
+        <field name="report_file">report_purchase_order</field>
+    </record>
+</odoo>
