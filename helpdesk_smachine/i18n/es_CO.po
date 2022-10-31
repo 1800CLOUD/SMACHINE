@@ -257,6 +257,13 @@ msgid "Images for helpdesk ticket"
 msgstr "Imagenes para helpdesk ticket"
 
 #. module: helpdesk_smachine
+#: code:addons/helpdesk_smachine/models/helpdesk_ticket.py:0
+#: code:addons/helpdesk_smachine/models/helpdesk_ticket.py:0
+#, python-format
+msgid "Input Orders"
+msgstr "Órdenes de entrada"
+
+#. module: helpdesk_smachine
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__invoice_number
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_repair_order__invoice_number
 msgid "Invoice number"
@@ -286,6 +293,16 @@ msgid "Loaded on"
 msgstr "Cargado en"
 
 #. module: helpdesk_smachine
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__location_product_id
+msgid "Location"
+msgstr "Ubicación"
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields,help:helpdesk_smachine.field_helpdesk_ticket__location_product_id
+msgid "Location for product reception"
+msgstr "Ubicación para la recepción del producto"
+
+#. module: helpdesk_smachine
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_damage_type_sm__name
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket_image_sm__name
 msgid "Name"
@@ -297,9 +314,46 @@ msgid "Origin city"
 msgstr "Ciudad origen"
 
 #. module: helpdesk_smachine
+#: code:addons/helpdesk_smachine/models/helpdesk_ticket.py:0
+#, python-format
+msgid "Output Orders"
+msgstr "Órdenes de salida"
+
+#. module: helpdesk_smachine
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_repair_order__payment_support
 msgid "Payment support"
 msgstr "Soporte de pago"
+
+#. module: helpdesk_smachine
+#: code:addons/helpdesk_smachine/models/helpdesk_ticket.py:0
+#, python-format
+msgid "Product Orders"
+msgstr "Órdenes de producto"
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__stock_product_input_count
+msgid "Product entries count"
+msgstr "Cantidad de entradas de producto"
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__product_picking_ids
+msgid "Product inventory orders"
+msgstr "Órdenes de inventario del producto"
+
+#. module: helpdesk_smachine
+#: model_terms:ir.ui.view,arch_db:helpdesk_smachine.helpdesk_ticket_view_form
+msgid "Product moves"
+msgstr "Movimientos de producto"
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__stock_product_picking_count
+msgid "Product orders count"
+msgstr "Cantidad de órdenes de producto"
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__stock_product_output_count
+msgid "Product outputs count"
+msgstr "Cantidad de salidas de producto"
 
 #. module: helpdesk_smachine
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__retry_ticket_id
@@ -310,6 +364,16 @@ msgstr "Ticket de reingreso"
 #: model_terms:ir.actions.act_window,help:helpdesk_smachine.damage_type_sm_action
 msgid "Register a damage type"
 msgstr "Registrar un tipo de daño"
+
+#. module: helpdesk_smachine
+#: model_terms:ir.ui.view,arch_db:helpdesk_smachine.helpdesk_ticket_view_form
+msgid "Register entry"
+msgstr "Registrar entrada"
+
+#. module: helpdesk_smachine
+#: model_terms:ir.ui.view,arch_db:helpdesk_smachine.helpdesk_ticket_view_form
+msgid "Register output"
+msgstr "Registrar salida"
 
 #. module: helpdesk_smachine
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_repair_order__is_repair
@@ -375,9 +439,38 @@ msgstr ""
 "base de datos."
 
 #. module: helpdesk_smachine
+#: code:addons/helpdesk_smachine/models/helpdesk_ticket.py:0
+#, python-format
+msgid "There is not a location to enter the product."
+msgstr "No hay una ubicación para ingresar el producto."
+
+#. module: helpdesk_smachine
+#: code:addons/helpdesk_smachine/models/helpdesk_ticket.py:0
+#, python-format
+msgid "There is not a location to remove the product."
+msgstr "No hay una ubicación donde sacar el producto."
+
+#. module: helpdesk_smachine
+#: code:addons/helpdesk_smachine/models/helpdesk_ticket.py:0
+#, python-format
+msgid "There is not a product to deliver."
+msgstr "No hay un producto para entregar."
+
+#. module: helpdesk_smachine
+#: code:addons/helpdesk_smachine/models/helpdesk_ticket.py:0
+#, python-format
+msgid "There is not a product to enter."
+msgstr "No hay un producto para ingresar."
+
+#. module: helpdesk_smachine
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket_image_sm__ticket_id
 msgid "Ticket"
 msgstr "Ticket"
+
+#. module: helpdesk_smachine
+#: model:ir.model,name:helpdesk_smachine.model_stock_picking
+msgid "Transfer"
+msgstr "Transferir"
 
 #. module: helpdesk_smachine
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__url_guide
@@ -400,6 +493,11 @@ msgstr "día"
 #, python-format
 msgid "days"
 msgstr "días"
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_stock_picking__product_ticket_id
+msgid "ticket product"
+msgstr "Ticket del producto"
 
 #. module: helpdesk_smachine
 #: model:mail.template,subject:helpdesk_smachine.mail_template_repair_denial_letter
