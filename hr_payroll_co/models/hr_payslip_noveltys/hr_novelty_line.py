@@ -33,9 +33,11 @@ class HrNoveltyLine(models.Model):
             'total': self.amount,
             'origin': 'local',
             'concept_id': None,
+            'leave_id': None,
             'novelty_id': self.novelty_id.id,
+            'overtime_id': None,
         }
-        for unique_key in ['rate', 'concept_id', 'novelty_id']:
+        for unique_key in ['rate', 'concept_id', 'leave_id', 'novelty_id', 'overtime_id']:
             if 'unique_key' in payslip_line:
                 payslip_line['unique_key'] += str(payslip_line[unique_key])
             else:

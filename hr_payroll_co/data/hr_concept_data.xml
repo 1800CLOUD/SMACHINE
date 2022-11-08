@@ -35,6 +35,64 @@
             </field>
         </record>
 
+        <record model="hr.concept" id="hc_eg_b2">
+            <field name="name">INC ENFGENERAL 1-2</field>
+            <field name="code">EG_B2</field>
+            <field name="category">o_rights</field>
+            <field name="documentation">
+                "Valor a pagar por ausencias de tipo enfermedad general que tengan entre 1 y 2 dias y se paga por el rate
+                definido en el tipo de ausencia."
+            </field>
+        </record>
+
+        <record model="hr.concept" id="hc_eg_b90">
+            <field name="name">INC ENFGENERAL 3-90</field>
+            <field name="code">EG_B90</field>
+            <field name="category">o_rights</field>
+            <field name="documentation">
+                "Valor a pagar por ausencias de tipo enfermedad general que tengan entre 3 y 90 dias y se paga por el rate
+                definido en el tipo de ausencia."
+            </field>
+        </record>
+
+        <record model="hr.concept" id="hc_eg_b180">
+            <field name="name">INC ENFGENERAL 90-180</field>
+            <field name="code">EG_B180</field>
+            <field name="category">o_rights</field>
+            <field name="documentation">
+                "Valor a pagar por ausencias de tipo enfermedad general que tengan entre 91 y 180 dias y se paga por el rate
+                definido en el tipo de ausencia."
+            </field>
+        </record>
+
+        <record model="hr.concept" id="hc_eg_a180">
+            <field name="name">INC ENFGENERAL 180+</field>
+            <field name="code">EG_A180</field>
+            <field name="category">o_rights</field>
+            <field name="documentation">
+                "Valor a pagar por ausencias de tipo enfermedad general que tengan mas de 180 dias y se paga por el rate
+                definido en el tipo de ausencia."
+            </field>
+        </record>
+
+        <record model="hr.concept" id="hc_atep">
+            <field name="name">INC ATEP 1er DIA</field>
+            <field name="code">ATEP</field>
+            <field name="category">o_rights</field>
+            <field name="documentation">
+                "Valor a pagar por ausencias de tipo ATEP por el primer dia"
+            </field>
+        </record>
+
+        <record model="hr.concept" id="hc_atep_p2">
+            <field name="name">INC ATEP 2 O MAS</field>
+            <field name="code">ATEP_P2</field>
+            <field name="category">o_rights</field>
+            <field name="documentation">
+                "Valor a pagar por ausencias de tipo ATEP desde el segundo dia"
+            </field>
+        </record>
+
         <record model="hr.concept" id="hc_prima">
             <field name="name">PRIMA LEGAL</field>
             <field name="code">PRIMA</field>
@@ -91,6 +149,16 @@
             <field name="code">ICES_PART</field>
             <field name="category">non_taxed_earnings</field>
             <field name="documentation"></field>
+        </record>
+
+        <record model="hr.concept" id="hc_vac_liq">
+            <field name="name">VACACIONES LIQUIDACION</field>
+            <field name="code">VAC_LIQ</field>
+            <field name="category">o_rights</field>
+            <field name="documentation">
+                Valor calculado similar a las vacaciones en dinero, obteniendo el promedio desde inicio a fin de contrato
+                y liquidando el numero de dias directamente desde el libro de vacaciones del contrato.
+            </field>
         </record>
 
         <record model="hr.concept" id="hc_ces_liq">
@@ -161,6 +229,12 @@
                 "Valor basado en el IBS Valida si el subtipo de cotizante corresponde al de pensionado para omitir el calculo.
                 Corresponde a un porcentaje desde los 16 salarios minimos."
             </field>
+        </record>
+
+        <record model="hr.concept" id="hc_ant">
+            <field name="name">ANTICIPOS VENCIDOS</field>
+            <field name="code">ANT</field>
+            <field name="category">deductions</field>
         </record>
 
         <record model="hr.concept" id="hc_brtf">
@@ -247,6 +321,60 @@
             <field name="category">subtotals</field>
         </record>
 
+        <record model="hr.concept" id="hc_ap_pens">
+            <field name="name">APORTES PENSION</field>
+            <field name="code">AP_PENS</field>
+            <field name="category">contributions</field>
+            <field name="documentation">
+                "Valor aportado por la empresa por concepto de pension"
+            </field>
+        </record>
+
+        <record model="hr.concept" id="hc_ap_eps">
+            <field name="name">APORTES EPS</field>
+            <field name="code">AP_EPS</field>
+            <field name="category">contributions</field>
+            <field name="documentation">
+                "Valor aportado por la empresa por concepto de EPS"
+            </field>
+        </record>
+
+        <record model="hr.concept" id="hc_ap_ccf">
+            <field name="name">APORTES CCF</field>
+            <field name="code">AP_CCF</field>
+            <field name="category">contributions</field>
+            <field name="documentation">
+                "Valor aportado por la empresa por concepto de caja de compensacion"
+            </field>
+        </record>
+
+        <record model="hr.concept" id="hc_ap_arl">
+            <field name="name">APORTES ARL</field>
+            <field name="code">AP_ARL</field>
+            <field name="category">contributions</field>
+            <field name="documentation">
+                "Valor aportado por la empresa por concepto de ARL. No se paga si el empleado es de tipo aprendiz lectivo"
+            </field>
+        </record>
+
+        <record model="hr.concept" id="hc_ap_sena">
+            <field name="name">APORTES SENA</field>
+            <field name="code">AP_SENA</field>
+            <field name="category">contributions</field>
+            <field name="documentation">
+                "Valor aportado por la empresa por concepto de SENA. Si el empleado supera los 10 slmmv"
+            </field>
+        </record>
+
+        <record model="hr.concept" id="hc_ap_icbf">
+            <field name="name">APORTES ICBF</field>
+            <field name="code">AP_ICBF</field>
+            <field name="category">contributions</field>
+            <field name="documentation">
+                "Valor aportado por la empresa por concepto de ICBF. Si el empleado supera los 10 slmmv"
+            </field>
+        </record>
+
         <record model="hr.concept" id="hc_prv_ces">
             <field name="name">PROVISIONES CESANTIAS</field>
             <field name="code">PRV_CES</field>
@@ -271,6 +399,15 @@
             <field name="category">provisions</field>
             <field name="documentation">
                 Valor provisionado para prima
+            </field>
+        </record>
+
+        <record model="hr.concept" id="hc_prv_vac">
+            <field name="name">PROVISIONES VACACIONES</field>
+            <field name="code">PRV_VAC</field>
+            <field name="category">provisions</field>
+            <field name="documentation">
+                Valor provisionado para vacaciones
             </field>
         </record>
 

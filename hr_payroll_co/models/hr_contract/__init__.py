@@ -13,3 +13,4 @@ from . import hr_equipment
 from . import hr_contract_analytic_distribution
 from . import hr_contract_withholding_log
 from . import hr_contract_extension
+from . import hr_holiday_book

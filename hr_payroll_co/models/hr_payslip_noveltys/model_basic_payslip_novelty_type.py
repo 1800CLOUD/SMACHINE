@@ -10,6 +10,7 @@ CATEGORY_PAYSLIP = [
     ('o_earnings', 'OTROS DEVENGOS'),
     ('non_taxed_earnings', 'INGRESOS NO GRAVADOS'),
     ('deductions', 'DEDUCCIONES'),
+    ('contributions', 'APORTES'),
     ('provisions', 'PROVISIONES'),
     ('subtotals', 'SUBTOTALES'),
 ]

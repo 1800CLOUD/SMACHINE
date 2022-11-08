@@ -8,6 +8,8 @@
 
         <menuitem id="payslip_menu_categ" name="Nómina" parent="hr_payroll_co_menu_root" sequence="4" />
 
+        <menuitem id="contribution_menu_categ" name="Autoliquidación" parent="hr_payroll_co_menu_root" sequence="5" />
+
         <menuitem id="novelty_menu_categ" name="Novedades de nómina" parent="hr_payroll_co_menu_root" sequence="6" />
 
         <menuitem id="setup_novelty_menu_categ" name="Novedades de nómina" parent="hr.menu_human_resources_configuration" sequence="1" />

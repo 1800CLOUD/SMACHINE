@@ -14,8 +14,8 @@ CONCEPTS = [
     'FOND_SUB', 'PRIMA_LIQ', 'CES_LIQ', 'ICES_LIQ',
     'BRTF', 'RTEFTE',
     'PRIMA', 'CES', 'ICES',
-    'INDEM', 'RTF_INDEM',
-    'PRV_CES', 'PRV_ICES', 'PRV_PRIMA',
+    'VAC_LIQ', 'INDEM', 'RTF_INDEM',
+    'PRV_CES', 'PRV_ICES', 'PRV_PRIMA', 'PRV_VAC',
     'NETO', 'NETO_CES'
 ]
 TPCT = 'total_previous_categories'
@@ -179,8 +179,21 @@ class HrConceptType(models.Model):
             'end': date_to,
         }
 
+        leave_line = self.env['hr.leave.line']
+        if data_payslip['politics']['hr_payroll_co.discount_suspensions'] or is_ces:
+            data['type'] = ('NO_PAY',)
+            days_worked -= leave_line.get_info_from_leave_type(
+                data_payslip['cr'], data)[0]
+
         # Compute Salary
         if compute_average:
+            data['type'] = ('MAT_LIC', 'PAT_LIC')
+            data_base['license'] = leave_line.get_info_from_leave_type(
+                data_payslip['cr'], data)[1]
+
+            data_base['salary'] = self.get_salary_in_leave(
+                data_payslip['cr'], data)
+
             concepts = ('BASICO',)
             data_salary = {}
             self._get_total_concepts(
@@ -210,7 +223,7 @@ class HrConceptType(models.Model):
         else:
             earnings_month = earnings * 30 / days_worked
 
-        if data_payslip['politics']['hr_payroll_coll_co.average_sub_trans']:
+        if data_payslip['politics']['hr_payroll_co.average_sub_trans']:
             concepts = ('SUB_TRANS', 'SUB_CONNE')
             data_static_salary = {}
             self._get_total_concepts(
@@ -374,7 +387,8 @@ class HrConceptType(models.Model):
         days = days360(date_from, date_to)
         data_payslip['last_year'] = {
             'start': date_from, 'end': date_to, 'days': days}
-        wd = days
+        wd = days - self.get_leave_no_pay(
+            data_payslip['cr'], data_payslip['contract'].id, data_payslip['last_year'])
         data_payslip['last_year']['worked_days'] = wd
         data = {}
         self.get_variable_salary(
@@ -384,6 +398,31 @@ class HrConceptType(models.Model):
             average += data[category] * (1 if wd < 30 else 30/wd)
         data_payslip['last_year']['average'] = average / 30
 
+    def get_holiday_book(self, data_payslip, date_to):
+        data_payslip['holiday_book'] = data_payslip['contract'].get_holiday_book(
+            date_to)
+
+    def get_leave_no_pay(self, cr, contract, period):
+        param = {
+            'contract': contract,
+            'start': period.start if type(period) != dict else period['start'],
+            'end': period.end if type(period) != dict else period['end'],
+        }
+        query = """
+        SELECT count(*)
+        FROM hr_leave_line as HLL
+        INNER JOIN hr_leave as HL
+            ON HL.id = HLL.leave_id
+        INNER JOIN hr_leave_type as HLT
+            ON HLT.id = HL.leave_type_id
+        WHERE 
+            HL.contract_id = %(contract)s AND
+            HLL.date BETWEEN %(start)s AND %(end)s AND
+            HLT.category_type = 'NO_PAY'
+        """
+        res = orm._fetchall(cr, query, param)
+        return sum([x[0] for x in res if x[0]])
+
     def need_compute_salary_average(self, contract, date_from, date_to):
         date_3_months_before = date_to - relativedelta(months=3)
         if date_from > date_3_months_before:
@@ -392,6 +431,16 @@ class HrConceptType(models.Model):
 
     def get_sum_salary(self, data_payslip, query_params):
         salary = 0
+        leave_line = self.env['hr.leave.line']
+        query_params['type'] = ('MAT_LIC', 'PAT_LIC')
+
+        # Add amount per licences
+        salary += leave_line.get_info_from_leave_type(
+            data_payslip['cr'], query_params)[1]
+
+        # Add amount per leave
+        salary += self.get_salary_in_leave(
+            data_payslip['cr'], query_params)
 
         # Add amount per worked days
         concepts = ('BASICO',)
@@ -426,6 +475,11 @@ class HrConceptType(models.Model):
         sum_categories = sum([data_payslip.get(con, 0) for con in categories])
         return sum_categories - data_payslip.get('wage', 0)
 
+    def get_days_no_pay(self, data_payslip, query_params):
+        leave_line = self.env['hr.leave.line']
+        query_params['type'] = ('NO_PAY',)
+        return leave_line.get_info_from_leave_type(data_payslip['cr'], query_params)[0]
+
     def _compute_layoff(self, data_payslip, date_from, date_to):
         base_layoff, worked_days, layoff = self._get_social_benefits(
             data_payslip, date_from, date_to, False)
@@ -445,6 +499,7 @@ class HrConceptType(models.Model):
             'end': date_to,
         }
 
+        worked_days -= self.get_days_no_pay(data_payslip, query_params.copy())
         days_rate = 1 if worked_days <= 30 else 30 / worked_days
 
         compute_average = compute_with_average or self.need_compute_salary_average(
@@ -489,6 +544,32 @@ class HrConceptType(models.Model):
         skip |= data_payslip['contract'].contract_type_id.type_class == 'int'
         return skip
 
+    def get_salary_in_leave(self, cr, data):
+        """
+        Construye el salario que se le debio pagar al empleado cuando estaba
+        en incapacidad o vacaciones
+        @params:
+            cr: Cursor
+            data: Dicionario con {'contract','start', 'end'}
+        @return:
+            int
+        """
+        query = """
+        SELECT COALESCE(SUM(TMP.value_day), 0)  FROM(
+            SELECT DISTINCT ON(HLL.date) HLL.date, WUH.wage/30 AS "value_day"
+            FROM hr_leave_line AS  HLL
+            INNER JOIN hr_leave AS HL ON HL.id=HLL.leave_id
+            INNER JOIN hr_leave_type AS HLT ON HLT.id=HL.leave_type_id
+            INNER JOIN wage_update_history AS WUH ON WUH.contract_id=HL.contract_id
+            WHERE
+                HL.contract_id = %(contract)s AND HLL.state in ('paid', 'validated') AND
+                HLL.date BETWEEN %(start)s AND %(end)s AND
+                HLT.category_type IN ('SICKNESS', 'AT_EP', 'VAC', 'PAY') AND
+                HLL.date - WUH.date >= 0
+                AND extract(day from HLL.date) < 31
+                ORDER BY HLL.date, HLL.date - WUH.date) AS TMP"""
+        return orm._fetchall(cr, query, data)[0][0]
+
     def _get_credit_account_concept(self, contract):
         type_class = contract.contract_type_id.type_class
         section = contract.contract_type_id.section
@@ -531,7 +612,9 @@ class HrConceptType(models.Model):
             'total': value,
             'origin': 'local',
             'concept_id': self.id,
+            'leave_id': None,
             'novelty_id': None,
+            'overtime_id': None,
         }
 
     def _SUB_TRANS(self, data_payslip):
@@ -547,11 +630,11 @@ class HrConceptType(models.Model):
         if wage < value_eval and data_payslip.get('earnings', 0) < value_eval:
             pay = True
             if data_payslip['contract'].fiscal_type_id.code == '19':
-                pay &= data_payslip['politics']['hr_payroll_coll_coll_co.pays_sub_trans_train_prod']
+                pay &= data_payslip['politics']['hr_payroll_co.pays_sub_trans_train_prod']
             if not pay:
                 return
             if data_payslip['contract'].remote_work_allowance:
-                sub_conne = self.env.ref('hr_payroll_co.hc_sub_conne')
+                sub_conne = self.env.ref('odone_hr.hc_sub_conne')
                 name = sub_conne.name
                 concept_id = sub_conne.id
             else:
@@ -570,7 +653,9 @@ class HrConceptType(models.Model):
                 'total': total,
                 'origin': 'local',
                 'concept_id': concept_id,
+                'leave_id': None,
                 'novelty_id': None,
+                'overtime_id': None,
             }
 
     def _IBD(self, data_payslip):
@@ -586,7 +671,9 @@ class HrConceptType(models.Model):
             'total': data_payslip['IBD'],
             'origin': 'local',
             'concept_id': self.id,
+            'leave_id': None,
             'novelty_id': None,
+            'overtime_id': None,
         }
 
     def _DED_PENS(self, data_payslip):
@@ -594,7 +681,7 @@ class HrConceptType(models.Model):
             return
         if 'IBD' not in data_payslip:
             self._compute_ibd(data_payslip)
-        rate = data_payslip['politics']['hr_payroll_coll_co.pen_rate_employee']
+        rate = data_payslip['politics']['hr_payroll_co.pen_rate_employee']
         total = data_payslip['IBD'] * rate / 100
         data_payslip[NCI] += total
         total -= data_payslip.get(TPCP, {}).get('DED_PENS', 0)
@@ -608,7 +695,9 @@ class HrConceptType(models.Model):
             'total': total,
             'origin': 'local',
             'concept_id': self.id,
+            'leave_id': None,
             'novelty_id': None,
+            'overtime_id': None,
         }
 
     def _DED_EPS(self, data_payslip):
@@ -630,7 +719,9 @@ class HrConceptType(models.Model):
             'total': total,
             'origin': 'local',
             'concept_id': self.id,
+            'leave_id': None,
             'novelty_id': None,
+            'overtime_id': None,
         }
 
     def _FOND_SOL(self, data_payslip):
@@ -654,7 +745,9 @@ class HrConceptType(models.Model):
                 'total': total,
                 'origin': 'local',
                 'concept_id': self.id,
+                'leave_id': None,
                 'novelty_id': None,
+                'overtime_id': None,
             }
 
     def _FOND_SUB(self, data_payslip):
@@ -678,7 +771,9 @@ class HrConceptType(models.Model):
                 'total': total,
                 'origin': 'local',
                 'concept_id': self.id,
+                'leave_id': None,
                 'novelty_id': None,
+                'overtime_id': None,
             }
 
     def _BRTF(self, data_payslip):
@@ -696,7 +791,9 @@ class HrConceptType(models.Model):
             'total': data_payslip['BRTF'],
             'origin': 'local',
             'concept_id': self.id,
+            'leave_id': None,
             'novelty_id': None,
+            'overtime_id': None,
         }
 
     def _RTEFTE(self, data_payslip):
@@ -721,7 +818,34 @@ class HrConceptType(models.Model):
             'total': data_payslip['BRTF'] * rate / 100 - previous,
             'origin': 'local',
             'concept_id': self.id,
+            'leave_id': None,
             'novelty_id': None,
+            'overtime_id': None,
+        }
+
+    def _VAC_LIQ(self, data_payslip):
+        settlement_date = data_payslip['contract'].settlement_date
+        if not settlement_date:
+            raise ValidationError('El contrato no tiene fecha de liquidación.')
+        if 'last_year' not in data_payslip:
+            self.get_last_year(data_payslip, settlement_date)
+        average = data_payslip['last_year']['average']
+        if 'holiday_book' not in data_payslip:
+            self.get_holiday_book(data_payslip, settlement_date)
+        days_left = data_payslip['holiday_book']['days_left']
+        return {
+            'name': self.name,
+            'payslip_id': data_payslip['payslip_id'],
+            'category': self.category,
+            'value': average,
+            'qty': days_left,
+            'rate': 100,
+            'total': average * days_left,
+            'origin': 'local',
+            'concept_id': self.id,
+            'leave_id': None,
+            'novelty_id': None,
+            'overtime_id': None,
         }
 
     def _INDEM(self, data_payslip):
@@ -741,7 +865,9 @@ class HrConceptType(models.Model):
             'total': value * qty,
             'origin': 'local',
             'concept_id': self.id,
+            'leave_id': None,
             'novelty_id': None,
+            'overtime_id': None,
         }
 
     def _RTF_INDEM(self, data_payslip):
@@ -764,7 +890,9 @@ class HrConceptType(models.Model):
             'total': value * rate / 100,
             'origin': 'local',
             'concept_id': self.id,
+            'leave_id': None,
             'novelty_id': None,
+            'overtime_id': None,
         }
 
     def _PRIMA_LIQ(self, data_payslip):
@@ -792,7 +920,9 @@ class HrConceptType(models.Model):
             'total': total,
             'origin': 'local',
             'concept_id': self.id,
+            'leave_id': None,
             'novelty_id': None,
+            'overtime_id': None,
         }
 
     def _PRIMA(self, data_payslip):
@@ -825,7 +955,9 @@ class HrConceptType(models.Model):
             'total': total,
             'origin': 'local',
             'concept_id': self.id,
+            'leave_id': None,
             'novelty_id': None,
+            'overtime_id': None,
         }
 
     def _CES_LIQ(self, data_payslip):
@@ -852,7 +984,9 @@ class HrConceptType(models.Model):
             'total': total,
             'origin': 'local',
             'concept_id': self.id,
+            'leave_id': None,
             'novelty_id': None,
+            'overtime_id': None,
         }
 
     def _CES(self, data_payslip):
@@ -890,7 +1024,9 @@ class HrConceptType(models.Model):
             'total': total,
             'origin': 'local',
             'concept_id': self.id,
+            'leave_id': None,
             'novelty_id': None,
+            'overtime_id': None,
         }
 
     def _ICES(self, data_payslip):
@@ -930,7 +1066,9 @@ class HrConceptType(models.Model):
             'total': total,
             'origin': 'local',
             'concept_id': self.id,
+            'leave_id': None,
             'novelty_id': None,
+            'overtime_id': None,
         }
 
     def _ICES_LIQ(self, data_payslip):
@@ -948,7 +1086,9 @@ class HrConceptType(models.Model):
             'total': value * rate,
             'origin': 'local',
             'concept_id': self.id,
+            'leave_id': None,
             'novelty_id': None,
+            'overtime_id': None,
         }
 
     def _PRV_CES(self, data_payslip):
@@ -984,7 +1124,9 @@ class HrConceptType(models.Model):
             'total': total,
             'origin': 'local',
             'concept_id': self.id,
+            'leave_id': None,
             'novelty_id': None,
+            'overtime_id': None,
         }
 
     def _PRV_ICES(self, data_payslip):
@@ -1011,7 +1153,9 @@ class HrConceptType(models.Model):
             'total': total,
             'origin': 'local',
             'concept_id': self.id,
+            'leave_id': None,
             'novelty_id': None,
+            'overtime_id': None,
         }
 
     def _PRV_PRIMA(self, data_payslip):
@@ -1044,7 +1188,54 @@ class HrConceptType(models.Model):
             'total': total,
             'origin': 'local',
             'concept_id': self.id,
+            'leave_id': None,
             'novelty_id': None,
+            'overtime_id': None,
+        }
+
+    def _PRV_VAC(self, data_payslip):
+        skip = data_payslip['contract'].fiscal_type_id.code in ['12', '19']
+        if skip:
+            return
+        date_to = data_payslip['contract'].settlement_date
+        date_from = data_payslip['contract'].date_start
+        if not date_to or date_to > data_payslip['period'].end:
+            date_to = data_payslip['period'].end - relativedelta(months=1)
+        if 'last_year' not in data_payslip:
+            self.get_last_year(data_payslip, date_to)
+        average = data_payslip['last_year']['average']
+        if 'holiday_book' not in data_payslip:
+            self.get_holiday_book(data_payslip, data_payslip['period'].end)
+
+        days_left = data_payslip['holiday_book']['days_left']
+        total = average * days_left
+
+        prv_vac_account = self._get_credit_account_concept(
+            data_payslip['contract'])
+        partner_id = data_payslip['contract'].employee_id.partner_id
+
+        prv_vac_previous = self.env['account.move.line'].search([
+            ('account_id', '=', prv_vac_account.id),
+            ('parent_state', '=', 'posted'),
+            ('partner_id', '=', partner_id.id)])
+
+        prv_vac_previous_amount = sum(
+            [x.credit - x.debit for x in prv_vac_previous])
+
+        total -= prv_vac_previous_amount
+        return {
+            'name': self.name,
+            'payslip_id': data_payslip['payslip_id'],
+            'category': self.category,
+            'value': average,
+            'qty': days_left,
+            'rate': 100,
+            'total': total,
+            'origin': 'local',
+            'concept_id': self.id,
+            'leave_id': None,
+            'novelty_id': None,
+            'overtime_id': None,
         }
 
     def _NETO_CES(self, data_payslip):
@@ -1061,7 +1252,9 @@ class HrConceptType(models.Model):
             'total': total,
             'origin': 'local',
             'concept_id': self.id,
+            'leave_id': None,
             'novelty_id': None,
+            'overtime_id': None,
         }
 
     def _NETO(self, data_payslip):
@@ -1086,5 +1279,7 @@ class HrConceptType(models.Model):
             'total': total,
             'origin': 'local',
             'concept_id': self.id,
+            'leave_id': None,
             'novelty_id': None,
+            'overtime_id': None,
         }

@@ -66,6 +66,20 @@
             <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
         </record>
 
+        <record id="hr_leave_type_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de categoría de ausencias</field>
+            <field name="model_id" ref="model_hr_leave_type" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_leave_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de ausencias</field>
+            <field name="model_id" ref="model_hr_leave" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
         <record id="hr_novelty_type_comp_rule" model="ir.rule">
             <field name="name">Regla multi compañia de categoría de novedades</field>
             <field name="model_id" ref="model_hr_novelty_type" />
@@ -76,6 +90,20 @@
         <record id="hr_novelty_comp_rule" model="ir.rule">
             <field name="name">Regla multi compañia de novedades</field>
             <field name="model_id" ref="model_hr_novelty" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_overtime_type_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de categoría de hora extra</field>
+            <field name="model_id" ref="model_hr_overtime_type" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_overtime_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de hora extra</field>
+            <field name="model_id" ref="model_hr_overtime" />
             <field name="global" eval="True" />
             <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
         </record>
@@ -111,6 +139,13 @@
         <record id="economic_variable_comp_rule" model="ir.rule">
             <field name="name">Regla multi compañia de Variables económicas</field>
             <field name="model_id" ref="model_economic_variable" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_contribution_form_comp_rule" model="ir.rule">
+            <field name="name">Regla multi compañia de Planilla de aportes</field>
+            <field name="model_id" ref="model_hr_contribution_form" />
             <field name="global" eval="True" />
             <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
         </record>

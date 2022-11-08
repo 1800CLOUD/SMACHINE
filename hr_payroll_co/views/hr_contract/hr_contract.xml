@@ -23,8 +23,7 @@
                         <group name="top_info">
                             <group name="top_info_left">
                                 <field name="employee_id" />
-                                <field name="date_start" string="Contract Start Date" />
-                                <field name="date_end" string="Contract End Date" />
+                                <field name="job_id" />
                                 <field name="contract_city_id" />
                                 <field name="work_city_id" />
                             </group>
@@ -162,6 +161,27 @@
                                         </tree>
                                     </field>
                                 </group>
+                            </page>
+                            <page string="Libro de vacaciones" name="holiday_book">
+                                <button name="update_days_left" string="Actualizar días restantes" type="object" />
+                                <group>
+                                    <group>
+                                        <field name="days_left" />
+                                    </group>
+                                    <group>
+                                        <field name="date_ref_holiday_book" />
+                                    </group>
+                                </group>
+                                <field name="holiday_book_ids">
+                                    <tree>
+                                        <field name="days_enjoyed" />
+                                        <field name="days_paid" />
+                                        <field name="days_suspension" />
+                                        <field name="leave_id" />
+                                        <field name="payslip_id" />
+                                        <field name="initial_balance" />
+                                    </tree>
+                                </field>
                             </page>
                             <page string="Prórrogas" name="extensions">
                                 <button name="extend_contract" type="object" string="Prorrogar" class="oe_stat_button" icon="fa-expand" />

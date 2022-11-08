@@ -35,6 +35,10 @@
         'views/hr_payslip_noveltys/model_basic_payslip_novelty.xml',
         'views/hr_payslip_noveltys/hr_novelty_type.xml',
         'views/hr_payslip_noveltys/hr_novelty.xml',
+        'views/hr_payslip_noveltys/hr_leave_type.xml',
+        'views/hr_payslip_noveltys/hr_leave.xml',
+        'views/hr_payslip_noveltys/hr_overtime_type.xml',
+        'views/hr_payslip_noveltys/hr_overtime.xml',
 
         'views/hr_payslip_period/hr_period.xml',
         'views/hr_payslip_period/hr_period_creator.xml',
@@ -64,9 +68,18 @@
         'views/economic_variables/economic_variables_line.xml',
         'views/economic_variables/economic_variables_line_detail.xml',
 
+        'views/hr_contribution_form/hr_contribution_form.xml',
+        'views/hr_contribution_form/hr_contribution_form_line.xml',
+
         'report/payroll_template_report.xml',
         'report/payroll_report_config.xml'
     ],
+
+    'assets': {
+        'web.assets_backend': [
+            "/hr_payroll_co/static/src/scss/hr_payslip.scss"
+        ]
+    },
 
     'installable': True,
     'auto_install': False,

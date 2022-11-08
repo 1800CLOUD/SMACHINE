@@ -12,11 +12,19 @@
                         <div class="col-12 col-lg-6 o_setting_box" name="payroll_policies_group_1">
                             <div class="o_setting_left_pane">
                                 <field name="pays_sub_trans_train_prod" />
+                                <field name="pays_eg_b2_with_wage" />
+                                <field name="pays_atep_b1_with_wage" />
+                                <field name="discount_suspensions" />
                                 <field name="average_sub_trans" />
+                                <field name="pay_ccf_mat_pat" />
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="pays_sub_trans_train_prod" />
+                                <label for="pays_eg_b2_with_wage" />
+                                <label for="pays_atep_b1_with_wage" />
+                                <label for="discount_suspensions" />
                                 <label for="average_sub_trans" />
+                                <label for="pay_ccf_mat_pat" />
                             </div>
                         </div>
                         <div class="col-12 col-lg-6 o_setting_box" name="payroll_policies_group_2">

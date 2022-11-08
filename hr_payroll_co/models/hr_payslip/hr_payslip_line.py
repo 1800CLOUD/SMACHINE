@@ -25,5 +25,9 @@ class HrPayslipLine(models.Model):
     origin = fields.Selection(string='Origen', selection=ORIGIN)
     concept_id = fields.Many2one(
         comodel_name='hr.concept', string='Concepto')
+    leave_id = fields.Many2one(
+        comodel_name='hr.leave', string='Ausencia')
     novelty_id = fields.Many2one(
         comodel_name='hr.novelty', string='Novedad')
+    overtime_id = fields.Many2one(
+        comodel_name='hr.overtime', string='Hora Extra')

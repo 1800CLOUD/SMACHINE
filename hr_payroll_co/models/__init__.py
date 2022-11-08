@@ -15,4 +15,6 @@ from . import economic_variables
 
 from . import res_config_settings
 
+from . import hr_contribution_form
+
 from . import res_company

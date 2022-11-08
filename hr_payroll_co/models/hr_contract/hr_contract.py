@@ -203,6 +203,13 @@ class HRContract(models.Model):
         string='Prórrogas',
         comodel_name='hr.contract.extension', inverse_name='contract_id')
 
+    # Libro de vacaciones
+
+    holiday_book_ids = fields.One2many(
+        comodel_name='hr.holiday.book', inverse_name='contract_id', string='Libro de vacaciones')
+    days_left = fields.Float(string='Días restantes', default=0, readonly=True)
+    date_ref_holiday_book = fields.Date(string='Fecha referencia')
+
     def _get_contract_name(self, employee_id):
         contracts = self.env['hr.contract'].search([
             ('employee_id', '=', employee_id)
@@ -311,6 +318,27 @@ class HRContract(models.Model):
                 (NO_WAGE_HISTORY + 'Para esta fecha %s') % (self.name, date_end))
         salary = max(salary, key=lambda x: x.date)
         return {'wage': salary.wage}
+
+    def get_holiday_book(self, date_ref=False):
+        date_ref = date_ref or self.date_ref_holiday_book or datetime.now()
+        worked_days = days360(self.date_start, date_ref)
+        days_enjoyed, days_paid, days_suspension = 0, 0, 0
+        for holiday_book in self.holiday_book_ids:
+            days_enjoyed += holiday_book.days_enjoyed
+            days_paid += holiday_book.days_paid
+            days_suspension += holiday_book.days_suspension
+        worked_days -= days_suspension
+        days_left = (worked_days * 15 / 360) - (days_enjoyed + days_paid)
+        return {
+            'worked_days': worked_days,
+            'days_left': days_left,
+            'days_enjoyed': days_enjoyed,
+            'days_paid': days_paid,
+            'days_suspension': days_suspension,
+        }
+
+    def update_days_left(self):
+        self.days_left = self.get_holiday_book()['days_left']
 
     def liquidate_contract(self):
         payslips_liq = []

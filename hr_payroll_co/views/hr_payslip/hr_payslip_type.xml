@@ -36,6 +36,24 @@
                                     </tree>
                                 </field>
                             </page>
+                            <page name="page_leave_types" string="Categoría de Ausencias">
+                                <field name="leave_types_ids">
+                                    <tree>
+                                        <field name="name" />
+                                        <field name="code" />
+                                        <field name="category" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="page_overtime_types" string="Categoría de Horas Extras">
+                                <field name="overtime_types_ids">
+                                    <tree>
+                                        <field name="name" />
+                                        <field name="code" />
+                                        <field name="category" />
+                                    </tree>
+                                </field>
+                            </page>
                         </notebook>
                     </sheet>
                 </form>

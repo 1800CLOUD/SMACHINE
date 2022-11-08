@@ -31,6 +31,12 @@ class HrPayslipType(models.Model):
     novelty_types_ids = fields.Many2many(
         comodel_name='hr.novelty.type', string='Categoría de Novedades',
         relation='hr_payslip_type_hr_novelty_type_rel')
+    leave_types_ids = fields.Many2many(
+        comodel_name='hr.leave.type', string='Categoría de Ausencias',
+        relation='hr_payslip_type_hr_leave_type_rel')
+    overtime_types_ids = fields.Many2many(
+        comodel_name='hr.overtime.type', string='Categoría de Horas Extras',
+        relation='hr_payslip_type_hr_overtime_type_rel')
 
     def get_categories_novelty(self, categories_novelty):
         if self.id in categories_novelty:
@@ -38,6 +44,10 @@ class HrPayslipType(models.Model):
         categories_novelty[self.id] = tmp = {}
         if self.novelty_types_ids.ids:
             tmp['hr.novelty.line'] = self.novelty_types_ids.ids
+        if self.leave_types_ids.ids:
+            tmp['hr.leave.line'] = self.leave_types_ids.ids
+        if self.overtime_types_ids.ids:
+            tmp['hr.overtime'] = self.overtime_types_ids.ids
 
     def get_sorted_concepts(self, sorted_concepts):
         if self.id in sorted_concepts:

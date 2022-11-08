@@ -139,8 +139,9 @@ class HrPayslip(models.Model):
         model = 'ir.config_parameter'
         politics = {
             'hr_payroll_co.pays_sub_trans_train_prod': bool,
-            'hr_payroll_coll_coll_coll_co.eps_rate_employee': float,
-            'hr_payroll_coll_co.pen_rate_employee': float,
+            'hr_payroll_co.eps_rate_employee': float,
+            'hr_payroll_co.pen_rate_employee': float,
+            'hr_payroll_co.discount_suspensions': bool,
             'hr_payroll_co.average_sub_trans': bool,
         }
         for param in politics:
@@ -263,8 +264,12 @@ class HrPayslip(models.Model):
             for payslip_line in record.payslip_line_ids:
                 if payslip_line.concept_id:
                     obj_base = payslip_line.concept_id
+                elif payslip_line.leave_id:
+                    obj_base = payslip_line.leave_id.leave_type_id
                 elif payslip_line.novelty_id:
                     obj_base = payslip_line.novelty_id.novelty_type_id
+                elif payslip_line.overtime_id:
+                    obj_base = payslip_line.overtime_id.overtime_type_id
                 else:
                     record.error_log = f'La línea de nómina {payslip_line.name} de {record.name} no esta configurada correctamente'
                     break
@@ -316,7 +321,7 @@ class HrPayslip(models.Model):
         self.env['account.move.line'].create(move_lines)
         self.env['account.move'].browse(move_ids).action_post()
         domain = [('payslip_id', 'in', payslip_ids)]
-        for model, parent in [('hr.novelty.line', 'novelty_id')]:
+        for model, parent in [('hr.leave.line', 'leave_id'), ('hr.novelty.line', 'novelty_id'), ('hr.overtime', None)]:
             lines_ids = self.env[model].search(domain)
             lines_ids.write({'state': 'paid'})
             if parent:
@@ -340,7 +345,7 @@ class HrPayslip(models.Model):
             moves.button_draft()
             moves.unlink()
         domain = [('payslip_id', 'in', payslip_ids)]
-        for model, parent in [('hr.novelty.line', 'novelty_id')]:
+        for model, parent in [('hr.leave.line', 'leave_id'), ('hr.novelty.line', 'novelty_id'), ('hr.overtime', None)]:
             lines_ids = self.env[model].search(domain)
             lines_ids.write({'state': 'validated'})
             if parent:
@@ -407,7 +412,7 @@ class HrPayslip(models.Model):
 
             # Novedades, Horas Extras, Ausencias
             record.compute_payslip_novelty(
-                payslip_line_novelty, data_payslip, categories_novelty)
+                payslip_line_novelty, payslip_day_ids, data_payslip, categories_novelty)
             data_to_create['hr.payslip.line'] += payslip_line_novelty
 
             # Dias de Nómina
@@ -456,19 +461,26 @@ class HrPayslip(models.Model):
         }
         return data_payslip
 
-    def compute_payslip_novelty(self, payslip_line_novelty, data_payslip, categories_novelty):
+    def compute_payslip_novelty(self, payslip_line_novelty, payslip_day_ids, data_payslip, categories_novelty):
         domain = [('state', '=', 'validated'),
                   ('period_id', '=', self.period_id.id),
                   ('contract_id', '=', self.contract_id.id)]
         categories = categories_novelty.get(self.payslip_type_id.id, {})
-        for model in ['hr.novelty.line']:
+        wage = data_payslip['wage'].get('wage', 0) / 30
+        key = 'value_total_leave'
+        for model in ['hr.novelty.line', 'hr.leave.line', 'hr.overtime']:
             if model not in categories:
                 continue
             payslip_novelty_ids = self.env[model].search(domain)
             for payslip_novelty in payslip_novelty_ids:
                 if not payslip_novelty.belongs_category(categories[model]):
                     continue
-                if model == 'hr.novelty.line':
+                if model == 'hr.leave.line' and payslip_novelty.leave_id.category_type != 'VAC_MONEY':
+                    payslip_day_ids.append(
+                        {'payslip_id': self.id, 'day': payslip_novelty.date.day, 'day_type': 'A'})
+                    if payslip_novelty.leave_id.category_type in ['SICKNESS', 'AT_EP', 'NO_PAY', 'PAY', 'VAC']:
+                        data_payslip[key] = data_payslip.get(key, 0) + wage
+                elif model == 'hr.novelty.line':
                     payslip_novelty.check_modality_rtefte(data_payslip)
                 # Borrar conceptos de otras nominas
                 payslip_novelty.payslip_id = self.id
@@ -545,6 +557,9 @@ class HrPayslip(models.Model):
 
     def compute_payslip_line_concept(self, payslip_line_concept, data_payslip, sorted_concepts):
         for concept_id in sorted_concepts[self.payslip_type_id.id]:
+            # Los aportes se calculan en PILA
+            if concept_id.category == 'contributions':
+                continue
             if concept_id.code not in CONCEPTS:
                 continue
             try:
