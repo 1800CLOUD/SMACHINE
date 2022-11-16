@@ -10,12 +10,14 @@
                 <field name="confirm_order_duplicate" invisible='True'/>
                 <button name="duplicate_sale"
                         type="object"
+                        class="oe_highlight"
                         string="Duplicate Order"
                         attrs="{'invisible': ['|',('state','!=','draft'),('order_duplicate','!=',False)]}"/>
                 <button name="confirm_duplicate"
                         type="object"
+                        class="oe_highlight"
                         string="Confirm Duplicate"
-                        attrs="{'invisible': [('state','!=','draft'),('confirm_order_duplicate','!=',True)]}"/>
+                        attrs="{'invisible': [('confirm_order_duplicate','!=',True)]}"/>
             </xpath>
         </field>
     </record>

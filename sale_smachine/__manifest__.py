@@ -27,6 +27,8 @@
     'data': [
         'security/ir.model.access.csv',
         'views/account_fiscal_position_views.xml',
+        'views/account_payment_mode_view.xml',
+        'views/mrp_bom_view.xml',
         'views/sale_order_view.xml',
     ],
     # only loaded in demonstration mode

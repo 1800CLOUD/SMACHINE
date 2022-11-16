@@ -2,7 +2,7 @@
 from cgitb import reset
 from odoo import _, fields, models, api
 from datetime import datetime, timedelta
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 
 
 class SaleOrder(models.Model):
@@ -11,6 +11,12 @@ class SaleOrder(models.Model):
     order_duplicate = fields.Boolean()
     confirm_order_duplicate = fields.Boolean()
 
+    def action_confirm(self):
+        for record in self:
+            record.validation_product_kit()
+        res = super(SaleOrder, self).action_confirm()
+        return res
+    
     def confirm_duplicate(self):
         for record in self:
             if record.order_duplicate and record.state == 'draft':
@@ -25,6 +31,9 @@ class SaleOrder(models.Model):
                 if sales:
                     for sale in sales:
                         sale.action_confirm()
+                
+                record.confirm_order_duplicate = False
+
                 """
                 companies = self.env['res.company'].search([])
                 for company in companies:
@@ -46,11 +55,33 @@ class SaleOrder(models.Model):
                         else:
                             continue
                 """
+    def validation_date_expiration(self,mrp_bom_kits):
+        for record in self:
+            datetime_now = datetime.now()
+            for kit in mrp_bom_kits:
+                if kit.date_expiration <= datetime_now:
+                    raise UserError(_(
+                        'El producto '+ kit.product_tmpl_id.name +' ya expiró'
+                    ))
+    
+    def validation_product_kit(self):
+        for record in self:
+            if record.order_line:
+                mrp_bom_ids = list(
+                    x.product_id.bom_ids for x in record.order_line
+                    )
+                mrp_bom_kits = list(
+                    filter(lambda x: x.type == 'phantom', mrp_bom_ids)
+                    )
+                
+                record.validation_date_expiration(mrp_bom_kits)
+    
     def duplicate_sale(self):
         for record in self:
             companies = self.env['res.company'].search([])
             companies_warehouse_names = []
-            companies_fiscal_names = []
+            fiscal_position = False
+            payment_mode_id = False
             for company in companies:
                 if self.env.company.id == company.id:
                     continue
@@ -83,72 +114,36 @@ class SaleOrder(models.Model):
                                     )
                                 ]
                                 )
-                        #if fiscal_position:
-                        #    fiscal_position = fiscal_position.id
-                    #else:
-                    #    fiscal_position = False
+                        if fiscal_position:
+                            fiscal_position = fiscal_position.id
+
+                    if record.payment_mode_id:
+                        payment_mode_id = self.env['account.payment.mode']\
+                            .sudo().search(
+                                [
+                                    (
+                                        'company_id','=',company.id
+                                    ),
+                                    (
+                                        'code','=',record.payment_mode_id.code
+                                    )
+                                ]
+                                )
+                        if payment_mode_id:
+                            payment_mode_id = payment_mode_id.id
 
                     record.copy(
                         {
                             'name': record.name,
                             'company_id': company.id,
                             'warehouse_id':warehouse.id,
-                            #'fiscal_position_id': False
+                            'fiscal_position_id': fiscal_position,
+                            'payment_mode_id': payment_mode_id
                         }
                             )
                     record.order_duplicate = True
-    """
-    @api.model
-    def create(self, values):
-        res = super(SaleOrder, self).create(values)
-        companies = self.env['res.company'].search([])
-        companies_warehouse_names = []
-        companies_fiscal_names = []
-        for company in companies:
-            if self.env.company.id == company.id:
-                continue
-            else:
-                warehouse = self.env['stock.warehouse']\
-                    .sudo().search(
-                        [
-                            (
-                                'company_id','=',company.id
-                            ),
-                            (
-                                'code','=',res.warehouse_id.code
-                            )
-                        ]
-                        )
-                if not warehouse:
-                    companies_warehouse_names.append(company.name)
-                    
-                    continue
-                
-                if res.fiscal_position_id:
-                    fiscal_position = self.env['account.fiscal.position']\
-                        .sudo().search(
-                            [
-                                (
-                                    'company_id','=',company.id
-                                ),
-                                (
-                                    'code','=',res.fiscal_position_id.code
-                                )
-                            ]
-                            )
-                    #if fiscal_position:
-                    #    fiscal_position = fiscal_position.id
-                #else:
-                #    fiscal_position = False
 
-                res.copy(
-                    {
-                        'name': res.name,
-                        'company_id': company.id,
-                        'warehouse_id':warehouse.id,
-                        #'fiscal_position_id': False
-                    }
-                        )
-
-        return res
-    """
+                    if record.state in ['draft','done'] and record.order_duplicate:
+                        record.confirm_order_duplicate = True
+                    else:
+                        record.confirm_order_duplicate = False
