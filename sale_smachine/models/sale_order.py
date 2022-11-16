@@ -20,6 +20,7 @@ class SaleOrder(models.Model):
     def confirm_duplicate(self):
         for record in self:
             if record.order_duplicate and record.state == 'draft':
+                record.action_confirm()
                 sales = self.env['sale.order']\
                             .sudo().search(
                                 [
@@ -30,7 +31,8 @@ class SaleOrder(models.Model):
                                 )
                 if sales:
                     for sale in sales:
-                        sale.action_confirm()
+                        if sale.state not in ['done','cancel']:
+                            sale.action_confirm()
                 
                 record.confirm_order_duplicate = False
 
