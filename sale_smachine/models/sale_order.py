@@ -14,13 +14,13 @@ class SaleOrder(models.Model):
     def action_confirm(self):
         for record in self:
             record.validation_product_kit()
+            record.confirm_order_duplicate = True
         res = super(SaleOrder, self).action_confirm()
         return res
     
     def confirm_duplicate(self):
         for record in self:
-            if record.order_duplicate and record.state == 'draft':
-                record.action_confirm()
+            if record.order_duplicate:
                 sales = self.env['sale.order']\
                             .sudo().search(
                                 [
@@ -33,6 +33,7 @@ class SaleOrder(models.Model):
                     for sale in sales:
                         if sale.state not in ['done','cancel']:
                             sale.action_confirm()
+                            sale.confirm_order_duplicate = False
                 
                 record.confirm_order_duplicate = False
 
@@ -157,8 +158,3 @@ class SaleOrder(models.Model):
                         }
                             )
                     record.order_duplicate = True
-
-                    if record.state in ['draft','done'] and record.order_duplicate:
-                        record.confirm_order_duplicate = True
-                    else:
-                        record.confirm_order_duplicate = False
