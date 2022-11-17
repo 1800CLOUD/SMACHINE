@@ -104,8 +104,8 @@
                                         </label>
                                         <div class="col-sm col-xs-12">
                                             <select id="h_customer_dealer" class="form-control s_website_form_input" name="customer_dealer" required="1">
-                                                <option t-att-value="customer">Customer</option>
-                                                <option t-att-value="dealer">Dealer</option>
+                                                <option t-att-value="'customer'">Customer</option>
+                                                <option t-att-value="'dealer'">Dealer</option>
                                             </select>
                                         </div>
                                     </div>

@@ -11,6 +11,7 @@
             'o_country_id',
             'o_state_id',
             'o_city_id',
+            'o_shipping_address',
             'damage_type_id',
             'invoice_number',
             'product_id',
