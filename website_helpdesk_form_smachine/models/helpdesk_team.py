@@ -74,7 +74,7 @@ class HelpdeskTeam(models.Model):
             # city
             domain = [('country_id', '=', country_id.id)]
             city_ids = self.env['res.city'].search(domain)
-            out['cities'] = [(p.id, p.display_name) for p in city_ids]
+            out['cities'] = [(p.id, '%s [%s]' % (p.display_name, p.state_id.code or '-')) for p in city_ids]
             domain = [('is_technician', '=', True)]
             tech_ids = self.env['res.partner'].search(domain)
             out['technicians'] = [(p.id, p.display_name) for p in tech_ids]

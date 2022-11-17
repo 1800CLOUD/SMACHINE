@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-24 23:44+0000\n"
-"PO-Revision-Date: 2022-10-24 23:44+0000\n"
+"POT-Creation-Date: 2022-11-17 17:59+0000\n"
+"PO-Revision-Date: 2022-11-17 17:59+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -118,8 +118,13 @@ msgid "Created on"
 msgstr ""
 
 #. module: helpdesk_smachine
+#: model:ir.model.fields.selection,name:helpdesk_smachine.selection__helpdesk_ticket__customer_dealer__customer
+msgid "Customer"
+msgstr ""
+
+#. module: helpdesk_smachine
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__customer_dealer
-msgid "Customer or Dealer"
+msgid "Customer type"
 msgstr ""
 
 #. module: helpdesk_smachine
@@ -151,6 +156,11 @@ msgstr ""
 #. module: helpdesk_smachine
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__days_after_init
 msgid "Days after init"
+msgstr ""
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields.selection,name:helpdesk_smachine.selection__helpdesk_ticket__customer_dealer__dealer
+msgid "Dealer"
 msgstr ""
 
 #. module: helpdesk_smachine
@@ -381,6 +391,11 @@ msgid "Send denial letter"
 msgstr ""
 
 #. module: helpdesk_smachine
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__o_shipping_address
+msgid "Shipping address"
+msgstr ""
+
+#. module: helpdesk_smachine
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_repair_order__state
 msgid "Status"
 msgstr ""
@@ -390,6 +405,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_res_partner__is_technician
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_res_users__is_technician
 msgid "Technician"
+msgstr ""
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_res_partner__tech_city_id
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_res_users__tech_city_id
+msgid "Technician city"
 msgstr ""
 
 #. module: helpdesk_smachine

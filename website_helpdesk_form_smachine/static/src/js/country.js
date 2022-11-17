@@ -2,15 +2,16 @@ var doc = document;
 var country = doc.getElementById('h_country');
 var state = doc.getElementById('h_state');
 var reentry = doc.getElementById('h_reentry');
+var tcity = doc.getElementById('h_city');
 
 $(document).ready(
     function () {
         $("#h_product").select2();
-        $("#h_city").select2();
+        // $("#h_city").select2();
         $("#h_technician").select2();
 
         $("#s2id_h_product").removeClass("s_website_form_input");
-        $("#s2id_h_city").removeClass("s_website_form_input");
+        // $("#s2id_h_city").removeClass("s_website_form_input");
         $("#s2id_h_technician").removeClass("s_website_form_input");
     }
 );
@@ -18,7 +19,7 @@ $(document).ready(
 doc.getElementById("h_button_submit").addEventListener('click', function () {
         console.log("Click Summit");
         $("#s2id_h_product").removeClass("s_website_form_input");
-        $("#s2id_h_city").removeClass("s_website_form_input");
+        // $("#s2id_h_city").removeClass("s_website_form_input");
         $("#s2id_h_technician").removeClass("s_website_form_input");
     }
 );
@@ -47,6 +48,22 @@ state.addEventListener('change', function () {
             "model": "res.city"
         };
         filter_field(city, url, param);
+    }
+);
+
+tcity.addEventListener('change', function () {
+        console.log('TECHHHHHH')
+        var tech = doc.getElementById('h_technician');
+        var city_id = tcity.value;
+        var domain = "[('is_technician','=',True), ('tech_city_id','='," + city_id + ")]";
+        var url = "/helpdesk_form/filter_field/";
+        var param = {
+            "value": parseInt(city_id),
+            "field": "tech_city_id",
+            "domain": domain,
+            "model": "res.partner"
+        };
+        filter_field(tech, url, param);
     }
 );
 

@@ -9,6 +9,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='category_id']" position="after">
                     <field name="is_technician"/>
+                    <field name="tech_city_id" attrs="{'invisible': [('is_technician','!=',True)], 'required': [('is_technician','=',True)]}"/>
                 </xpath>
             </field>
         </record>

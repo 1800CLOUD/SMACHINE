@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-12 21:02+0000\n"
-"PO-Revision-Date: 2022-10-12 21:02+0000\n"
+"POT-Creation-Date: 2022-11-17 17:59+0000\n"
+"PO-Revision-Date: 2022-11-17 17:59+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -143,9 +143,14 @@ msgid "Created on"
 msgstr "Creado en"
 
 #. module: helpdesk_smachine
+#: model:ir.model.fields.selection,name:helpdesk_smachine.selection__helpdesk_ticket__customer_dealer__customer
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: helpdesk_smachine
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__customer_dealer
-msgid "Customer or Dealer"
-msgstr "Cliente o distribuidor"
+msgid "Customer type"
+msgstr "Tipo de cliente"
 
 #. module: helpdesk_smachine
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__damage_type_id
@@ -177,6 +182,11 @@ msgstr "Fecha inicio"
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__days_after_init
 msgid "Days after init"
 msgstr "Días despues del inicio"
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields.selection,name:helpdesk_smachine.selection__helpdesk_ticket__customer_dealer__dealer
+msgid "Dealer"
+msgstr "Distribuidor"
 
 #. module: helpdesk_smachine
 #: model:mail.template,report_name:helpdesk_smachine.mail_template_repair_denial_letter
@@ -405,6 +415,12 @@ msgstr "Solicitar técnico y ciudad en el formulario online"
 msgid "Send denial letter"
 msgstr "Enviar carta de negación"
 
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_helpdesk_ticket__o_shipping_address
+msgid "Shipping address"
+msgstr "Dirección de envío"
+
 #. module: helpdesk_smachine
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_repair_order__state
 msgid "Status"
@@ -416,6 +432,13 @@ msgstr "Estado"
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_res_users__is_technician
 msgid "Technician"
 msgstr "Técnico"
+
+
+#. module: helpdesk_smachine
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_res_partner__tech_city_id
+#: model:ir.model.fields,field_description:helpdesk_smachine.field_res_users__tech_city_id
+msgid "Technician city"
+msgstr "Ciudad técnico"
 
 #. module: helpdesk_smachine
 #: model:ir.model.fields,field_description:helpdesk_smachine.field_repair_order__technician_notes
