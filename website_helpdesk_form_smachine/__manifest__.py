@@ -11,7 +11,7 @@
     'website': 'https://www.1-800cloud.com',
     'category': 'Services/Helpdesk',
     'license': 'OPL-1',
-    'version': '15.0.0.0.2',
+    'version': '15.0.0.0.3',
     'depends': [
         'helpdesk_smachine',
         'website_helpdesk_form',
