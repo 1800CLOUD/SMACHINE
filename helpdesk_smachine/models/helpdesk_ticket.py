@@ -8,10 +8,13 @@ from odoo.exceptions import ValidationError
 class HelpdeskTicket(models.Model):
     _inherit = 'helpdesk.ticket'
 
-    customer_dealer = fields.Char('Customer or Dealer')
+    customer_dealer = fields.Selection([('customer', 'Customer'),
+                                        ('dealer', 'Dealer')],
+                                       'Customer type')
     o_country_id = fields.Many2one('res.country', 'Country')
     o_state_id = fields.Many2one('res.country.state', 'Department')
     o_city_id = fields.Many2one('res.city', 'Origin city')
+    o_shipping_address = fields.Char('Shipping address')
     damage_type_id = fields.Many2one('damage.type.sm', 'Damage type')
     invoice_number = fields.Char('Invoice number')
     technician_id = fields.Many2one('res.partner', 'Technician')
@@ -201,7 +204,7 @@ class HelpdeskTicket(models.Model):
         }
         picking_val['move_ids_without_package'] = [(0, 0, picking_line)]
         return picking_val, picking_line
-    
+
     def _prepare_product_picking_out(self):
         self.ensure_one()
         if not self.product_id:
@@ -311,5 +314,5 @@ class HelpdeskTicket(models.Model):
             }
         else:
             action = self.action_open_product_input()
-        
+
         return action

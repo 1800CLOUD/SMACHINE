@@ -199,15 +199,11 @@ def delete(cursor, user, model, data_where_noupdate, cr_aux=False):
     set_data_where(data_where, param)
     if not param:
         return
-    disable = "ALTER TABLE {} DISABLE TRIGGER ALL".format(quote(table))
     query = "DELETE FROM {} WHERE {}".format(
         quote(table),
         "AND ".join(f"{dw} {data_where[dw]} %({dw}_dw)s" for dw in data_where)
     )
-    enable = "ALTER TABLE {} ENABLE TRIGGER ALL".format(quote(table))
-    cr.execute(disable, [])
     cr.execute(query, param)
-    cr.execute(enable, [])
     commit_cursor(cr)
     process_time = datetime.now() - start
     log_message(f'Tiempo del proceso {model} delete = {process_time}')
