@@ -17,7 +17,7 @@
                         type="object"
                         class="oe_highlight"
                         string="Confirm Duplicate"
-                        attrs="{'invisible': [('confirm_order_duplicate','!=',True)]}"/>
+                        attrs="{'invisible': ['|',('confirm_order_duplicate','!=',True),('order_duplicate','!=',True)]}"/>
             </xpath>
         </field>
     </record>
