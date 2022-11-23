@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherit_sale_order_inherit_smachine" model="ir.ui.view">
+        <field name="name">sale.order.inherit.smachine</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <field name="order_duplicate" invisible='True'/>
+                <field name="confirm_order_duplicate" invisible='True'/>
+                <button name="duplicate_sale"
+                        type="object"
+                        class="oe_highlight"
+                        string="Duplicate Order"
+                        attrs="{'invisible': ['|',('state','!=','draft'),('order_duplicate','!=',False)]}"/>
+                <button name="confirm_duplicate"
+                        type="object"
+                        class="oe_highlight"
+                        string="Confirm Duplicate"
+                        attrs="{'invisible': ['|',('confirm_order_duplicate','!=',True),('order_duplicate','!=',True)]}"/>
+            </xpath>
+            <xpath expr="//group[@name='order_details']" position="inside">
+                <field name="sm_transaction_number" invisible="0"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
