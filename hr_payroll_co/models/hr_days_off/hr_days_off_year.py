@@ -27,5 +27,12 @@ class HrDaysOffYear(models.Model):
         values['name'] = values['year']
         return super(HrDaysOffYear, self).create(values)
 
-
-    
+    def is_day_off(self, date):
+        year = date.year
+        years = self.search([('year', '=', str(year))])
+        if not years:
+            return False
+        for day_off in years[0].days_off:
+            if day_off.date == date:
+                return True
+        return False

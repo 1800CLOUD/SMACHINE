@@ -14,7 +14,6 @@ class HrDayOff(models.Model):
 
     @api.model
     def create(self, values):
-        # Add code here
         year_model = self.env['hr.days.off.year']
         year_id = year_model.browse(values['year_id'])
         current_year = values['date'][:4]
