@@ -19,6 +19,7 @@
                     <group name="group_detail" string="Ausencia">
                         <group>
                             <field name="apply_day_31" attrs="{'invisible':[('category_type','=','VAC_MONEY')]}" />
+                            <field name="evaluates_day_off" />
                         </group>
                         <group>
                             <field name="discount_rest_day" attrs="{'invisible':[('category_type','!=','NO_PAY')]}" />

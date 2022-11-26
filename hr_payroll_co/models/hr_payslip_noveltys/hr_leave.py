@@ -96,6 +96,7 @@ class HrLeave(models.Model):
         economic_variables = {
             'SMMLV': {},
         }
+        days_off = self.env['hr.days.off.year']
         self.env['economic.variable']._get_economic_variables(
             economic_variables, self.date_start.year)
         economic_variables['wage'] = self.contract_id.get_wage(
@@ -130,14 +131,16 @@ class HrLeave(models.Model):
 
                 if amount_real < smmlv_day and type_id.category_type != 'NO_PAY':
                     amount_real = smmlv_day
-                new_leave_line.append((0, 0, {
-                    'sequence': sequence,
-                    'date': date_tmp,
-                    'period_id': period[0].id,
-                    'state': 'validated',
-                    'amount': amount_real,
-                }))
-                sequence += 1
+
+                if not type_id.evaluates_day_off or not days_off.is_day_off(date_tmp):
+                    new_leave_line.append((0, 0, {
+                        'sequence': sequence,
+                        'date': date_tmp,
+                        'period_id': period[0].id,
+                        'state': 'validated',
+                        'amount': amount_real,
+                    }))
+                    sequence += 1
                 if date_tmp == self.date_end:
                     self.check_deduction_days(
                         new_leave_line, date_tmp, sequence, amount_real)

@@ -28,6 +28,7 @@ class HrLeaveType(models.Model):
     b180 = fields.Float(string='De 91 a 180 días')
     a180 = fields.Float(string='De 181 días en adelante')
 
+    evaluates_day_off = fields.Boolean('Evalúa festivos')
     apply_day_31 = fields.Boolean(string='Aplica día 31')
     discount_rest_day = fields.Boolean(string='Descontar día de descanso')
 
