@@ -19,6 +19,9 @@
                         string="Confirm Duplicate"
                         attrs="{'invisible': ['|',('confirm_order_duplicate','!=',True),('order_duplicate','!=',True)]}"/>
             </xpath>
+            <xpath expr="//group[@name='order_details']" position="inside">
+                <field name="sm_transaction_number" invisible="0"/>
+            </xpath>
         </field>
     </record>
 
