@@ -18,3 +18,5 @@ from . import res_config_settings
 from . import hr_contribution_form
 
 from . import res_company
+
+from . import hr_days_off

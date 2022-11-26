@@ -59,6 +59,8 @@
         'views/hr_contract/hr_equipment.xml',
         'views/hr_contract/resource_calendar.xml',
 
+        'views/hr_days_off/hr_days_off_year.xml',
+
         'views/res_partner.xml',
         'views/hr_employee.xml',
         'views/res_config_settings.xml',
