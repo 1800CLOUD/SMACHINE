@@ -10,6 +10,13 @@
                 <xpath expr="//group[@name='sale']/field[@name='user_id']" position="before">
                     <field name="sm_customer_type_id" options="{'no_create': True, 'no_create_edit': True}"/>
                 </xpath>
+                <xpath expr="//group[@name='sale']" position="inside">
+                    <field name="view_partner_discounts" invisible="1"/>
+                    <separator name="sale_discount" string="Discounts" attrs="{'invisible': [('view_partner_discounts','=',False)]}"/>
+                    <field name="discount_com" widget="percentage" attrs="{'invisible': [('view_partner_discounts','=',False)]}"/>
+                    <field name="discount_fin" widget="percentage" attrs="{'invisible': [('view_partner_discounts','=',False)]}"/>
+                    <field name="amount_min_fin" attrs="{'invisible': ['|', ('discount_fin','=',0.0), ('view_partner_discounts','=',False)]}"/>
+                </xpath>
             </field>
         </record>
     </data>

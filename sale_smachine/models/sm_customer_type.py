@@ -2,6 +2,7 @@
 
 from odoo import fields, models, _
 
+
 class SmCustomerType(models.Model):
     _name = 'sm.customer.type'
     _description = 'Customer type Strong Machine'
