@@ -138,6 +138,10 @@ class HRContract(models.Model):
         string='Limitar Deducciones al 50% de Devengos')
     workcenter = fields.Char(string='Centro de Trabajo')
 
+    # Horario
+    resource_calendar_id = fields.Many2one('resource.calendar', 'Horario laboral', required=True,
+                                           domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]")
+
     # Duración
 
     date_start = fields.Date('Fecha de inicio')
@@ -384,3 +388,8 @@ class HRContract(models.Model):
         wages_in_period = filter(
             lambda x: date_from <= x.date <= date_to, self.wage_history_ids)
         return len(list(wages_in_period)) >= 1
+
+    def is_working_day(self, date):
+        work_days = [int(x.dayofweek)
+                     for x in self.resource_calendar_id.attendance_ids]
+        return date.weekday() in work_days

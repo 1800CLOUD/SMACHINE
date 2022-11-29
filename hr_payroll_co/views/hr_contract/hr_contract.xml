@@ -62,6 +62,7 @@
                                         <field name="workcenter" />
                                     </group>
                                     <group string="Duración" name="duration_information">
+                                        <field name="resource_calendar_id" />
                                         <field name="date_start" />
                                         <field name="date_end" />
                                         <label for="trial_date_start" />

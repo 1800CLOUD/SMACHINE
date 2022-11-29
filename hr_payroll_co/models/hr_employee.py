@@ -47,8 +47,10 @@ class HrEmployee(models.Model):
     # Campo Obsoleto pero se sebe mantener esta definicion por el related
     user_partner_id = fields.Many2one(
         comodel_name='res.users', related='', related_sudo=False, string="User's partner")
+
     # Campo Obsoleto, se quita restriccion not null
     resource_id = fields.Many2one('resource.resource', required=False)
+    resource_calendar_id = fields.Many2one('resource.calendar', required=False)
 
     _sql_constraints = [
         ("partner_id_uniq", "unique (partner_id)",

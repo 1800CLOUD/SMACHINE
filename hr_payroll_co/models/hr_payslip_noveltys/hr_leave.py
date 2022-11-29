@@ -88,6 +88,22 @@ class HrLeave(models.Model):
             record._alter_holiday_book()
         return super(HrLeave, self).to_validated()
 
+    def to_paid(self):
+        for record in self:
+            paid = True
+            for leave_line in record.leave_line_ids:
+                paid &= leave_line.state == 'paid'
+            if paid:
+                record.state = 'paid'
+
+    def to_draft(self):
+        [record._clean_leave() for record in self]
+        return super(HrLeave, self).to_draft()
+
+    def to_cancel(self):
+        [record._clean_leave() for record in self]
+        return super(HrLeave, self).to_cancel()
+
     def _prepare_leave_line(self, periods):
         new_leave_line = []
         if not periods:
@@ -96,7 +112,6 @@ class HrLeave(models.Model):
         economic_variables = {
             'SMMLV': {},
         }
-        days_off = self.env['hr.days.off.year']
         self.env['economic.variable']._get_economic_variables(
             economic_variables, self.date_start.year)
         economic_variables['wage'] = self.contract_id.get_wage(
@@ -132,7 +147,7 @@ class HrLeave(models.Model):
                 if amount_real < smmlv_day and type_id.category_type != 'NO_PAY':
                     amount_real = smmlv_day
 
-                if not type_id.evaluates_day_off or not days_off.is_day_off(date_tmp):
+                if self._apply_leave_line(date_tmp):
                     new_leave_line.append((0, 0, {
                         'sequence': sequence,
                         'date': date_tmp,
@@ -147,21 +162,11 @@ class HrLeave(models.Model):
             date_tmp += timedelta(days=1)
         return new_leave_line
 
-    def to_paid(self):
-        for record in self:
-            paid = True
-            for leave_line in record.leave_line_ids:
-                paid &= leave_line.state == 'paid'
-            if paid:
-                record.state = 'paid'
-
-    def to_draft(self):
-        [record._clean_leave() for record in self]
-        return super(HrLeave, self).to_draft()
-
-    def to_cancel(self):
-        [record._clean_leave() for record in self]
-        return super(HrLeave, self).to_cancel()
+    def _apply_leave_line(self, date_tmp):
+        days_off = self.env['hr.days.off.year']
+        eval_days_off = self.leave_type_id.evaluates_day_off
+        is_day_off = eval_days_off and days_off.is_day_off(date_tmp)
+        return not is_day_off and self.contract_id.is_working_day(date_tmp)
 
     def _clean_leave(self):
         if self.state == 'validated':
