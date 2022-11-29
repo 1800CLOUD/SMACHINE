@@ -31,6 +31,7 @@
         'views/product_mark_views.xml',
         'views/product_pricelist_views.xml',
         'views/product_template_views.xml',
+        'views/purchase_order_views.xml',
         'views/templates.xml',
         'wizards/purchase_order_wizards.xml',
     ],
