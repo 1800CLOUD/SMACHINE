@@ -15,12 +15,14 @@
     'category': 'Inventory/Sale',
     'version': '15.0.0.0.2',
     'depends': [
-        'sale_baseline'
+        'sale_baseline',
+        'mrp'
     ],
     'data': [
         'security/ir.model.access.csv',
-        'views/sale_order_views.xml',
+        #'views/sale_order_views.xml',
         'views/sm_customer_type_views.xml',
+        'views/mrp_bom_view.xml',
         'views/res_partner_views.xml',
     ],
 }
