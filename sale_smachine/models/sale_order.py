@@ -48,7 +48,7 @@ class SaleOrder(models.Model):
                                 not any([id in product_ids
                                         for id in product_ln_ids]):
                             if len(partner.sale_order_ids.filtered(
-                                    lambda s: s.state == 'sale')) >= 1:
+                                    lambda s: s.state in ('sale', 'done'))) >= 3:
                                 discount += partner.discount_fin or 0.0
             sale.order_line.write({
                 'discount': discount*100
