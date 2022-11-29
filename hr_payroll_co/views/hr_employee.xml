@@ -7,6 +7,7 @@
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.view_employee_form" />
             <field name="arch" type="xml">
+                <field name="resource_calendar_id" position="replace" />
                 <xpath expr="//sheet/div/h1/field[@name='name']" position="replace">
                     <field name="partner_id" placeholder="Contacto" />
                 </xpath>
