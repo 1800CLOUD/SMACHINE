@@ -43,6 +43,8 @@ class HrEmployee(models.Model):
         tracking=True, help='Employee bank salary account')
     identification_id = fields.Char(
         string='Identification No', related='partner_id.vat', tracking=True)
+    contract_ids = fields.One2many(
+        comodel_name='hr.contract', inverse_name='employee_id', string='Contratos', readonly=True)
 
     # Campo Obsoleto pero se sebe mantener esta definicion por el related
     user_partner_id = fields.Many2one(

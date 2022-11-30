@@ -62,7 +62,7 @@ class HRContract(models.Model):
     _description = 'Contrato laboral del empleado'
     _order = 'name'
 
-    name = fields.Char(string='Contract Reference',
+    name = fields.Char(string='Contrato',
                        required=True, default='- NUEVO CONTRATO -')
     employee_id = fields.Many2one('hr.employee', string='Empleado')
     company_id = fields.Many2one('res.company', related='employee_id.company_id', store=True, readonly=False,
