@@ -26,6 +26,17 @@
                         <field name="street2" class="o_address_street" nolabel="1" placeholder="Complemento" />
                     </div>
                 </xpath>
+                <xpath expr="//notebook/page[@name='public']" position="after">
+                    <page name="contracts" string="Contratos">
+                        <field name="contract_ids">
+                            <tree>
+                                <field name="name" />
+                                <field name="date_start" />
+                                <field name="state" />
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
 
                 <xpath expr="//notebook/page[@name='personal_information']/group/group[5]" position="replace" />
                 <xpath expr="//notebook" position='inside'>
