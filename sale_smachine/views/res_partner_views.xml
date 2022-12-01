@@ -11,7 +11,7 @@
                     <field name="sm_customer_type_id" options="{'no_create': True, 'no_create_edit': True}"/>
                 </xpath>
                 <xpath expr="//group[@name='sale']" position="inside">
-                    <field name="view_partner_discounts" invisible="1"/>
+                    <field name="view_partner_discounts" invisible="0"/>
                     <separator name="sale_discount" string="Discounts" attrs="{'invisible': [('view_partner_discounts','=',False)]}"/>
                     <field name="discount_com" widget="percentage" attrs="{'invisible': [('view_partner_discounts','=',False)]}"/>
                     <field name="discount_fin" widget="percentage" attrs="{'invisible': [('view_partner_discounts','=',False)]}"/>
