@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-29 00:48+0000\n"
-"PO-Revision-Date: 2022-11-29 00:48+0000\n"
+"POT-Creation-Date: 2022-12-01 00:05+0000\n"
+"PO-Revision-Date: 2022-12-01 00:05+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -33,6 +33,11 @@ msgstr ""
 #. module: sale_smachine
 #: model:res.groups,comment:sale_smachine.group_edit_line_discount_sale
 msgid "Allows you to edit the line discount field in sale orders."
+msgstr ""
+
+#. module: sale_smachine
+#: model:ir.model,name:sale_smachine.model_mrp_bom
+msgid "Bill of Material"
 msgstr ""
 
 #. module: sale_smachine
@@ -89,6 +94,12 @@ msgid "Customer types"
 msgstr ""
 
 #. module: sale_smachine
+#: model:ir.model.fields,field_description:sale_smachine.field_mrp_bom__date_expiration
+#: model_terms:ir.ui.view,arch_db:sale_smachine.mrp_bom_form_view_inherit
+msgid "Date Expiration"
+msgstr ""
+
+#. module: sale_smachine
 #: model_terms:ir.ui.view,arch_db:sale_smachine.view_partner_form
 msgid "Discounts"
 msgstr ""
@@ -101,6 +112,18 @@ msgstr ""
 #. module: sale_smachine
 #: model:res.groups,name:sale_smachine.group_edit_line_discount_sale
 msgid "Edit line discount in sale orders"
+msgstr ""
+
+#. module: sale_smachine
+#: code:addons/sale_smachine/models/sale_order.py:0
+#, python-format
+msgid "El producto  supera la cantidad establecidad en el kit"
+msgstr ""
+
+#. module: sale_smachine
+#: code:addons/sale_smachine/models/sale_order.py:0
+#, python-format
+msgid "El producto  ya expiró"
 msgstr ""
 
 #. module: sale_smachine
@@ -167,6 +190,12 @@ msgid "Partner discount in sales"
 msgstr ""
 
 #. module: sale_smachine
+#: model:ir.model.fields,field_description:sale_smachine.field_mrp_bom__quantity_available
+#: model_terms:ir.ui.view,arch_db:sale_smachine.mrp_bom_form_view_inherit
+msgid "Quantity Available"
+msgstr ""
+
+#. module: sale_smachine
 #: model_terms:ir.actions.act_window,help:sale_smachine.sm_customer_type_action
 msgid "Register a customer type"
 msgstr ""
@@ -174,6 +203,11 @@ msgstr ""
 #. module: sale_smachine
 #: model:ir.model,name:sale_smachine.model_sale_order
 msgid "Sales Order"
+msgstr ""
+
+#. module: sale_smachine
+#: model:ir.model,name:sale_smachine.model_sale_order_line
+msgid "Sales Order Line"
 msgstr ""
 
 #. module: sale_smachine
