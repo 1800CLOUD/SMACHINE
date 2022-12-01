@@ -6,15 +6,17 @@
         <field name="inherit_id" ref="purchase.purchase_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
-                <field name="purchase_duplicate"/>
-                <field name="confirm_purchase_duplicate"/>
+                <field name="purchase_duplicate" invisible="True"/>
+                <field name="confirm_purchase_duplicate" invisible="True"/>
                 <button name="duplicate_purchase"
                         type="object"
+                        groups="purchase_smachine.group_duplicate_confirm_purchaser"
                         class="oe_highlight"
                         string="Duplicate Purchase Order"
                         attrs="{'invisible': ['|',('state','!=','draft'),('purchase_duplicate','!=',False)]}"/>
                 <button name="confirm_duplicate"
                         type="object"
+                        groups="purchase_smachine.group_duplicate_confirm_purchaser"
                         class="oe_highlight"
                         string="Confirm Duplicate"
                         attrs="{'invisible': ['|',('confirm_purchase_duplicate','!=',True),('purchase_duplicate','!=',True)]}"/>

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-25 19:30+0000\n"
-"PO-Revision-Date: 2022-10-25 19:30+0000\n"
+"POT-Creation-Date: 2022-11-30 23:55+0000\n"
+"PO-Revision-Date: 2022-11-30 23:55+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -53,6 +53,16 @@ msgid "Company"
 msgstr "Compañia"
 
 #. module: purchase_smachine
+#: model_terms:ir.ui.view,arch_db:purchase_smachine.inherit_purcharse_order_inherit_smachine
+msgid "Confirm Duplicate"
+msgstr "Confirmar Orden duplicada"
+
+#. module: purchase_smachine
+#: model:ir.model.fields,field_description:purchase_smachine.field_purchase_order__confirm_purchase_duplicate
+msgid "Confirm Purchase Duplicate"
+msgstr "Condirmar Orden duplicada"
+
+#. module: purchase_smachine
 #: model:ir.model.fields,field_description:purchase_smachine.field_product_category_sub__create_uid
 #: model:ir.model.fields,field_description:purchase_smachine.field_product_mark__create_uid
 #: model:ir.model.fields,field_description:purchase_smachine.field_product_mark_sub__create_uid
@@ -75,6 +85,16 @@ msgstr "Creado"
 #: model:ir.model.fields,field_description:purchase_smachine.field_purchase_order_report_wizard__display_name
 msgid "Display Name"
 msgstr "Nombre Público"
+
+#. module: purchase_smachine
+#: model:res.groups,name:purchase_smachine.group_duplicate_confirm_purchaser
+msgid "Duplicar y Confirmar Compras"
+msgstr ""
+
+#. module: purchase_smachine
+#: model_terms:ir.ui.view,arch_db:purchase_smachine.inherit_purcharse_order_inherit_smachine
+msgid "Duplicate Purchase Order"
+msgstr "Duplicar Orden de compra"
 
 #. module: purchase_smachine
 #: model_terms:ir.ui.view,arch_db:purchase_smachine.purchase_order_report_wizard_view_form
@@ -165,6 +185,16 @@ msgstr "Plantilla del Producto"
 #: model:ir.model.fields,field_description:purchase_smachine.field_purchase_order_report_wizard__products_ids
 msgid "Products"
 msgstr "Productos"
+
+#. module: purchase_smachine
+#: model:ir.model.fields,field_description:purchase_smachine.field_purchase_order__purchase_duplicate
+msgid "Purchase Duplicate"
+msgstr "Dupliar Orden de Compra"
+
+#. module: purchase_smachine
+#: model:ir.model,name:purchase_smachine.model_purchase_order
+msgid "Purchase Order"
+msgstr "Orden de Compra"
 
 #. module: purchase_smachine
 #: model:ir.model,name:purchase_smachine.model_report_purchase_smachine_report_purchase_order
