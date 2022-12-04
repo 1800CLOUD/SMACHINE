@@ -68,6 +68,16 @@ class HrPayslip(models.Model):
             'seq.hr.payslip') or ''
         return super(HrPayslip, self).create(vals)
 
+    def write(self, vals):
+        if 'error_log' not in vals:
+            vals['error_log'] = ''
+        if vals.get('mail_sended', False):
+            del vals['mail_sended']
+        if 'mail_sended_internal' in vals:
+            vals['mail_sended'] = vals['mail_sended_internal']
+            del vals['mail_sended_internal']
+        return super(HrPayslip, self).write(vals)
+
     def unlink(self):
         payslip_remove = [x.id for x in self if x.state == 'draft']
         orm.delete(self._cr, self.env.uid,
@@ -608,4 +618,4 @@ class HrPayslip(models.Model):
                 record.error_log = "Correo ya enviado"
             else:
                 mail_template.send_mail(record.id, force_send=True)
-                record.mail_sended = True
+                record.write({'mail_sended_internal': True})
