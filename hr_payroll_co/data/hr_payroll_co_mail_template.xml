@@ -10,13 +10,13 @@
             <field name="body_html" type="html">
                 <div style="margin: 0px; padding: 0px;">
                     <p style="margin: 0px; padding: 0px; font-size: 15px;">
-                        Estimado/a {{object.employee_id.partner_id.name}}.
+                        Estimado/a <strong t-out="object.employee_id.partner_id.name" />.
                         <br />
                         <br />
-                        Adjunto se envía su comprobante de nómina del periodo {{object.period_id.name}}
+                        Adjunto se envía su comprobante de nómina del periodo <strong t-out="object.period_id.name" />.
                         <br />
                         <br />
-                        Atentamente {{object.company_id.name}}
+                        Atentamente <strong t-out="object.company_id.name" />.
                     </p>
                 </div>
             </field>
