@@ -27,7 +27,7 @@
                                 <field name="liquidation_date" attrs="{'readonly': [('state','=','paid')]}" />
                                 <field name="period_id" attrs="{'readonly': [('state','=','paid')]}" />
                                 <field name="journal_id" attrs="{'readonly': [('state','=','paid')]}" />
-                                <field name="mail_sended" attrs="{'readonly': [('mail_sended','=', False)]}" />
+                                <field name="mail_sended" />
                             </group>
                             <group class="datos-empleado-vista-nomina">
                                 <field name="employee_id" attrs="{'readonly': [('state','=','paid')]}" />
@@ -75,7 +75,7 @@
                                     </tree>
                                 </field>
                             </page>
-                            <page name="page_error_log" string="Detalle de errores">
+                            <page name="page_error_log" string="Detalle de errores" attrs="{'invisible': [('error_log','=','')]}">
                                 <field name="error_log" />
                             </page>
                         </notebook>
