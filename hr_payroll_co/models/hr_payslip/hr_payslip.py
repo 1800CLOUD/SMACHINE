@@ -18,6 +18,8 @@ CATEGORIES_SEARCH = ['earnings', 'o_salarial_earnings', 'comp_earnings',
 CONCEPTS_SEARCH = ['PRIMA', 'PRIMA_LIQ', 'DED_PENS',
                    'DED_EPS', 'FOND_SOL', 'FOND_SUB', 'RTEFTE']
 
+MAIL_TEMPLATE = "hr_payroll_co.hr_payroll_co_mail_template"
+
 
 class HrPayslip(models.Model):
     _name = 'hr.payslip'
@@ -32,6 +34,7 @@ class HrPayslip(models.Model):
                                   compute='_compute_employee', inverse='_inverse_get_contract')
     liquidation_date = fields.Date(string='Fecha de Liquidación')
     accounting_date = fields.Date(string='Fecha de Contabilización')
+    mail_sended = fields.Boolean("Correo enviado", default=False)
     company_id = fields.Many2one(comodel_name='res.company', string='Compañia',
                                  default=lambda self: self.env.company)
     period_id = fields.Many2one(
@@ -588,3 +591,21 @@ class HrPayslip(models.Model):
     def create_error_log(self, message):
         self.error_log = f'{self.name}: {message}\n'
         return self.error_log
+
+    def send_mail(self):
+        len_self = len(self)
+        value_eval = int(len_self/10) if int(len_self/10) > 0 else 1
+        mail_template = self.env.ref(MAIL_TEMPLATE)
+        for i, record in enumerate(self):
+            if i % value_eval == 0:
+                message = f"Sendign mail from {record.name} {i+1}/{len_self}"
+                orm.log_message(message)
+            if record.state != 'paid':
+                raise ValidationError(
+                    "La nómina debe estar en estado <Pagada> para enviar el comprobante")
+
+            if record.mail_sended:
+                record.error_log = "Correo ya enviado"
+            else:
+                mail_template.send_mail(record.id, force_send=True)
+                record.mail_sended = True

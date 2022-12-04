@@ -12,6 +12,7 @@
                         <button name="compute_slip" string="Calcular" type="object" attrs="{'invisible':[('state','!=','draft')]}" />
                         <button name="to_paid" string="Causar" type="object" attrs="{'invisible':[('state','!=','draft')]}" />
                         <button name="to_draft" string="Pasar a borrador" type="object" attrs="{'invisible':[('state','!=','paid')]}" />
+                        <button name="send_mail" string="Enviar comprobante" type="object" class="oe_highlight" />
                         <field name="state" widget="statusbar" statusbar_visible="draft,paid" />
                     </header>
                     <sheet>
@@ -26,6 +27,7 @@
                                 <field name="liquidation_date" attrs="{'readonly': [('state','=','paid')]}" />
                                 <field name="period_id" attrs="{'readonly': [('state','=','paid')]}" />
                                 <field name="journal_id" attrs="{'readonly': [('state','=','paid')]}" />
+                                <field name="mail_sended" attrs="{'readonly': [('mail_sended','=', False)]}" />
                             </group>
                             <group class="datos-empleado-vista-nomina">
                                 <field name="employee_id" attrs="{'readonly': [('state','=','paid')]}" />

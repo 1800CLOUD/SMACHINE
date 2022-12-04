@@ -326,7 +326,9 @@
 							</span>
 							<span class="cuenta-bancaria-campo">
 								********
-								<span t-esc="o.employee_id.bank_account_id.acc_number[7:]" />
+								<!-- 
+									<span t-esc="o.employee_id.bank_account_id.acc_number[7:]" />
+								-->
 							</span>
 							<span class="total-devengos">
 								<t t-foreach="o.earnings_ids" t-as="dev">
