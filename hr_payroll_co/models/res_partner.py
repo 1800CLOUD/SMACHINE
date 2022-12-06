@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
-from odoo.exceptions import UserError, ValidationError
 
 EMPLOYEE_EMERGENCY_HELP = "Empleado al que este contacto le sirve para alguna emergencia"
 
