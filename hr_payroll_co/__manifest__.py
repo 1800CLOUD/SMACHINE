@@ -10,7 +10,7 @@
     'website': "",
 
     'category': 'Human Resources/Payroll',
-    'version': '1',
+    'version': '15.0.0.0.2',
     'license': 'LGPL-3',
 
     # any module necessary for this one to work correctly
@@ -30,7 +30,6 @@
         'data/hr_fiscal_subtype_data.xml',
         'data/hr_concept_data.xml',
         'data/economic_variables_data.xml',
-        'data/hr_payroll_co_mail_template.xml',
 
         'views/hr_payslip_noveltys/model_basic_payslip_novelty_type.xml',
         'views/hr_payslip_noveltys/model_basic_payslip_novelty.xml',
@@ -75,7 +74,8 @@
         'views/hr_contribution_form/hr_contribution_form_line.xml',
 
         'report/payroll_template_report.xml',
-        'report/payroll_report_config.xml'
+        'report/payroll_report_config.xml',
+        'data/hr_payroll_co_mail_template.xml',
     ],
 
     'assets': {
