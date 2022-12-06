@@ -11,7 +11,7 @@ class HrEmployee(models.Model):
     _inherit = 'hr.employee'
 
     partner_id = fields.Many2one(
-        comodel_name='res.partner', string='Contacto',
+        comodel_name='res.partner', string='Contacto', required=True,
         domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]")
 
     name = fields.Char(string="Nombre", related='partner_id.name',
