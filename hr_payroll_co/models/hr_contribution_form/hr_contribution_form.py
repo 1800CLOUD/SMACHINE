@@ -110,11 +110,11 @@ class HrContributionForm(models.Model):
         economic_variables = {'SMMLV': {}}
         model = 'ir.config_parameter'
         politics = {
-            'odone_hr.eps_rate_employee': float,
-            'odone_hr.eps_rate_employer': float,
-            'odone_hr.pen_rate_employee': float,
-            'odone_hr.pen_rate_employer': float,
-            'odone_hr.pay_ccf_mat_pat': bool,
+            'hr_payroll_co.eps_rate_employee': float,
+            'hr_payroll_co.eps_rate_employer': float,
+            'hr_payroll_co.pen_rate_employee': float,
+            'hr_payroll_co.pen_rate_employer': float,
+            'hr_payroll_co.pay_ccf_mat_pat': bool,
         }
         for param in politics:
             politics[param] = (politics[param])(
@@ -394,13 +394,13 @@ class HrContributionForm(models.Model):
             new_line['fsol'] = 0
             new_line['fsub'] = 0
         elif new_line['sln']:
-            new_line['pens_rate'] = data['odone_hr.pen_rate_employer']/100
+            new_line['pens_rate'] = data['hr_payroll_co.pen_rate_employer']/100
             new_line['fsol'] = 0
             new_line['fsub'] = 0
         else:
             hr_concept = self.env['hr.concept']
-            new_line['pens_rate'] = (data['odone_hr.pen_rate_employer'] +
-                                     data['odone_hr.pen_rate_employee'])/100
+            new_line['pens_rate'] = (data['hr_payroll_co.pen_rate_employer'] +
+                                     data['hr_payroll_co.pen_rate_employee'])/100
             new_line['fsol'] = hr_concept._compute_rate_fond_sol(
                 data['smmlv'], new_line['global_ibc']) * new_line['pens_ibc'] / 100
             new_line['fsub'] = hr_concept._compute_rate_fond_sub(
@@ -411,12 +411,12 @@ class HrContributionForm(models.Model):
             new_line['ap_vol_contributor']
 
         if new_line['global_ibc'] >= 10 * data['smmlv'] or data['int'] or data['apr']:
-            new_line['eps_rate'] = (data['odone_hr.eps_rate_employer'] +
-                                    data['odone_hr.eps_rate_employee'])/100
+            new_line['eps_rate'] = (data['hr_payroll_co.eps_rate_employer'] +
+                                    data['hr_payroll_co.eps_rate_employee'])/100
         elif new_line['sln']:
             new_line['eps_rate'] = 0
         else:
-            new_line['eps_rate'] = data['odone_hr.eps_rate_employee'] / 100
+            new_line['eps_rate'] = data['hr_payroll_co.eps_rate_employee'] / 100
         new_line['eps_cot'] = new_line['eps_rate'] * new_line['eps_ibc']
 
     def get_contribution_arl_para(self, lp, new_line, data):
@@ -434,7 +434,7 @@ class HrContributionForm(models.Model):
         new_line['arl_cot'] = new_line['arl_rate'] * new_line['arl_ibc']
 
         pay_ccf = new_line['main']
-        pay_ccf |= data['odone_hr.pay_ccf_mat_pat'] and new_line['lma']
+        pay_ccf |= data['hr_payroll_co.pay_ccf_mat_pat'] and new_line['lma']
         pay_ccf |= lp[1] == 'VAC'
         pay_ccf |= not new_line['main'] and (new_line['ret'] == 'X')
         pay_ccf &= not data['apr']
