@@ -22,8 +22,11 @@ class HrLeave(models.Model):
     date_end = fields.Date(string='Fecha Final', required=True)
     amount = fields.Float(string='Valor', readonly=True,
                           compute='_compute_amount', store=True)
+    # category_type = fields.Selection(
+    #     string='Tipo', selection=CATEGORY_TYPE,
+    #     readonly=True, related='leave_type_id.category_type')
     category_type = fields.Selection(
-        string='Tipo', selection=CATEGORY_TYPE,
+        string='Tipo',
         readonly=True, related='leave_type_id.category_type')
     days_vac_money = fields.Integer(string='Cantidad de días')
     number_order_eps = fields.Char(string='Número autorización')

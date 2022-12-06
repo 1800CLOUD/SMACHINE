@@ -23,8 +23,11 @@ class HrPayslipProcessing(models.Model):
     period_id = fields.Many2one(
         comodel_name='hr.period', string='Periodo',
         domain=[('active', '=', True)], required=True)
+    # type_period = fields.Selection(
+    #     string='Tipo de periodo', selection=TYPE_PERIOD,
+    #     readonly=True, related='period_id.type_period')
     type_period = fields.Selection(
-        string='Tipo de periodo', selection=TYPE_PERIOD,
+        string='Tipo de periodo',
         readonly=True, related='period_id.type_period')
     liquidation_date = fields.Date(
         string='Fecha de Liquidación', required=True)

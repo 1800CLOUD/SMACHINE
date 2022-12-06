@@ -79,7 +79,8 @@ class HrContributionFormLine(models.Model):
     ups = fields.Float(string='Total UPS')
     aus_auth = fields.Char(string='Número de autorización')
     gd_amount = fields.Float(string='Valor de la incapacidad')
-    mat_auth = fields.Char(string='Número de autorización')
+    # mat_auth = fields.Char(string='Número de autorización')
+    mat_auth = fields.Char(string='Núm de autorización')
     mat_amount = fields.Float(string='Valor de la licencia')
 
     # ARL Y PARAFISCALES

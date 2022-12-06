@@ -41,7 +41,8 @@ class HrContributionForm(models.Model):
                                  default=lambda self: self.env.company)
     error_log = fields.Text(string='Errores', readonly=True)
     file_pila = fields.Binary(string='Archivo plano', readonly=True)
-    file_name = fields.Char(string='Nombre', default='PILA.txt', readonly=True)
+    # file_name = fields.Char(string='Nombre', default='PILA.txt', readonly=True)
+    file_name = fields.Char(string='Nombre archivo', default='PILA.txt', readonly=True)
     branch_code = fields.Char(string='Código de sucursal')
     journal_id = fields.Many2one(
         comodel_name='account.journal', string='Diario', required=True)

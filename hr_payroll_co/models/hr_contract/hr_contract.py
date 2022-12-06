@@ -89,7 +89,9 @@ class HRContract(models.Model):
         string='Tipo de Contrato', comodel_name='hr.contract.type',
         tracking=True)
     job_id = fields.Many2one(string='Título del Cargo', comodel_name='hr.job')
-    term = fields.Selection(CONTRACT_TERM, 'Termino',
+    # term = fields.Selection(CONTRACT_TERM, 'Termino',
+    #                         related="contract_type_id.term", store=True)
+    term = fields.Selection(string='Termino',
                             related="contract_type_id.term", store=True)
     eps_id = fields.Many2one(
         string='EPS', comodel_name='res.partner', domain="[('eps','=','True')]")
