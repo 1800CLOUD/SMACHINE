@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
 # resolucion 2388 de 2016
 from odoo import api, fields, models
-from odoo.exceptions import UserError, ValidationError
+from odoo.exceptions import ValidationError
 from odoo.addons.utilities_collection import orm
 from odoo.addons.utilities_collection import string
 from odoo.addons.utilities_collection import number
 from dateutil.relativedelta import relativedelta
-from datetime import datetime
 from calendar import monthrange
-import base64
-import unicodedata
 
 STATE = [
     ('draft', 'Borrador'),
@@ -41,8 +38,8 @@ class HrContributionForm(models.Model):
                                  default=lambda self: self.env.company)
     error_log = fields.Text(string='Errores', readonly=True)
     file_pila = fields.Binary(string='Archivo plano', readonly=True)
-    # file_name = fields.Char(string='Nombre', default='PILA.txt', readonly=True)
-    file_name = fields.Char(string='Nombre archivo', default='PILA.txt', readonly=True)
+    file_name = fields.Char(string='Nombre archivo',
+                            default='PILA.txt', readonly=True)
     branch_code = fields.Char(string='Código de sucursal')
     journal_id = fields.Many2one(
         comodel_name='account.journal', string='Diario', required=True)
@@ -608,30 +605,30 @@ class HrContributionForm(models.Model):
             bl[10] = string.prep_field(
                 l.contract_id.work_city_id.zipcode, size=3)
             # 11: Primer apellido
-            if employee.partner_id.x_lastname1:
+            if employee.partner_id.lastname1:
                 pap = string.remove_accents(
-                    employee.partner_id.x_lastname1.upper()).decode("utf-8").replace(".", "")
+                    employee.partner_id.lastname1.upper()).decode("utf-8").replace(".", "")
                 bl[11] = string.prep_field(pap, size=20)
             else:
                 bl[11] = string.prep_field(' ', size=20)
             # 12: Segundo apellido
-            if employee.partner_id.x_lastname2:
+            if employee.partner_id.lastname2:
                 sap = string.remove_accents(
-                    employee.partner_id.x_lastname2.upper()).decode("utf-8").replace(".", "")
+                    employee.partner_id.lastname12.upper()).decode("utf-8").replace(".", "")
                 bl[12] = string.prep_field(sap, size=30)
             else:
                 bl[12] = string.prep_field(' ', size=30)
             # 13: Primer nombre
-            if employee.partner_id.x_name1:
+            if employee.partner_id.name1:
                 pno = string.remove_accents(
-                    employee.partner_id.x_name1.upper()).decode("utf-8").replace(".", "")
+                    employee.partner_id.name1.upper()).decode("utf-8").replace(".", "")
                 bl[13] = string.prep_field(pno, size=20)
             else:
                 bl[13] = string.prep_field(' ', size=20)
             # 14: Segundo nombre
-            if employee.partner_id.x_name2:
+            if employee.partner_id.name2:
                 sno = string.remove_accents(
-                    employee.partner_id.x_name2.upper()).decode("utf-8").replace(".", "")
+                    employee.partner_id.name2.upper()).decode("utf-8").replace(".", "")
                 bl[14] = string.prep_field(sno, size=30)
             else:
                 bl[14] = string.prep_field(' ', size=30)
