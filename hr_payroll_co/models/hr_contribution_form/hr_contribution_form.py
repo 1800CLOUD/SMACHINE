@@ -614,7 +614,7 @@ class HrContributionForm(models.Model):
             # 12: Segundo apellido
             if employee.partner_id.lastname2:
                 sap = string.remove_accents(
-                    employee.partner_id.lastname12.upper()).decode("utf-8").replace(".", "")
+                    employee.partner_id.lastname2.upper()).decode("utf-8").replace(".", "")
                 bl[12] = string.prep_field(sap, size=30)
             else:
                 bl[12] = string.prep_field(' ', size=30)
