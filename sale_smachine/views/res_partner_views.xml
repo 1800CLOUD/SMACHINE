@@ -8,6 +8,7 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='sale']/field[@name='user_id']" position="before">
+                    <field name="is_commercial_group" />
                     <field name="sm_customer_type_id" options="{'no_create': True, 'no_create_edit': True}"/>
                 </xpath>
                 <xpath expr="//group[@name='sale']" position="inside">

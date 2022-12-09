@@ -9,9 +9,12 @@
         - Tipo de cliente en contactos.
         - Descuento comerciar y financiero del tercero en ventas (política).
         - Imagen de producto en formato de cotización de venta.
+        - Bloqueo de clientes por cupo compartido grupo comercial.
     """,
     'author': "1-800CLOUD",
-    'contributors': ["Bernardo D. Lara Guevara <bernardo.lara@1-800cloud.com>"],
+    'contributors': [
+        "Bernardo D. Lara Guevara <bernardo.lara@1-800cloud.com>"
+    ],
     'website': "https://1-800cloud.com/",
     'license': 'OPL-1',
     'category': 'Inventory/Sale',

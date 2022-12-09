@@ -29,6 +29,7 @@ class ResPartner(models.Model):
         compute='_compute_view_partner_discounts',
         default=_default_view_partner_discount
     )
+    is_commercial_group = fields.Boolean('Commercial group')
 
     def _compute_view_partner_discounts(self):
         for record in self:
@@ -37,7 +38,7 @@ class ResPartner(models.Model):
                 record.view_partner_discounts = True
             else:
                 record.view_partner_discounts = False
-    
+
     # def default_get(self, fields):
     #     result = super().default_get(fields)
     #     # self._compute_view_partner_discounts()
@@ -45,9 +46,9 @@ class ResPartner(models.Model):
     #     company = self.env.company
     #     if company.calculate_partner_discount:
     #         result['view_partner_discounts'] = True
-        
+
     #     return result
-    
+
     # def init(self):
     #     print('antes')
     #     res = super(ResPartner, self).init()

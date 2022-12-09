@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-01 00:01+0000\n"
-"PO-Revision-Date: 2022-12-01 00:01+0000\n"
+"POT-Creation-Date: 2022-12-09 14:42+0000\n"
+"PO-Revision-Date: 2022-12-09 14:42+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -40,9 +40,24 @@ msgid "Allows you to edit the line discount field in sale orders."
 msgstr "Permite editar el descuento en las lineas de los pedidos de venta."
 
 #. module: sale_smachine
+#: model:ir.model.fields,field_description:sale_smachine.field_sale_order__portfolio_approved
+msgid "Aprobado por cartera"
+msgstr ""
+
+#. module: sale_smachine
 #: model:ir.model,name:sale_smachine.model_mrp_bom
 msgid "Bill of Material"
 msgstr "Lista de Materiales"
+
+#. module: sale_smachine
+#: model_terms:ir.ui.view,arch_db:sale_smachine.sale_order_view_search
+msgid "Blocked by commercial group"
+msgstr "Bloqueado por grupo comercial"
+
+#. module: sale_smachine
+#: model:ir.model.fields,field_description:sale_smachine.field_sale_order__is_commercial_group
+msgid "Bloqueado por grupo comercial"
+msgstr ""
 
 #. module: sale_smachine
 #: model:ir.model.fields,field_description:sale_smachine.field_sm_customer_type__code
@@ -54,6 +69,12 @@ msgstr "Código"
 #: model:ir.model.fields,field_description:sale_smachine.field_res_users__discount_com
 msgid "Commercial discount"
 msgstr "Descuento comercial"
+
+#. module: sale_smachine
+#: model:ir.model.fields,field_description:sale_smachine.field_res_partner__is_commercial_group
+#: model:ir.model.fields,field_description:sale_smachine.field_res_users__is_commercial_group
+msgid "Commercial group"
+msgstr "Grupo comercial"
 
 #. module: sale_smachine
 #: model:ir.model,name:sale_smachine.model_res_company
@@ -121,13 +142,20 @@ msgstr "Editar descuento en lineas del pedido de venta"
 #. module: sale_smachine
 #: code:addons/sale_smachine/models/sale_order.py:0
 #, python-format
-msgid "El producto  supera la cantidad establecidad en el kit"
-msgstr "El producto  supera la cantidad establecida en el kit"
+msgid ""
+"El cliente %s está bloqueado por grupo comercial.\n"
+"Este pedido debe ser aprobado por cartera antes de confirmalo."
+msgstr ""
 
 #. module: sale_smachine
 #: code:addons/sale_smachine/models/sale_order.py:0
 #, python-format
 msgid "El producto  ya expiró"
+
+#. module: sale_smachine
+#: code:addons/sale_smachine/models/sale_order.py:0
+#, python-format
+msgid "El producto %s ya expiró"
 msgstr ""
 
 #. module: sale_smachine
