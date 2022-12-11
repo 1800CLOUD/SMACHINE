@@ -30,7 +30,6 @@
         'data/hr_fiscal_subtype_data.xml',
         'data/hr_concept_data.xml',
         'data/economic_variables_data.xml',
-        'data/hr_payroll_co_mail_template.xml',
 
         'views/hr_payslip_noveltys/model_basic_payslip_novelty_type.xml',
         'views/hr_payslip_noveltys/model_basic_payslip_novelty.xml',
@@ -76,6 +75,7 @@
 
         'report/payroll_template_report.xml',
         'report/payroll_report_config.xml',
+        'report/mail_templates/hr_payroll_co_mail_template.xml',
     ],
 
     'assets': {
