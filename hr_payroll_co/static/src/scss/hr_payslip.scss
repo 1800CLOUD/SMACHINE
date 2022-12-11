@@ -1,0 +1,165 @@
+.detalle-nomina .alert-success,
+.detalle-nomina .alert-danger,
+.alert-warning,
+.alert-primary {
+  background-color: white;
+  border-color: white;
+}
+
+.detalle-nomina .tiulo-detalle-nomina {
+  font-size: 20px;
+}
+
+.detalle-nomina .titulo-devengos,
+.detalle-nomina .titulo-neto {
+  color: #113377;
+}
+
+.detalle-nomina .titulo-devengos:before {
+  content: "";
+  padding: 15px;
+  background: url("/hr_payroll_co/static/src/img/earnings.jpg") center center
+    no-repeat;
+  background-size: contain;
+}
+
+.detalle-nomina .titulo-deducciones {
+  color: #de4f35;
+}
+
+.detalle-nomina .titulo-deducciones:before {
+  content: "";
+  padding: 15px;
+  background: url("/hr_payroll_co/static/src/img/deductions.jpg") center center
+    no-repeat;
+  background-size: contain;
+  margin-right: 10px;
+}
+
+.detalle-nomina .titulo-provisiones {
+  color: #e6c84e;
+}
+
+.detalle-nomina .titulo-provisiones:before {
+  content: "";
+  padding: 15px;
+  background: url("/hr_payroll_co/static/src/img/provisions.jpg") center center
+    no-repeat;
+  background-size: contain;
+  margin-right: 10px;
+}
+
+.detalle-nomina .titulo-neto:before {
+  content: "";
+  padding: 19px;
+  background: url("/hr_payroll_co/static/src/img/outcome.jpg") center center
+    no-repeat;
+  background-size: contain;
+  margin-right: 4px;
+}
+
+.detalle-nomina .panel-body {
+  border: none;
+}
+
+.detalle-nomina .panel-body > span {
+  background-color: #f5f6f8;
+  padding: 5px;
+  min-height: 53px;
+  border: 2px solid white;
+  display: flex;
+}
+
+.detalle-nomina .panel-body > span {
+  display: flex;
+  text-align: center;
+}
+
+.detalle-nomina .panel-body > span > span {
+  margin: auto;
+}
+
+.detalle-nomina .devengos-contenedor .panel-body > span:first-child,
+.detalle-nomina .neto-contenedor .panel-body > span:first-child {
+  border: none;
+  border-left: 3px solid #113377;
+  border-right: 2px solid white;
+}
+
+.detalle-nomina .deducciones-contenedor .panel-body > span:first-child {
+  border: none;
+  border-left: 3px solid #de4f35;
+  border-right: 2px solid white;
+}
+
+.detalle-nomina .provisiones-contenedor .panel-body > span:first-child {
+  border: none;
+  border-left: 3px solid #e6c84e;
+  border-right: 2px solid white;
+}
+
+.contenedor-nomina-vista-formulario .o_notebook_headers .nav-tabs {
+  border-bottom: 3px solid #d6dfed;
+}
+
+.contenedor-nomina-vista-formulario .nav-tabs .nav-link.active,
+.contenedor-nomina-vista-formulario .nav-tabs .nav-link:hover,
+.contenedor-nomina-vista-formulario .nav-tabs .nav-link:focus {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.contenedor-nomina-vista-formulario .nav-link.active {
+  border-bottom: 3px solid #113377;
+  border-radius: 0px;
+  margin-bottom: -2px;
+}
+
+.contenedor-nomina-vista-formulario thead {
+  border: none;
+  background-color: none;
+}
+
+.contenedor-nomina-vista-formulario
+  .o_list_view
+  .table-responsive
+  .o_list_table
+  thead
+  tr:nth-child(1)
+  th {
+  text-align: center;
+  background-color: white;
+  border: none;
+}
+
+.contenedor-nomina-vista-formulario
+  .o_list_view
+  .o_list_table
+  tbody
+  > tr
+  > td:not(.o_list_record_selector):not(.o_handle_cell):not(.o_list_button) {
+  border: none;
+  text-align: center;
+  padding: 10px;
+  background-color: #f5f6f8;
+  border: 2px solid white;
+}
+
+.datos-empleado-vista-nomina td {
+  padding: 11px !important;
+  border: none;
+  vertical-align: middle !important;
+}
+
+.datos-empleado-vista-nomina td:nth-child(2n) {
+  background-color: #f5f6f8;
+}
+
+.datos-empleado-vista-nomina .o_td_label {
+  border-right: 3px solid #113377 !important;
+}
+
+.datos-empleado-vista-nomina tr {
+  border: 5px solid white;
+}

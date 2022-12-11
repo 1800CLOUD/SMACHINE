@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <function model="ir.module.module" name="hook_to_upgrade" />
+
+        <menuitem id="hr_payroll_co_menu_root" name="Recursos Humanos" sequence="1" groups="manager_payslip,user_payslip" />
+
+        <menuitem id="payslip_menu_categ" name="Nómina" parent="hr_payroll_co_menu_root" sequence="4" />
+
+        <menuitem id="contribution_menu_categ" name="Autoliquidación" parent="hr_payroll_co_menu_root" sequence="5" />
+
+        <menuitem id="novelty_menu_categ" name="Novedades de nómina" parent="hr_payroll_co_menu_root" sequence="6" />
+
+        <menuitem id="setup_novelty_menu_categ" name="Novedades de nómina" parent="hr.menu_human_resources_configuration" sequence="1" />
+
+        <menuitem id="hr_period_menu_categ" name="Periodos de nómina" parent="hr.menu_human_resources_configuration" sequence="1" />
+
+        <menuitem id="setup_payslip_menu_categ" name="Nómina" parent="hr.menu_human_resources_configuration" sequence="1" />
+
+        <menuitem id="hr_contract_menu_categ" name="Contratos" parent="hr.menu_human_resources_configuration" sequence="3" />
+
+        <record id="res_city_action" model="ir.actions.act_window">
+            <field name="name">Ciudades-Municipios</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.city</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_country_city_partner" name="Ciudades-Municipios" parent="contacts.menu_localisation" action="res_city_action" sequence="3" />
+
+        <record id="contacts.menu_country_group" model="ir.ui.menu">
+            <field name="sequence">4</field>
+        </record>
+
+        <record id="hr_contract_view_search" model="ir.ui.view">
+            <field name="name">hr.contract.search</field>
+            <field name="model">hr.contract</field>
+            <field name="arch" type="xml">
+                <search string="Search Contract">
+                    <field name="name" string="Contract" />
+                    <field name="date_start" />
+                    <field name="date_end" />
+                    <field name="employee_id" />
+                    <field name="job_id" />
+                    <filter string="Running" name="running" domain="[('state', '=', 'open')]" />
+                    <filter string="Not Running" name="not_running" domain="[('state', '!=', 'open')]" />
+                    <separator />
+                    <filter string="Employed" name="current_employee" domain="[('employee_id.active', '=', True)]" />
+                    <separator />
+                    <filter string="Late Activities" name="activities_overdue" domain="[('my_activity_date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]" help="Show all records which have a next action date before today" />
+                    <filter string="Today Activities" name="activities_today" domain="[('my_activity_date_deadline', '=', context_today().strftime('%Y-%m-%d'))]" />
+                    <filter string="Future Activities" name="activities_upcoming_all" domain="[('my_activity_date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))]" />
+                    <group expand="0" string="Group By">
+                        <filter string="Status" name="group_by_state" domain="[]" context="{'group_by': 'state'}" />
+                        <filter string="Employee" name="group_by_employee" domain="[]" context="{'group_by': 'employee_id'}" />
+                        <filter string="Start Date" name="group_by_date_start" domain="[]" context="{'group_by': 'date_start'}" />
+                        <filter string="Job Position" name="group_by_job" domain="[]" context="{'group_by': 'job_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_hr_contract" model="ir.actions.act_window">
+            <field name="name">Contratos</field>
+            <field name="res_model">hr.contract</field>
+            <field name="view_mode">tree,form,activity,kanban</field>
+            <field name="domain">[('employee_id', '!=', False)]</field>
+            <field name="context">{'search_default_group_by_state': 1}</field>
+            <field name="search_view_id" ref="hr_contract_view_search" />
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                Crear nuevo contrato
+              </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

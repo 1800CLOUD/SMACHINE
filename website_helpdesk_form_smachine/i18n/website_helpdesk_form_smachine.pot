@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-10 15:22+0000\n"
-"PO-Revision-Date: 2022-10-10 15:22+0000\n"
+"POT-Creation-Date: 2022-11-17 18:03+0000\n"
+"PO-Revision-Date: 2022-11-17 18:03+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,13 +17,16 @@ msgstr ""
 
 #. module: website_helpdesk_form_smachine
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
+msgid "<span class=\"s_website_form_label_content\">Adjunto(s)</span>"
+msgstr ""
+
+#. module: website_helpdesk_form_smachine
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_3
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.ticket_submit_form
 msgid "<span class=\"s_website_form_label_content\">Attachment(s)</span>"
 msgstr ""
 
 #. module: website_helpdesk_form_smachine
-#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_3
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.ticket_submit_form
 msgid ""
@@ -33,6 +36,33 @@ msgstr ""
 
 #. module: website_helpdesk_form_smachine
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
+msgid ""
+"<span class=\"s_website_form_label_content\">Ciudad origen</span>\n"
+"                                            <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+
+#. module: website_helpdesk_form_smachine
+#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
+msgid ""
+"<span class=\"s_website_form_label_content\">Ciudad</span>\n"
+"                                                <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+
+#. module: website_helpdesk_form_smachine
+#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
+msgid ""
+"<span class=\"s_website_form_label_content\">Cliente o distribuidor</span>\n"
+"                                            <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+
+#. module: website_helpdesk_form_smachine
+#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
+msgid ""
+"<span class=\"s_website_form_label_content\">Correo electrónico</span>\n"
+"                                            <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+
+#. module: website_helpdesk_form_smachine
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_3
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.ticket_submit_form
 msgid ""
@@ -41,16 +71,20 @@ msgid ""
 msgstr ""
 
 #. module: website_helpdesk_form_smachine
-#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
-#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_3
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.ticket_submit_form
+msgid ""
+"<span class=\"s_website_form_label_content\">Customer Type</span>\n"
+"                                            <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+
+#. module: website_helpdesk_form_smachine
+#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_3
 msgid ""
 "<span class=\"s_website_form_label_content\">Customer or Dealer</span>\n"
 "                                            <span class=\"s_website_form_mark\"> *</span>"
 msgstr ""
 
 #. module: website_helpdesk_form_smachine
-#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_3
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.ticket_submit_form
 msgid "<span class=\"s_website_form_label_content\">Damage Type</span>"
@@ -58,6 +92,12 @@ msgstr ""
 
 #. module: website_helpdesk_form_smachine
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
+msgid ""
+"<span class=\"s_website_form_label_content\">Departamento</span>\n"
+"                                            <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+
+#. module: website_helpdesk_form_smachine
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_3
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.ticket_submit_form
 msgid ""
@@ -67,13 +107,16 @@ msgstr ""
 
 #. module: website_helpdesk_form_smachine
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
+msgid "<span class=\"s_website_form_label_content\">Descripción</span>"
+msgstr ""
+
+#. module: website_helpdesk_form_smachine
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_3
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.ticket_submit_form
 msgid "<span class=\"s_website_form_label_content\">Description</span>"
 msgstr ""
 
 #. module: website_helpdesk_form_smachine
-#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_3
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.ticket_submit_form
 msgid ""
@@ -82,7 +125,6 @@ msgid ""
 msgstr ""
 
 #. module: website_helpdesk_form_smachine
-#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_3
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.ticket_submit_form
 msgid ""
@@ -92,6 +134,10 @@ msgstr ""
 
 #. module: website_helpdesk_form_smachine
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
+msgid "<span class=\"s_website_form_label_content\">Equipo</span>"
+msgstr ""
+
+#. module: website_helpdesk_form_smachine
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_3
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.ticket_submit_form
 msgid "<span class=\"s_website_form_label_content\">Invoice Number</span>"
@@ -107,7 +153,6 @@ msgid ""
 msgstr ""
 
 #. module: website_helpdesk_form_smachine
-#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_3
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.ticket_submit_form
 msgid ""
@@ -117,6 +162,32 @@ msgstr ""
 
 #. module: website_helpdesk_form_smachine
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
+msgid ""
+"<span class=\"s_website_form_label_content\">Nombre o razón social</span>\n"
+"                                            <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+
+#. module: website_helpdesk_form_smachine
+#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
+msgid ""
+"<span class=\"s_website_form_label_content\">Número de documento</span>\n"
+"                                            <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+
+#. module: website_helpdesk_form_smachine
+#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
+msgid "<span class=\"s_website_form_label_content\">Número de factura</span>"
+msgstr ""
+
+#. module: website_helpdesk_form_smachine
+#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
+#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.ticket_submit_form
+msgid ""
+"<span class=\"s_website_form_label_content\">Observations</span>\n"
+"                                            <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+
+#. module: website_helpdesk_form_smachine
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_3
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.ticket_submit_form
 msgid ""
@@ -126,6 +197,12 @@ msgstr ""
 
 #. module: website_helpdesk_form_smachine
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
+msgid ""
+"<span class=\"s_website_form_label_content\">País</span>\n"
+"                                            <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+
+#. module: website_helpdesk_form_smachine
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_3
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.ticket_submit_form
 msgid "<span class=\"s_website_form_label_content\">Product</span>"
@@ -133,6 +210,10 @@ msgstr ""
 
 #. module: website_helpdesk_form_smachine
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
+msgid "<span class=\"s_website_form_label_content\">Producto</span>"
+msgstr ""
+
+#. module: website_helpdesk_form_smachine
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_3
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.ticket_submit_form
 msgid "<span class=\"s_website_form_label_content\">Re-entry</span>"
@@ -140,22 +221,38 @@ msgstr ""
 
 #. module: website_helpdesk_form_smachine
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
-#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_3
+msgid "<span class=\"s_website_form_label_content\">Reingreso</span>"
+msgstr ""
+
+#. module: website_helpdesk_form_smachine
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.ticket_submit_form
+msgid ""
+"<span class=\"s_website_form_label_content\">Reporting Email</span>\n"
+"                                            <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+
+#. module: website_helpdesk_form_smachine
+#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
+#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.ticket_submit_form
+msgid ""
+"<span class=\"s_website_form_label_content\">Shipping Address</span>\n"
+"                                            <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+
+#. module: website_helpdesk_form_smachine
+#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_3
 msgid ""
 "<span class=\"s_website_form_label_content\">Subject</span>\n"
 "                                            <span class=\"s_website_form_mark\"> *</span>"
 msgstr ""
 
 #. module: website_helpdesk_form_smachine
-#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_3
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.ticket_submit_form
 msgid "<span class=\"s_website_form_label_content\">Team</span>"
 msgstr ""
 
 #. module: website_helpdesk_form_smachine
-#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_3
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.ticket_submit_form
 msgid "<span class=\"s_website_form_label_content\">Technician</span>"
@@ -170,11 +267,43 @@ msgstr ""
 
 #. module: website_helpdesk_form_smachine
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
+msgid "<span class=\"s_website_form_label_content\">Tipo de daño</span>"
+msgstr ""
+
+#. module: website_helpdesk_form_smachine
+#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
+msgid ""
+"<span class=\"s_website_form_label_content\">Tipo de documento</span>\n"
+"                                            <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+
+#. module: website_helpdesk_form_smachine
+#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
+msgid "<span class=\"s_website_form_label_content\">Técnico</span>"
+msgstr ""
+
+#. module: website_helpdesk_form_smachine
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_3
-#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.ticket_submit_form
 msgid ""
 "<span class=\"s_website_form_label_content\">Your Email</span>\n"
 "                                            <span class=\"s_website_form_mark\"> *</span>"
+msgstr ""
+
+#. module: website_helpdesk_form_smachine
+#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
+#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.ticket_submit_form
+msgid "Customer"
+msgstr ""
+
+#. module: website_helpdesk_form_smachine
+#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
+#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.ticket_submit_form
+msgid "Dealer"
+msgstr ""
+
+#. module: website_helpdesk_form_smachine
+#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
+msgid "Enviar"
 msgstr ""
 
 #. module: website_helpdesk_form_smachine
@@ -183,15 +312,18 @@ msgid "Helpdesk Team"
 msgstr ""
 
 #. module: website_helpdesk_form_smachine
-#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_3
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.ticket_submit_form
 msgid "Submit"
 msgstr ""
 
 #. module: website_helpdesk_form_smachine
-#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_3
-#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.ticket_submit_form
 msgid "Submit a Ticket Pruebita"
+msgstr ""
+
+#. module: website_helpdesk_form_smachine
+#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.team_form_2
+#: model_terms:ir.ui.view,arch_db:website_helpdesk_form_smachine.ticket_submit_form
+msgid "Warranty shipping"
 msgstr ""

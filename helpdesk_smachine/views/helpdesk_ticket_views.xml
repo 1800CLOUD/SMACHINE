@@ -13,6 +13,7 @@
                         <field name="o_country_id" options="{'no_create': True, 'no_create_edit': True}"/>
                         <field name="o_state_id" options="{'no_create': True, 'no_create_edit': True}"/>
                         <field name="o_city_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                        <field name="o_shipping_address"/>
                         <field name="damage_type_id" options="{'no_create': True, 'no_create_edit': True}"/>
                         <field name="invoice_number"/>
                         <field name="technician_id" options="{'no_create': True, 'no_create_edit': True}"/>
