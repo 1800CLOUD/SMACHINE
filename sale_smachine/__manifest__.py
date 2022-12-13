@@ -11,6 +11,7 @@
         - Imagen de producto en formato de cotización de venta.
         - Bloqueo de clientes por cupo compartido grupo comercial.
         - Referencia de producto en tirilla pos.
+        - Dirección de entrega, ciudad destino y canal de venta desde pedido de venta a orden de entrega.
     """,
     'author': "1-800CLOUD",
     'contributors': [
@@ -19,7 +20,7 @@
     'website': "https://1-800cloud.com/",
     'license': 'OPL-1',
     'category': 'Inventory/Sale',
-    'version': '15.0.0.0.8',
+    'version': '15.0.0.0.9',
     'depends': [
         'sale_baseline',
         'account_voucher',
@@ -35,6 +36,7 @@
         'views/res_partner_views.xml',
         'views/res_config_settings_views.xml',
         'views/sale_order_templates.xml',
+        'views/stock_picking_views.xml',
     ],
     'assets': {
         'web.assets_qweb': [

@@ -1,0 +1,26 @@
+# -*- coding: utf-8 -*-
+
+from odoo import api, fields, models, _
+
+
+class StockPicking(models.Model):
+    _inherit = 'stock.picking'
+
+    destination_city_id = fields.Many2one('res.city', 'Ciudad destino')
+    source_id = fields.Many2one('utm.source', 'Canal de venta')
+
+    @api.model
+    def create(self, vals):
+        res = super(StockPicking, self).create(vals)
+        if res.origin:
+            sale_id = self.env['sale.order'].search(
+                [('name', '=', res.origin)],
+                limit=1
+            )
+            if sale_id:
+                res.write({
+                    'destination_city_id': sale_id.destination_city_id and
+                    sale_id.destination_city_id.id,
+                    'source_id': sale_id.source_id and sale_id.source_id.id
+                })
+        return res
