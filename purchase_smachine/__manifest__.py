@@ -1,29 +1,25 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Purchase SMachine",
-
-    'summary': "Purchase orders, tenders and agreements",
-
-    'description': "Purchase orders, tenders and agreements",
-
-    'author': "1-800sap",
-    'contributors': ["Juan Arcos juanparmer@gmail.com"],
-    'website': "https://1-800sap.com/",
-
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/15.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
+    'name': 'Purchase SMachine',
+    'summary': '''
+        Purchase orders, tenders and agreements
+    ''',
+    'description': '''
+        - ..
+    ''',
+    'author': '1-800CLOUD',
+    'contributors': [
+        'Juan Arcos juanparmer@gmail.com'
+    ],
+    'website': 'https://1-800cloud.com/',
     'category': 'Inventory/Purchase',
-    'version': '15.1',
-
-    # any module necessary for this one to work correctly
+    'license': 'LGPL-3',
+    'version': '15.0.0.0.2',
     'depends': [
         # 'date_range',
         # 'report_xlsx',
         'purchase_import'
     ],
-
-    # always loaded
     'data': [
         'security/ir.model.access.csv',
         'data/res_groups_data.xml',
@@ -36,10 +32,4 @@
         'views/templates.xml',
         'wizards/purchase_order_wizards.xml',
     ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
-    ],
-    # license
-    'license': 'LGPL-3',
 }
