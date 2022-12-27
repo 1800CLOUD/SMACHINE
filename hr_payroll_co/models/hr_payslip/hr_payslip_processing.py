@@ -23,8 +23,11 @@ class HrPayslipProcessing(models.Model):
     period_id = fields.Many2one(
         comodel_name='hr.period', string='Periodo',
         domain=[('active', '=', True)], required=True)
+    # type_period = fields.Selection(
+    #     string='Tipo de periodo', selection=TYPE_PERIOD,
+    #     readonly=True, related='period_id.type_period')
     type_period = fields.Selection(
-        string='Tipo de periodo', selection=TYPE_PERIOD,
+        string='Tipo de periodo',
         readonly=True, related='period_id.type_period')
     liquidation_date = fields.Date(
         string='Fecha de Liquidación', required=True)
@@ -143,7 +146,6 @@ class HrPayslipProcessing(models.Model):
         orm.restart_sequence(self._cr, "ir_sequence_%03d" % seq_id, number)
 
     def compute_payslips_ids(self):
-        payslips_ids = []
         for record in self:
             for payslip in record.payslips_ids:
                 if payslip.period_id.id != record.period_id.id or \
@@ -171,3 +173,12 @@ class HrPayslipProcessing(models.Model):
         for record in self:
             record.payslips_ids.to_draft()
             record.state = 'draft'
+
+    def send_mails(self):
+        for record in self:
+            no_sand_mails = any(
+                payslip.state != 'paid' for payslip in record.payslips_ids)
+            if no_sand_mails:
+                raise ValidationError(
+                    "Todas las nóminas deben estar en estado <Pagada> para enviar los comprobantes")
+            record.payslips_ids.send_mail()

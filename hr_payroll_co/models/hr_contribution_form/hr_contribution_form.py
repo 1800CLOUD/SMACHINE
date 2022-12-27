@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
 # resolucion 2388 de 2016
 from odoo import api, fields, models
-from odoo.exceptions import UserError, ValidationError
+from odoo.exceptions import ValidationError
 from odoo.addons.utilities_collection import orm
 from odoo.addons.utilities_collection import string
 from odoo.addons.utilities_collection import number
 from dateutil.relativedelta import relativedelta
-from datetime import datetime
 from calendar import monthrange
-import base64
-import unicodedata
 
 STATE = [
     ('draft', 'Borrador'),
@@ -41,7 +38,8 @@ class HrContributionForm(models.Model):
                                  default=lambda self: self.env.company)
     error_log = fields.Text(string='Errores', readonly=True)
     file_pila = fields.Binary(string='Archivo plano', readonly=True)
-    file_name = fields.Char(string='Nombre', default='PILA.txt', readonly=True)
+    file_name = fields.Char(string='Nombre archivo',
+                            default='PILA.txt', readonly=True)
     branch_code = fields.Char(string='Código de sucursal')
     journal_id = fields.Many2one(
         comodel_name='account.journal', string='Diario', required=True)
@@ -110,11 +108,11 @@ class HrContributionForm(models.Model):
         economic_variables = {'SMMLV': {}}
         model = 'ir.config_parameter'
         politics = {
-            'odone_hr.eps_rate_employee': float,
-            'odone_hr.eps_rate_employer': float,
-            'odone_hr.pen_rate_employee': float,
-            'odone_hr.pen_rate_employer': float,
-            'odone_hr.pay_ccf_mat_pat': bool,
+            'hr_payroll_co.eps_rate_employee': float,
+            'hr_payroll_co.eps_rate_employer': float,
+            'hr_payroll_co.pen_rate_employee': float,
+            'hr_payroll_co.pen_rate_employer': float,
+            'hr_payroll_co.pay_ccf_mat_pat': bool,
         }
         for param in politics:
             politics[param] = (politics[param])(
@@ -394,13 +392,13 @@ class HrContributionForm(models.Model):
             new_line['fsol'] = 0
             new_line['fsub'] = 0
         elif new_line['sln']:
-            new_line['pens_rate'] = data['odone_hr.pen_rate_employer']/100
+            new_line['pens_rate'] = data['hr_payroll_co.pen_rate_employer']/100
             new_line['fsol'] = 0
             new_line['fsub'] = 0
         else:
             hr_concept = self.env['hr.concept']
-            new_line['pens_rate'] = (data['odone_hr.pen_rate_employer'] +
-                                     data['odone_hr.pen_rate_employee'])/100
+            new_line['pens_rate'] = (data['hr_payroll_co.pen_rate_employer'] +
+                                     data['hr_payroll_co.pen_rate_employee'])/100
             new_line['fsol'] = hr_concept._compute_rate_fond_sol(
                 data['smmlv'], new_line['global_ibc']) * new_line['pens_ibc'] / 100
             new_line['fsub'] = hr_concept._compute_rate_fond_sub(
@@ -411,12 +409,12 @@ class HrContributionForm(models.Model):
             new_line['ap_vol_contributor']
 
         if new_line['global_ibc'] >= 10 * data['smmlv'] or data['int'] or data['apr']:
-            new_line['eps_rate'] = (data['odone_hr.eps_rate_employer'] +
-                                    data['odone_hr.eps_rate_employee'])/100
+            new_line['eps_rate'] = (data['hr_payroll_co.eps_rate_employer'] +
+                                    data['hr_payroll_co.eps_rate_employee'])/100
         elif new_line['sln']:
             new_line['eps_rate'] = 0
         else:
-            new_line['eps_rate'] = data['odone_hr.eps_rate_employee'] / 100
+            new_line['eps_rate'] = data['hr_payroll_co.eps_rate_employee'] / 100
         new_line['eps_cot'] = new_line['eps_rate'] * new_line['eps_ibc']
 
     def get_contribution_arl_para(self, lp, new_line, data):
@@ -434,7 +432,7 @@ class HrContributionForm(models.Model):
         new_line['arl_cot'] = new_line['arl_rate'] * new_line['arl_ibc']
 
         pay_ccf = new_line['main']
-        pay_ccf |= data['odone_hr.pay_ccf_mat_pat'] and new_line['lma']
+        pay_ccf |= data['hr_payroll_co.pay_ccf_mat_pat'] and new_line['lma']
         pay_ccf |= lp[1] == 'VAC'
         pay_ccf |= not new_line['main'] and (new_line['ret'] == 'X')
         pay_ccf &= not data['apr']
@@ -607,30 +605,30 @@ class HrContributionForm(models.Model):
             bl[10] = string.prep_field(
                 l.contract_id.work_city_id.zipcode, size=3)
             # 11: Primer apellido
-            if employee.partner_id.x_lastname1:
+            if employee.partner_id.lastname1:
                 pap = string.remove_accents(
-                    employee.partner_id.x_lastname1.upper()).decode("utf-8").replace(".", "")
+                    employee.partner_id.lastname1.upper()).decode("utf-8").replace(".", "")
                 bl[11] = string.prep_field(pap, size=20)
             else:
                 bl[11] = string.prep_field(' ', size=20)
             # 12: Segundo apellido
-            if employee.partner_id.x_lastname2:
+            if employee.partner_id.lastname2:
                 sap = string.remove_accents(
-                    employee.partner_id.x_lastname2.upper()).decode("utf-8").replace(".", "")
+                    employee.partner_id.lastname2.upper()).decode("utf-8").replace(".", "")
                 bl[12] = string.prep_field(sap, size=30)
             else:
                 bl[12] = string.prep_field(' ', size=30)
             # 13: Primer nombre
-            if employee.partner_id.x_name1:
+            if employee.partner_id.name1:
                 pno = string.remove_accents(
-                    employee.partner_id.x_name1.upper()).decode("utf-8").replace(".", "")
+                    employee.partner_id.name1.upper()).decode("utf-8").replace(".", "")
                 bl[13] = string.prep_field(pno, size=20)
             else:
                 bl[13] = string.prep_field(' ', size=20)
             # 14: Segundo nombre
-            if employee.partner_id.x_name2:
+            if employee.partner_id.name2:
                 sno = string.remove_accents(
-                    employee.partner_id.x_name2.upper()).decode("utf-8").replace(".", "")
+                    employee.partner_id.name2.upper()).decode("utf-8").replace(".", "")
                 bl[14] = string.prep_field(sno, size=30)
             else:
                 bl[14] = string.prep_field(' ', size=30)

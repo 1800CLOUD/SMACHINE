@@ -1,283 +1,283 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 	<template id="payroll_template_report">
-		<t t-call="web.html_container">
+		<t t-call="web.basic_layout">
 			<t t-foreach="docs" t-as="o">
 				<t t-foreach="range(2)" t-as="j">
 					<t t-if="j==0">
 						<style>
-							.formato-pag-1-nomina {
-							width:99.9%;
-							height: auto;
-							position: absolute;
-							top:0px;
-							left:0px;
-							z-index:-1;
-							}
-							
-							span, table {
-							font-size:8px;
-							color: black;
-							line-height:8px;
-							}
+								.formato-pag-1-nomina {
+								width:99.9%;
+								height: auto;
+								position: absolute;
+								top:0px;
+								left:0px;
+								z-index:-1;
+								}
+								
+								span, table {
+								font-size:8px;
+								color: black;
+								line-height:8px;
+								}
 
-							
-							.salario-basico-campo
-							{
-							position : absolute ;
-							left : 424px;
-							top : 116px;
-							width : 172px;
-							height : 9px;
-							}
-							.cuenta-bancaria-campo
-							{
-							position : absolute ;
-							left : 105px;
-							top : 131px;
-							width : 188px;
-							height : 9px;
-							}
-							.periodo-campo
-							{
-							position : absolute ;
-							left : 435px;
-							top : 59px;
-							width : 158px;
-							height : 9px;
-							}
-							.cantidad-devengos
-							{
-							position : absolute ;
-							left : 135px;
-							top : 195px;
-							width : 87px;
-							height : 93px;
-							}
-							
-							.neto-total
-							{
-							position : absolute ;
-							left : 509px;
-							top : 347px;
-							width : 87px;
-							height : 51px;
-							}
-							
-							.fecha-inicio-contrato
-							{
-							position : absolute ;
-							left : 424px;
-							top : 131px;
-							width : 172px;
-							height : 9px;
-							}
-							
-							
-							.nombre-empleado-firma
-							{
-							position : absolute ;
-							left : 327px;
-							top : 503px;
-							width : 240px;
-							height : 19px;
-							text-align:center;
-							}
-							
-							
-							.declaro-texto-liquidacion
-							{
-							position : absolute ;
-							left : 22px;
-							top : 529px;
-							width : 568px;
-							height : 42px;
-							}
-							
-							
-							
-							
-							.neto-cantidad
-							{
-							position : absolute ;
-							left : 425px;
-							top : 347px;
-							width : 87px;
-							height : 51px;
-							}
-							
-							
-							.email
-							{
-							position : absolute ;
-							left : 55px;
-							top : 100px;
-							width : 238px;
-							height : 9px;
-							}
-							.neto-nombre
-							{
-							position : absolute ;
-							left : 315px;
-							top : 347px;
-							width : 87px;
-							height : 51px;
-							}
-							
-							
-							.contrato-campo
-							{
-							position : absolute ;
-							left : 357px;
-							top : 100px;
-							width : 240px;
-							height : 9px;
-							}
-							.empleado-campo
-							{
-							position : absolute ;
-							left : 82px;
-							top : 81px;
-							width : 212px;
-							height : 9px;
-							}
-							.logo-company
-							{
-							position : absolute ;
-							left : 19px;
-							top : 21px;
-							width : 113px;
-							height : auto;
-							}
-							.Estilodecarcternormal
-							{
-							font-family : Helvetica Bold;
-							font-weight : bold;
-							font-size : 9px;
-							color : #626161;
-							color : rgb(98, 97, 97);
-							}
-							.deducciones-total
-							{
-							position : absolute ;
-							left : 519px;
-							top : 197px;
-							width : 87px;
-							height : 93px;
-							}
-							
-							.documento-campo
-							{
-							position : absolute ;
-							left : 368px;
-							top : 81px;
-							width : 226px;
-							height : 9px;
-							}
-							.deducciones-cantidad
-							{
-							position : absolute ;
-							left : 425px;
-							top : 197px;
-							width : 87px;
-							height : 93px;
-							}
-							
-							.devengos-nombre
-							{
-							position : absolute ;
-							left : 23px;
-							top : 197px;
-							width : 87px;
-							height : 93px;
-							}
-							
-							.total-devengos
-							{
-							position : absolute ;
-							left : 240px;
-							top : 197px;
-							width : 87px;
-							height : 93px;
-							}
-							
-							
-							.comprobante-campo
-							{
-							position : absolute ;
-							left : 435px;
-							top : 26px;
-							width : 158px;
-							height : 9px;
-							}
-							.neto-a-pagar-valor
-							{
-							position : absolute ;
-							left : 524px;
-							top : 400px;
-							width : 69px;
-							height : 10px;
-							}
-							.datos-compania-nomina
-							{
-							position : absolute ;
-							left : 140px;
-							top : 22px;
-							width : 101px;
-							height : 41px;
-							}
-							.provisiones-total
-							{
-							position : absolute ;
-							left : 215px;
-							top : 347px;
-							width : 87px;
-							height : 51px;
-							}
-							
-							.provisiones-cantidad
-							{
-							position : absolute ;
-							left : 119px;
-							top : 347px;
-							width : 87px;
-							height : 51px;
-							}
-							
-							.provisiones-nombre
-							{
-							position : absolute ;
-							left : 22px;
-							top : 317px;
-							width : 187px;
-							height : 51px;
-							}
-							
-							.referencia-comprobante-campo
-							{
-							position : absolute ;
-							left : 435px;
-							top : 42px;
-							width : 158px;
-							height : 9px;
-							}
-							.cargo-campo
-							{
-							position : absolute ;
-							left : 55px;
-							top : 116px;
-							width : 238px;
-							height : 9px;
-							}
-							.deducciones-nombre
-							{
-							position : absolute ;
-							left : 316px;
-							top : 197px;
-							width : 87px;
-							height : 93px;
-							}
-						</style>
+								
+								.salario-basico-campo
+								{
+								position : absolute ;
+								left : 424px;
+								top : 116px;
+								width : 172px;
+								height : 9px;
+								}
+								.cuenta-bancaria-campo
+								{
+								position : absolute ;
+								left : 105px;
+								top : 131px;
+								width : 188px;
+								height : 9px;
+								}
+								.periodo-campo
+								{
+								position : absolute ;
+								left : 435px;
+								top : 59px;
+								width : 158px;
+								height : 9px;
+								}
+								.cantidad-devengos
+								{
+								position : absolute ;
+								left : 135px;
+								top : 195px;
+								width : 87px;
+								height : 93px;
+								}
+								
+								.neto-total
+								{
+								position : absolute ;
+								left : 509px;
+								top : 347px;
+								width : 87px;
+								height : 51px;
+								}
+								
+								.fecha-inicio-contrato
+								{
+								position : absolute ;
+								left : 424px;
+								top : 131px;
+								width : 172px;
+								height : 9px;
+								}
+								
+								
+								.nombre-empleado-firma
+								{
+								position : absolute ;
+								left : 327px;
+								top : 503px;
+								width : 240px;
+								height : 19px;
+								text-align:center;
+								}
+								
+								
+								.declaro-texto-liquidacion
+								{
+								position : absolute ;
+								left : 22px;
+								top : 529px;
+								width : 568px;
+								height : 42px;
+								}
+								
+								
+								
+								
+								.neto-cantidad
+								{
+								position : absolute ;
+								left : 425px;
+								top : 347px;
+								width : 87px;
+								height : 51px;
+								}
+								
+								
+								.email
+								{
+								position : absolute ;
+								left : 55px;
+								top : 100px;
+								width : 238px;
+								height : 9px;
+								}
+								.neto-nombre
+								{
+								position : absolute ;
+								left : 315px;
+								top : 347px;
+								width : 87px;
+								height : 51px;
+								}
+								
+								
+								.contrato-campo
+								{
+								position : absolute ;
+								left : 357px;
+								top : 100px;
+								width : 240px;
+								height : 9px;
+								}
+								.empleado-campo
+								{
+								position : absolute ;
+								left : 82px;
+								top : 81px;
+								width : 212px;
+								height : 9px;
+								}
+								.logo-company
+								{
+								position : absolute ;
+								left : 19px;
+								top : 21px;
+								width : 113px;
+								height : auto;
+								}
+								.Estilodecarcternormal
+								{
+								font-family : Helvetica Bold;
+								font-weight : bold;
+								font-size : 9px;
+								color : #626161;
+								color : rgb(98, 97, 97);
+								}
+								.deducciones-total
+								{
+								position : absolute ;
+								left : 519px;
+								top : 197px;
+								width : 87px;
+								height : 93px;
+								}
+								
+								.documento-campo
+								{
+								position : absolute ;
+								left : 368px;
+								top : 81px;
+								width : 226px;
+								height : 9px;
+								}
+								.deducciones-cantidad
+								{
+								position : absolute ;
+								left : 425px;
+								top : 197px;
+								width : 87px;
+								height : 93px;
+								}
+								
+								.devengos-nombre
+								{
+								position : absolute ;
+								left : 23px;
+								top : 197px;
+								width : 87px;
+								height : 93px;
+								}
+								
+								.total-devengos
+								{
+								position : absolute ;
+								left : 240px;
+								top : 197px;
+								width : 87px;
+								height : 93px;
+								}
+								
+								
+								.comprobante-campo
+								{
+								position : absolute ;
+								left : 435px;
+								top : 26px;
+								width : 158px;
+								height : 9px;
+								}
+								.neto-a-pagar-valor
+								{
+								position : absolute ;
+								left : 524px;
+								top : 400px;
+								width : 69px;
+								height : 10px;
+								}
+								.datos-compania-nomina
+								{
+								position : absolute ;
+								left : 140px;
+								top : 22px;
+								width : 101px;
+								height : 41px;
+								}
+								.provisiones-total
+								{
+								position : absolute ;
+								left : 215px;
+								top : 347px;
+								width : 87px;
+								height : 51px;
+								}
+								
+								.provisiones-cantidad
+								{
+								position : absolute ;
+								left : 119px;
+								top : 347px;
+								width : 87px;
+								height : 51px;
+								}
+								
+								.provisiones-nombre
+								{
+								position : absolute ;
+								left : 22px;
+								top : 317px;
+								width : 187px;
+								height : 51px;
+								}
+								
+								.referencia-comprobante-campo
+								{
+								position : absolute ;
+								left : 435px;
+								top : 42px;
+								width : 158px;
+								height : 9px;
+								}
+								.cargo-campo
+								{
+								position : absolute ;
+								left : 55px;
+								top : 116px;
+								width : 238px;
+								height : 9px;
+								}
+								.deducciones-nombre
+								{
+								position : absolute ;
+								left : 316px;
+								top : 197px;
+								width : 87px;
+								height : 93px;
+								}
+							</style>
 						<div class="container-fluid">
 							<span class="periodo-campo" t-field="o.period_id" />
 							<span class="salario-basico-campo" t-field="o.contract_id.wage" />
@@ -298,8 +298,8 @@
 											<tr>
 												<td class="text-right">
 													<span>
-														$
-													</span>
+															$
+														</span>
 													<span t-esc="'{0:,.0f}'.format(int(neto.total))" />
 												</td>
 											</tr>
@@ -326,7 +326,9 @@
 							</span>
 							<span class="cuenta-bancaria-campo">
 								********
-								<span t-esc="o.employee_id.bank_account_id.acc_number[7:]" />
+								<!-- 
+										<span t-esc="o.employee_id.bank_account_id.acc_number[7:]" />
+									-->
 							</span>
 							<span class="total-devengos">
 								<t t-foreach="o.earnings_ids" t-as="dev">
@@ -334,8 +336,8 @@
 										<tr>
 											<td>
 												<span>
-												$
-											</span>
+													$
+												</span>
 												<span t-esc="'{0:,.0f}'.format(int(dev.total))" />
 											</td>
 										</tr>
@@ -359,12 +361,12 @@
 								</t>
 							</span>
 							<span class="provisiones-nombre">
-								<table style="width:290px">
+								<table style="width:270px">
 									<tr>
 										<td>
 											<b>
-												Fondo de pensiones:
-											</b>
+													Fondo de pensiones:
+												</b>
 										</td>
 										<td class="text-right">
 											<span t-field="o.contract_id.afp_pension_id" />
@@ -373,8 +375,8 @@
 									<tr>
 										<td>
 											<b>
-												Fondo de cesantías:
-											</b>
+													Fondo de cesantías:
+												</b>
 										</td>
 										<td class="text-right">
 											<span t-field="o.contract_id.afp_severance_id" />
@@ -383,8 +385,8 @@
 									<tr>
 										<td>
 											<b>
-												Entidad Promotora de Salud:
-											</b>
+													Entidad Promotora de Salud:
+												</b>
 										</td>
 										<td class="text-right">
 											<span t-field="o.contract_id.eps_id" />
@@ -393,8 +395,8 @@
 									<tr>
 										<td>
 											<b>
-												Caja de compensación:
-											</b>
+													Caja de compensación:
+												</b>
 										</td>
 										<td class="text-right">
 											<span t-field="o.contract_id.ccf_id" />
@@ -403,8 +405,8 @@
 									<tr>
 										<td>
 											<b>
-												Administradora de Riesgos Laborales:
-											</b>
+													Administradora de Riesgos Laborales:
+												</b>
 										</td>
 										<td class="text-right">
 											<span t-field="o.contract_id.arl_id" />
@@ -426,8 +428,8 @@
 											<tr>
 												<td class="text-right">
 													<span>
-														$
-													</span>
+															$
+														</span>
 													<span t-esc="'{0:,.0f}'.format(int(out.total))" />
 												</td>
 											</tr>
@@ -463,8 +465,8 @@
 										<tr>
 											<td class="text-right">
 												<span>
-													$
-												</span>
+														$
+													</span>
 												<span t-esc="'{0:,.0f}'.format(int(ded.total))" />
 											</td>
 										</tr>
@@ -491,15 +493,15 @@
 									Declaro que
 									<span t-field="o.company_id.name" />
 									, canceló conforme a la
-									ley y a lo convenido los salarios, recargos por trabajo extra,
-									trabajo nocturno, en dominicales o festivos, reconocimiento
-									d e compensatorios todo tipo de viáticos permanentes y/o
-									ocasionales, gastos de representación, auxilios legales y
-									extra legales, articulo 21 ley 50/90, vacaciones, licencias,
-									bonificaciones, auxilio de cesantías, intereses a las
-									cesantías, primas legales y extralegales cuando a ello
-									había lugar, beneficios extralegales, dotaciones; todo lo
-									cual fue recibido a entera satisfacción.
+										ley y a lo convenido los salarios, recargos por trabajo extra,
+										trabajo nocturno, en dominicales o festivos, reconocimiento
+										d e compensatorios todo tipo de viáticos permanentes y/o
+										ocasionales, gastos de representación, auxilios legales y
+										extra legales, articulo 21 ley 50/90, vacaciones, licencias,
+										bonificaciones, auxilio de cesantías, intereses a las
+										cesantías, primas legales y extralegales cuando a ello
+										había lugar, beneficios extralegales, dotaciones; todo lo
+										cual fue recibido a entera satisfacción.
 								</span>
 							</t>
 							<img class="formato-pag-1-nomina" src="https://i.ibb.co/7QTcMPF/diseno-fomato-nomina-odone-estandar.jpg" />

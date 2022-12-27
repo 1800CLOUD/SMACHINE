@@ -16,7 +16,7 @@ class SeveranceUpdateHistory(models.Model):
         string='Fondo de Cesantías', comodel_name='res.partner',
         domain="[('afp','=','True')]", required=True)
     date = fields.Date(
-        string='Fecha', efault=fields.Date.today(), required=True)
+        string='Fecha', default=fields.Date.today(), required=True)
     user_id = fields.Many2one(string='Responsable', comodel_name='res.users',
                               default=lambda self: self.env.user,
                               required=True, readonly=True)

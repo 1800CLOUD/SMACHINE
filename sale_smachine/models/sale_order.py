@@ -13,10 +13,29 @@ class SaleOrder(models.Model):
         'Line discount is editable?',
         compute='_compute_editable_line_discount'
     )
+    is_commercial_group = fields.Boolean(
+        'Grupo comercial',
+        related='partner_id.is_commercial_group',
+        store=True,
+        copy=False
+    )
+    portfolio_approved = fields.Boolean(
+        'Aprobado por cartera',
+        default=False,
+        copy=False
+    )
+    destination_city_id = fields.Many2one('res.city', 'Ciudad destino')
 
     def action_confirm(self):
         for record in self:
             record.validation_product_kit()
+            if record.is_commercial_group and \
+                    not record.portfolio_approved:
+                raise UserError(_(
+                    'El cliente %s está bloqueado por grupo comercial.\n'
+                    'Este pedido debe ser aprobado por '
+                    'cartera antes de confirmalo.'
+                ))
         res = super(SaleOrder, self).action_confirm()
         return res
 
@@ -26,33 +45,35 @@ class SaleOrder(models.Model):
             for kit in mrp_bom_kits:
                 if kit.date_expiration <= datetime_now:
                     raise UserError(_(
-                        'El producto '+ kit.product_tmpl_id.name +' ya expiró'
-                    ))
+                        'El producto %s ya expiró'
+                    ) % kit.product_tmpl_id.name)
+
     def validation_quantity_mrp_bom(self, mrp_bom_kits):
         for record in self:
             for line in record.order_line:
-                for kit in mrp_bom_kits: 
+                for kit in mrp_bom_kits:
                     if line.product_template_id.id == kit.product_tmpl_id.id:
                         if line.product_uom_qty > kit.quantity_available:
                             raise UserError(_(
-                                'El producto '+ kit.product_tmpl_id.name +' supera la cantidad establecidad en el kit'
-                            ))
-                        
-                        kit.quantity_available = kit.quantity_available - line.product_uom_qty
-    
+                                'El producto %s supera la cantidad '
+                                'establecidad en el kit'
+                            ) % kit.product_tmpl_id.name
+                            )
+                        kit.quantity_available = \
+                            kit.quantity_available - line.product_uom_qty
+
     def validation_product_kit(self):
         for record in self:
             if record.order_line:
                 mrp_bom_ids = []
                 for line in record.order_line:
-                    for bom_ids  in line.product_id.bom_ids:
+                    for bom_ids in line.product_id.bom_ids:
                         for bom_id in bom_ids:
                             mrp_bom_ids.append(bom_id)
-                
+
                 mrp_bom_kits = list(
                     filter(lambda x: x.type == 'phantom', mrp_bom_ids)
-                    )
-                
+                )
                 record.validation_date_expiration(mrp_bom_kits)
                 record.validation_quantity_mrp_bom(mrp_bom_kits)
 
@@ -90,7 +111,8 @@ class SaleOrder(models.Model):
                                 not any([id in product_ids
                                         for id in product_ln_ids]):
                             if len(partner.sale_order_ids.filtered(
-                                    lambda s: s.state in ('sale', 'done'))) >= 3:
+                                    lambda s: s.state in ('sale', 'done')
+                            )) >= 3:
                                 discount += partner.discount_fin or 0.0
             sale.order_line.write({
                 'discount': discount*100

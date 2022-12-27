@@ -8,17 +8,24 @@
         - Campo número transacción en pedido de venta.
         - Tipo de cliente en contactos.
         - Descuento comerciar y financiero del tercero en ventas (política).
+        - Imagen de producto en formato de cotización de venta.
+        - Bloqueo de clientes por cupo compartido grupo comercial.
+        - Referencia de producto en tirilla pos.
+        - Dirección de entrega, ciudad destino y canal de venta desde pedido de venta a orden de entrega.
     """,
     'author': "1-800CLOUD",
-    'contributors': ["Bernardo D. Lara Guevara <bernardo.lara@1-800cloud.com>"],
+    'contributors': [
+        "Bernardo D. Lara Guevara <bernardo.lara@1-800cloud.com>"
+    ],
     'website': "https://1-800cloud.com/",
     'license': 'OPL-1',
     'category': 'Inventory/Sale',
-    'version': '15.0.0.0.5',
+    'version': '15.0.0.0.9',
     'depends': [
         'sale_baseline',
         'account_voucher',
-        'mrp'
+        'mrp',
+        'point_of_sale'
     ],
     'data': [
         'security/ir.model.access.csv',
@@ -28,5 +35,16 @@
         'views/mrp_bom_view.xml',
         'views/res_partner_views.xml',
         'views/res_config_settings_views.xml',
+        'views/sale_order_templates.xml',
+        'views/stock_picking_views.xml',
     ],
+    'assets': {
+        'web.assets_qweb': [
+            'sale_smachine/static/src/xml/**/*',
+        ],
+        'point_of_sale.assets': [
+            'sale_smachine/static/src/css/OrderReceipt.css',
+            'sale_smachine/static/src/js/point_of_sale.js',
+        ],
+    }
 }

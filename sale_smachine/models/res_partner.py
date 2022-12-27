@@ -1,10 +1,18 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
+
+    @api.model
+    def _default_view_partner_discount(self):
+        company = self.env.company
+        out = False
+        if company.calculate_partner_discount:
+            out = True
+        return out
 
     sm_customer_type_id = fields.Many2one('sm.customer.type', 'Customer type')
     discount_com = fields.Float('Commercial discount',
@@ -18,8 +26,10 @@ class ResPartner(models.Model):
     )
     view_partner_discounts = fields.Boolean(
         'Partner discount in sales',
-        compute='_compute_view_partner_discounts'
+        compute='_compute_view_partner_discounts',
+        default=_default_view_partner_discount
     )
+    is_commercial_group = fields.Boolean('Commercial group')
 
     def _compute_view_partner_discounts(self):
         for record in self:
@@ -28,3 +38,19 @@ class ResPartner(models.Model):
                 record.view_partner_discounts = True
             else:
                 record.view_partner_discounts = False
+
+    # def default_get(self, fields):
+    #     result = super().default_get(fields)
+    #     # self._compute_view_partner_discounts()
+    #     result['view_partner_discounts'] = False
+    #     company = self.env.company
+    #     if company.calculate_partner_discount:
+    #         result['view_partner_discounts'] = True
+
+    #     return result
+
+    # def init(self):
+    #     print('antes')
+    #     res = super(ResPartner, self).init()
+    #     print('despues')
+    #     return res

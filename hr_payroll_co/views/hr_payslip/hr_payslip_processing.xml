@@ -16,6 +16,7 @@
                         <button name="compute_payslips_ids" string="Calcular nóminas" type="object" attrs="{'invisible':[('state','=','paid')]}" />
                         <button name="to_paid" string="Causar" type="object" attrs="{'invisible':[('state','=','paid')]}" />
                         <button name="to_draft" string="Pasar a borrador" type="object" attrs="{'invisible':[('state','=','draft')]}" />
+                        <button name="send_mails" string="Enviar comprobantes" type="object" class="oe_highlight" />
                         <field name="state" widget="statusbar" statusbar_visible="draft,paid" />
                     </header>
                     <sheet>

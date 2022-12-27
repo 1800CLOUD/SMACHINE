@@ -10,7 +10,7 @@
     'website': "",
 
     'category': 'Human Resources/Payroll',
-    'version': '1',
+    'version': '15.0.0.0.5',
     'license': 'LGPL-3',
 
     # any module necessary for this one to work correctly
@@ -74,7 +74,8 @@
         'views/hr_contribution_form/hr_contribution_form_line.xml',
 
         'report/payroll_template_report.xml',
-        'report/payroll_report_config.xml'
+        'report/payroll_report_config.xml',
+        'report/mail_templates/hr_payroll_co_mail_template.xml',
     ],
 
     'assets': {
