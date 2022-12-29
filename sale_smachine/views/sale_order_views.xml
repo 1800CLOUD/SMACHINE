@@ -7,12 +7,15 @@
         <field name="arch" type="xml">
             <xpath expr="//group[@name='order_details']" position="inside">
                 <field name="is_commercial_group" groups="account_voucher.group_portfolio_manager" />
-                <field name="portfolio_approved" groups="account_voucher.group_portfolio_manager" />
-                <field name="sm_transaction_number" invisible="0"/>
+                <field name="portfolio_approved"  attrs="{'readonly': [('state', '!=', 'draft')]}" groups="account_voucher.group_portfolio_manager" />
+                <field name="sm_transaction_number"  attrs="{'readonly': [('state', '!=', 'draft')]}" invisible="0"/>
                 <field name="is_line_discount_edit" invisible="1"/>
             </xpath>
             <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='discount']" position="attributes">
                 <attribute name="attrs">{'readonly': [('parent.is_line_discount_edit','=',False)]}</attribute>
+            </xpath>
+            <xpath expr="//group[@name='partner_details']/field[@name='partner_shipping_id']" position="after">
+                <field name="destination_city_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create': True, 'no_create_edit': True}"/>
             </xpath>
         </field>
     </record>
