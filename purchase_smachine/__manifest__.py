@@ -14,7 +14,7 @@
     'website': 'https://1-800cloud.com/',
     'category': 'Inventory/Purchase',
     'license': 'LGPL-3',
-    'version': '15.0.0.0.3',
+    'version': '15.0.0.0.4',
     'depends': [
         # 'date_range',
         # 'report_xlsx',

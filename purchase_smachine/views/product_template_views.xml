@@ -6,9 +6,9 @@
         <field name="priority">4</field>
         <field name="arch" type="xml">
             <xpath expr="//group[@name='group_standard_price']/field[@name='categ_id']" position="after">
-                <field name="categ_sub_id" domain="[('category_id', '=', categ_id)]" options="{'no_create': True, 'no_open': True}" />
+                <field name="categ_sub_id" domain="['|',('category_id', '=', categ_id),('category_id', '=', False)]" options="{'no_create': True, 'no_open': True}" />
                 <field name="mark_id" options="{'no_create': True, 'no_open': True}" />
-                <field name="mark_sub_id" domain="[('mark_id', '=', mark_id)]" options="{'no_create': True, 'no_open': True}" />
+                <field name="mark_sub_id" domain="['|',('mark_id', '=', mark_id),('mark_id', '=', False)]" options="{'no_create': True, 'no_open': True}" />
             </xpath>
         </field>
     </record>
