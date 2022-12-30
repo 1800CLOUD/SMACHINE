@@ -8,6 +8,7 @@ class StockPicking(models.Model):
 
     destination_city_id = fields.Many2one('res.city', 'Ciudad destino')
     source_id = fields.Many2one('utm.source', 'Canal de venta')
+    guide_number = fields.Char('Guide number')
 
     @api.model
     def create(self, vals):
