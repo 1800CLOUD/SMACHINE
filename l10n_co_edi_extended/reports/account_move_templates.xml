@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_account_move_einvoicing_document" inherit_id="l10n_co_bloodo.report_account_move_einvoicing_document">
+        
+        <xpath expr="//t[@t-set='display_discount']" position="attributes">
+            <attribute name="t-value">True</attribute>
+        </xpath>
+
+        <xpath expr="//table[@name='invoice_line_table']//td[@name='account_invoice_line_code']/span" position="replace">
+            <span t-esc="line.product_id.seller_ids and line.product_id.seller_ids[0].product_code or line.product_id.default_code"/>
+        </xpath>
+
+        <xpath expr="//table[@name='invoice_line_table']//th[@name='th_code']" position="after">
+            <th name="th_barcode" class="text-center"><span>CÓDIGO DE BARRAS</span></th>
+        </xpath>
+        <xpath expr="//table[@name='invoice_line_table']//td[@name='account_invoice_line_code']" position="after">
+            <td name="account_invoice_line_barcode" class="text-center">
+                <img style="border: 0px solid red;" t-if="line.product_id.barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', line.product_id.barcode or '', 200, 50)"/>
+            </td>
+        </xpath>
+
+    </template>
+
+    <template id="tax_groups_totals" inherit_id="account.tax_groups_totals">
+        <xpath expr="//t/tr" position="attributes">
+            <attribute name="t-if">(doc._name == 'account.move' and amount_by_group['tax_group_name'] != 'Autorentencion') or doc._name != 'account.move'</attribute>
+        </xpath>
+    </template>
+
+</odoo>
