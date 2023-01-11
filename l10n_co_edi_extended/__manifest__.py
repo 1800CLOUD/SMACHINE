@@ -12,7 +12,7 @@
     'contributors': ['Bernardo David Lara Guevara <bernardo.lara@1-800cloud.com>'],
     'category': 'Accounting/Localizations/EDI',
     'license': 'OPL-1',
-    'version': '15.0.0.0.1',
+    'version': '15.0.0.0.2',
     'depends': [
         'l10n_co_bloodo'
     ],
