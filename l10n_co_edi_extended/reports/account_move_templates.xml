@@ -16,8 +16,12 @@
         </xpath>
         <xpath expr="//table[@name='invoice_line_table']//td[@name='account_invoice_line_code']" position="after">
             <td name="account_invoice_line_barcode" class="text-center">
-                <img style="border: 0px solid red;" t-if="line.product_id.barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', line.product_id.barcode or '', 200, 50)"/>
+                <!-- <img style="border: 0px solid red;" t-if="line.product_id.barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', line.product_id.barcode or '', 200, 50)"/> -->
+                <span t-field="line.product_id.barcode" t-options="{'widget': 'text'}"/>
             </td>
+        </xpath>
+        <xpath expr="//table[@name='invoice_line_table']//td[@name='account_invoice_line_name']/span" position="attributes">
+            <attribute name="t-field">line.product_id.display_name</attribute>
         </xpath>
 
     </template>
