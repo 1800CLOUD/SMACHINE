@@ -20,12 +20,13 @@
     'website': "https://1-800cloud.com/",
     'license': 'OPL-1',
     'category': 'Inventory/Sale',
-    'version': '15.0.0.0.9',
+    'version': '15.0.0.1.0',
     'depends': [
         'sale_baseline',
         'account_voucher',
         'mrp',
-        'point_of_sale'
+        'point_of_sale',
+        'l10n_co_pos'
     ],
     'data': [
         'security/ir.model.access.csv',
