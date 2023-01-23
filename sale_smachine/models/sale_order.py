@@ -88,8 +88,8 @@ class SaleOrder(models.Model):
         for sale in self:
             partner = sale.partner_id
             discount = 0.0
+            lines = sale.order_line.filtered(lambda x: not x.display_type)
             if partner.discount_com or partner.discount_fin:
-                lines = sale.order_line.filtered(lambda x: not x.display_type)
                 discount = partner.discount_com or 0.0
                 amount_total = sum([
                     ln.price_unit*ln.product_uom_qty*(
@@ -118,7 +118,7 @@ class SaleOrder(models.Model):
                 'discount': discount*100
             })
 
-    @api.onchange('partner_id', 'payment_term_id')
+    @api.onchange('partner_id', 'payment_term_id', 'order_line')
     def onchange_discount_partner(self):
         if self.company_id.calculate_partner_discount:
             self._calculate_partner_discount()

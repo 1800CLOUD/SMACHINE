@@ -7,7 +7,7 @@
     'description': """
         - Campo número transacción en pedido de venta.
         - Tipo de cliente en contactos.
-        - Descuento comerciar y financiero del tercero en ventas (política).
+        - Descuento comerciar y financiero de tercero en ventas (política).
         - Imagen de producto en formato de cotización de venta.
         - Bloqueo de clientes por cupo compartido grupo comercial.
         - Referencia de producto en tirilla pos.
