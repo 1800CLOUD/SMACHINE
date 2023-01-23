@@ -114,13 +114,24 @@ class SaleOrder(models.Model):
                                     lambda s: s.state in ('sale', 'done')
                             )) >= 3:
                                 discount += partner.discount_fin or 0.0
-            sale.order_line.write({
-                'discount': discount*100
-            })
+        return discount*100
 
     @api.onchange('partner_id', 'payment_term_id', 'order_line')
     def onchange_discount_partner(self):
         if self.company_id.calculate_partner_discount:
-            self._calculate_partner_discount()
+            discount = self._calculate_partner_discount()
+            order_line_val = []
+            lines = self.order_line.filtered(lambda x: not x.display_type)
+            if any([ln.no_calc_discount for ln in lines]):
+                order_line_val = [
+                    (1, ln.id, {'no_calc_discount': False}) for ln in lines]
+            else:
+                order_line_val = [
+                    (1, ln.id, {'discount': discount}) for ln in lines]
+            return {
+                'value': {
+                    'order_line': order_line_val
+                }
+            }
         else:
             pass

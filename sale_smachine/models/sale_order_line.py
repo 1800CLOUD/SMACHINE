@@ -6,6 +6,11 @@ from odoo import api, fields, models, _
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    @api.onchange('product_id', 'product_uom_qty', 'price_unit')
-    def _onchange_partner_discounts(self):
-        self.order_id.onchange_discount_partner()
+    no_calc_discount = fields.Boolean('No calcular descuento', default=False)
+
+    @api.onchange('discount')
+    def _onchange_discount_edit(self):
+        if self.discount and not self.no_calc_discount:
+            self.no_calc_discount = True
+        else:
+            pass
