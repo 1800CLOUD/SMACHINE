@@ -84,6 +84,11 @@ class SaleOrder(models.Model):
                 'sale_smachine.group_edit_line_discount_sale')
 
     def _calculate_partner_discount(self):
+        '''
+            Retorna descuento comercial del tercero y descuento financiero
+            si el producto no pertenece a un kit, el termino de pago es
+            inmediato y tiene 3 o más pedidos confirmados.
+        '''
         bom_obj = self.env['mrp.bom']
         for sale in self:
             partner = sale.partner_id
