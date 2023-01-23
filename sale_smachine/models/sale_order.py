@@ -84,12 +84,17 @@ class SaleOrder(models.Model):
                 'sale_smachine.group_edit_line_discount_sale')
 
     def _calculate_partner_discount(self):
+        '''
+            Retorna descuento comercial del tercero y descuento financiero
+            si el producto no pertenece a un kit, el termino de pago es
+            inmediato y tiene 3 o más pedidos confirmados.
+        '''
         bom_obj = self.env['mrp.bom']
         for sale in self:
             partner = sale.partner_id
             discount = 0.0
+            lines = sale.order_line.filtered(lambda x: not x.display_type)
             if partner.discount_com or partner.discount_fin:
-                lines = sale.order_line.filtered(lambda x: not x.display_type)
                 discount = partner.discount_com or 0.0
                 amount_total = sum([
                     ln.price_unit*ln.product_uom_qty*(
@@ -114,13 +119,24 @@ class SaleOrder(models.Model):
                                     lambda s: s.state in ('sale', 'done')
                             )) >= 3:
                                 discount += partner.discount_fin or 0.0
-            sale.order_line.write({
-                'discount': discount*100
-            })
+        return discount*100
 
-    @api.onchange('partner_id', 'payment_term_id')
+    @api.onchange('partner_id', 'payment_term_id', 'order_line')
     def onchange_discount_partner(self):
         if self.company_id.calculate_partner_discount:
-            self._calculate_partner_discount()
+            discount = self._calculate_partner_discount()
+            order_line_val = []
+            lines = self.order_line.filtered(lambda x: not x.display_type)
+            if any([ln.no_calc_discount for ln in lines]):
+                order_line_val = [
+                    (1, ln.id, {'no_calc_discount': False}) for ln in lines]
+            else:
+                order_line_val = [
+                    (1, ln.id, {'discount': discount}) for ln in lines]
+            return {
+                'value': {
+                    'order_line': order_line_val
+                }
+            }
         else:
             pass
