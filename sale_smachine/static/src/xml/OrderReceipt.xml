@@ -20,7 +20,7 @@
                 <t t-esc="receipt.name" />
             </div>
             <t t-if="receipt.l10n_co_dian !== false">
-                <div style="word-wrap:break-word;text-align: center;"><t t-esc="receipt.l10n_co_dian"/></div>
+                <div style="word-wrap:break-word;text-align: center;">Factura POS <t t-esc="receipt.l10n_co_dian"/></div>
             </t>
             <t t-log="receipt"/>
         </xpath>
