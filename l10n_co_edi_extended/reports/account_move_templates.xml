@@ -12,7 +12,7 @@
         </xpath>
 
         <xpath expr="//table[@name='invoice_line_table']//th[@name='th_code']" position="after">
-            <th name="th_barcode" class="text-center"><span>CÓDIGO DE BARRAS</span></th>
+            <th width="8%" name="th_barcode" class="text-center"><span>CÓDIGO</span></th>
         </xpath>
         <xpath expr="//table[@name='invoice_line_table']//td[@name='account_invoice_line_code']" position="after">
             <td name="account_invoice_line_barcode" class="text-center">
