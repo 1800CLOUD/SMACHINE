@@ -15,8 +15,8 @@
                     <field name="view_partner_discounts" invisible="0"/>
                     <separator name="sale_discount" string="Discounts" attrs="{'invisible': [('view_partner_discounts','=',False)]}"/>
                     <field name="discount_com" widget="percentage" attrs="{'invisible': [('view_partner_discounts','=',False)]}"/>
-                    <field name="discount_fin" widget="percentage" attrs="{'invisible': [('view_partner_discounts','=',False)]}"/>
-                    <field name="amount_min_fin" attrs="{'invisible': ['|', ('discount_fin','=',0.0), ('view_partner_discounts','=',False)]}"/>
+                    <field name="discount_fin" widget="percentage" invisible="1"/> <!-- attrs="{'invisible': [('view_partner_discounts','=',False)]}"/> -->
+                    <field name="amount_min_fin" invisible="1"/> <!--attrs="{'invisible': ['|', ('discount_fin','=',0.0), ('view_partner_discounts','=',False)]}"/> -->
                 </xpath>
             </field>
         </record>

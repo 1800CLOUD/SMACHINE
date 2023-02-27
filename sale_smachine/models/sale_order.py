@@ -94,31 +94,38 @@ class SaleOrder(models.Model):
             partner = sale.partner_id
             discount = 0.0
             lines = sale.order_line.filtered(lambda x: not x.display_type)
-            if partner.discount_com or partner.discount_fin:
-                discount = partner.discount_com or 0.0
-                amount_total = sum([
-                    ln.price_unit*ln.product_uom_qty*(
-                        1+sum([tx.amount/100 for tx in ln.tax_id]))
-                    for ln in sale.order_line
-                ])
-                kits = bom_obj.search([('type', '=', 'panthom')])
+            if partner.discount_com: 
+                # or partner.discount_fin:
+                discount = 0.0
+                # amount_total = sum([
+                #     ln.price_unit*ln.product_uom_qty*(
+                #         1+sum([tx.amount/100 for tx in ln.tax_id]))
+                #     for ln in sale.order_line
+                # ])
+                kits = bom_obj.search([('type', '=', 'phantom')])
                 prod_tmpl_ids = kits.product_tmpl_id.ids
                 product_ids = [
                     ln.product_id.id for ln in kits.bom_line_ids]
                 product_tmpl_ln_ids = [
                     ln.product_id.product_tmpl_id.id for ln in lines]
                 product_ln_ids = [ln.product_id.id for ln in lines]
-                if sale.payment_term_id and \
-                        sale.payment_term_id.immediate_payment:
-                    if amount_total >= partner.amount_min_fin:
-                        if not any([id in prod_tmpl_ids
-                                    for id in product_tmpl_ln_ids]) and \
-                                not any([id in product_ids
-                                        for id in product_ln_ids]):
-                            if len(partner.sale_order_ids.filtered(
-                                    lambda s: s.state in ('sale', 'done')
-                            )) >= 3:
-                                discount += partner.discount_fin or 0.0
+                if not any([id in prod_tmpl_ids
+                        for id in product_tmpl_ln_ids]) and \
+                    not any([id in product_ids
+                            for id in product_ln_ids]):
+                    discount = partner.discount_com or 0.0
+
+                # if sale.payment_term_id and \
+                #         sale.payment_term_id.immediate_payment:
+                #     if amount_total >= partner.amount_min_fin:
+                #         if not any([id in prod_tmpl_ids
+                #                     for id in product_tmpl_ln_ids]) and \
+                #                 not any([id in product_ids
+                #                         for id in product_ln_ids]):
+                #             if len(partner.sale_order_ids.filtered(
+                #                     lambda s: s.state in ('sale', 'done')
+                #             )) >= 3:
+                #                 discount += partner.discount_fin or 0.0
         return discount*100
 
     @api.onchange('partner_id', 'payment_term_id', 'order_line')
