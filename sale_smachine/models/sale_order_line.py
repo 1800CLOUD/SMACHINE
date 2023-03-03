@@ -14,3 +14,18 @@ class SaleOrderLine(models.Model):
             self.no_calc_discount = True
         else:
             pass
+    
+    @api.onchange('product_id', 'product_uom_qty', 'price_unit')
+    def onchange_discount_partner(self):
+        if self.company_id.calculate_partner_discount:
+            order_line_val = {}
+            discount = self.order_id._calculate_partner_discount(self)
+            # if self.no_calc_discount:
+            #     order_line_val = {'no_calc_discount': False}
+            # else:
+            order_line_val = {'discount': discount}
+            return {
+                'value': order_line_val
+            }
+        else:
+            pass

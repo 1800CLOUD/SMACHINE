@@ -83,7 +83,7 @@ class SaleOrder(models.Model):
             record.is_line_discount_edit = user_id.has_group(
                 'sale_smachine.group_edit_line_discount_sale')
 
-    def _calculate_partner_discount(self):
+    def _calculate_partner_discount(self, line):
         '''
             Retorna descuento comercial del tercero y descuento financiero
             si el producto no pertenece a un kit, el termino de pago es
@@ -93,7 +93,8 @@ class SaleOrder(models.Model):
         for sale in self:
             partner = sale.partner_id
             discount = 0.0
-            lines = sale.order_line.filtered(lambda x: not x.display_type)
+            # lines = sale.order_line.filtered(lambda x: not x.display_type)
+            lines = line
             if partner.discount_com: 
                 # or partner.discount_fin:
                 discount = 0.0
@@ -128,18 +129,17 @@ class SaleOrder(models.Model):
                 #                 discount += partner.discount_fin or 0.0
         return discount*100
 
-    @api.onchange('partner_id', 'payment_term_id', 'order_line')
+    @api.onchange('partner_id')
     def onchange_discount_partner(self):
         if self.company_id.calculate_partner_discount:
-            discount = self._calculate_partner_discount()
             order_line_val = []
             lines = self.order_line.filtered(lambda x: not x.display_type)
-            if any([ln.no_calc_discount for ln in lines]):
-                order_line_val = [
-                    (1, ln.id, {'no_calc_discount': False}) for ln in lines]
-            else:
-                order_line_val = [
-                    (1, ln.id, {'discount': discount}) for ln in lines]
+            for line in lines:
+                discount = self._calculate_partner_discount(line)
+                if line.no_calc_discount:
+                    order_line_val.append((1, line.id, {'no_calc_discount': False}))
+                else:
+                    order_line_val.append((1, line.id, {'discount': discount}))
             return {
                 'value': {
                     'order_line': order_line_val
