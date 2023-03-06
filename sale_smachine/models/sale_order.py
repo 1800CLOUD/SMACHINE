@@ -95,7 +95,7 @@ class SaleOrder(models.Model):
             discount = 0.0
             # lines = sale.order_line.filtered(lambda x: not x.display_type)
             lines = line
-            if partner.discount_com: 
+            if partner.discount_com and line.product_id: 
                 # or partner.discount_fin:
                 discount = 0.0
                 # amount_total = sum([
@@ -103,17 +103,23 @@ class SaleOrder(models.Model):
                 #         1+sum([tx.amount/100 for tx in ln.tax_id]))
                 #     for ln in sale.order_line
                 # ])
-                kits = bom_obj.search([('type', '=', 'phantom')])
-                prod_tmpl_ids = kits.product_tmpl_id.ids
-                product_ids = [
-                    ln.product_id.id for ln in kits.bom_line_ids]
-                product_tmpl_ln_ids = [
-                    ln.product_id.product_tmpl_id.id for ln in lines]
-                product_ln_ids = [ln.product_id.id for ln in lines]
-                if not any([id in prod_tmpl_ids
-                        for id in product_tmpl_ln_ids]) and \
-                    not any([id in product_ids
-                            for id in product_ln_ids]):
+                kits = bom_obj.search(
+                    [('type', '=', 'phantom'),
+                     '|',
+                     ('product_id','=',line.product_id.id or 0),
+                     ('product_tmpl_id','=',line.product_id.product_tmpl_id.id or 0)]
+                )
+                # prod_tmpl_ids = kits.product_tmpl_id.ids
+                # product_ids = [
+                #     ln.product_id.id for ln in kits.bom_line_ids]
+                # product_tmpl_ln_ids = [
+                #     ln.product_id.product_tmpl_id.id for ln in lines]
+                # product_ln_ids = [ln.product_id.id for ln in lines]
+                # if not any([id in prod_tmpl_ids
+                #         for id in product_tmpl_ln_ids]) and \
+                #     not any([id in product_ids
+                #             for id in product_ln_ids]):
+                if not kits:
                     discount = partner.discount_com or 0.0
 
                 # if sale.payment_term_id and \
@@ -131,6 +137,7 @@ class SaleOrder(models.Model):
 
     @api.onchange('partner_id')
     def onchange_discount_partner(self):
+        self._compute_editable_line_discount()
         if self.company_id.calculate_partner_discount:
             order_line_val = []
             lines = self.order_line.filtered(lambda x: not x.display_type)
@@ -140,10 +147,13 @@ class SaleOrder(models.Model):
                     order_line_val.append((1, line.id, {'no_calc_discount': False}))
                 else:
                     order_line_val.append((1, line.id, {'discount': discount}))
-            return {
-                'value': {
-                    'order_line': order_line_val
+            if order_line_val:
+                return {
+                    'value': {
+                        'order_line': order_line_val
+                    }
                 }
-            }
+            else:
+                pass
         else:
             pass
