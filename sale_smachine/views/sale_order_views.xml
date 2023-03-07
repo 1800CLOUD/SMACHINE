@@ -13,6 +13,7 @@
             </xpath>
             <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='discount']" position="attributes">
                 <attribute name="attrs">{'readonly': [('parent.is_line_discount_edit','=',False)]}</attribute>
+                <attribute name="force_save">1</attribute>
             </xpath>
             <xpath expr="//group[@name='partner_details']/field[@name='partner_shipping_id']" position="after">
                 <field name="destination_city_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_create': True, 'no_create_edit': True}"/>
