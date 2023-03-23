@@ -52,10 +52,10 @@
                     </notebook>
                 </field>
                 <field name="partner_id" position="before">
-                    <field name="date_start_sm" />
-                    <field name="date_due_sm" />
+                    <field name="date_start_sm" invisible="1"/>
+                    <field name="date_due_sm" invisible="1"/>
                     <field name="days_after_init" invisible="1" />
-                    <field name="days_after_init_str" widget="badge" decoration-success="days_after_init &lt; 8" decoration-warning="days_after_init &gt;= 8 and days_after_init &lt; 12" decoration-danger="days_after_init &gt; 12"/>
+                    <field name="days_after_init_str" invisible="1" widget="badge" decoration-success="days_after_init &lt; 8" decoration-warning="days_after_init &gt;= 8 and days_after_init &lt; 12" decoration-danger="days_after_init &gt; 12"/>
                     <field name="stock_product_input_count" invisible="1" />
                     <field name="stock_product_output_count" invisible="1" />
                 </field>
@@ -68,6 +68,10 @@
                     <button name="register_product_entry" string="Register entry" type="object" class="btn btn-info" attrs="{'invisible': [('stock_product_input_count','!=',0)]}"/>
                     <button name="register_product_output" string="Register output" type="object" class="btn btn-info" attrs="{'invisible': ['|',('stock_product_input_count','=',0),('stock_product_output_count','!=',0)]}"/>
                 </xpath>
+                <field name="partner_id" position="after">
+                    <field name="partner_vat"/>
+                    <field name="partner_mobile"/>
+                </field>
             </field>
         </record>
 
@@ -101,13 +105,15 @@
             <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_tree"/>   
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="partner_vat" optional="hide"/>
+                    <field name="partner_mobile" optional="hide"/>
                     <field name="create_date" optional="show"/>
                     <field name="date_in_ctb" optional="show"/>
                     <field name="date_out_ctb" optional="show"/>
-                    <field name="date_start_sm" optional="show"/>
+                    <field name="date_start_sm" invisible="1" optional="show"/>
                     <field name="days_after_init" invisible="1" />
-                    <field name="date_due_sm" widget="remaining_days" optional="show"/>
-                    <field name="days_after_init_str" optional="show" widget="badge" decoration-success="days_after_init &lt; 8" decoration-warning="days_after_init &gt;= 8 and days_after_init &lt; 12" decoration-danger="days_after_init &gt; 12"/>
+                    <field name="date_due_sm" invisible="1" widget="remaining_days" optional="show"/>
+                    <field name="days_after_init_str" invisible="1" optional="show" widget="badge" decoration-success="days_after_init &lt; 8" decoration-warning="days_after_init &gt;= 8 and days_after_init &lt; 12" decoration-danger="days_after_init &gt; 12"/>
                 </xpath>
             </field>
         </record>
@@ -119,7 +125,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//div[hasclass('o_kanban_record_bottom')]/div[hasclass('oe_kanban_bottom_left')]/field[@name='activity_ids']" position="after">
                         <field name="days_after_init" invisible="1" />
-                        <field name="days_after_init_str" widget="badge" decoration-success="days_after_init &lt; 8" decoration-warning="days_after_init &gt;= 8 and days_after_init &lt; 12" decoration-danger="days_after_init &gt; 12"/>
+                        <field name="days_after_init_str" invisible="1" widget="badge" decoration-success="days_after_init &lt; 8" decoration-warning="days_after_init &gt;= 8 and days_after_init &lt; 12" decoration-danger="days_after_init &gt; 12"/>
                 </xpath>
             </field>
         </record>
@@ -133,6 +139,21 @@
                         <!-- <field name="warehouse_product_id" options="{'no_create': True, 'no_create_edit': True}"/> -->
                         <field name="location_product_id" domain="[('company_id','=',company_id),('usage','=','internal')]" options="{'no_create': True, 'no_create_edit': True}"/>
                         <field name="product_picking_ids" readonly="1" invisible="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="helpdesk_tickets_view_search" model="ir.ui.view">
+            <field name="name">helpdesk.tickets.view.search</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_search"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="partner_vat"/>
+                    <field name="partner_mobile"/>
+                </field>
+                <field name="partner_id" position="attributes">
+                    <attribute name="filter_domain">['|', '|', '|', '|', '|', ('partner_id', 'ilike', self), ('partner_email', 'ilike', self), ('partner_phone', 'ilike', self), ('partner_name', 'ilike', self), ('partner_vat', 'ilike', self), ('partner_mobile', 'ilike', self)]</attribute>
                 </field>
             </field>
         </record>

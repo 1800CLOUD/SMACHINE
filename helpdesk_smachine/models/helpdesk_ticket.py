@@ -62,6 +62,32 @@ class HelpdeskTicket(models.Model):
         'Product orders count',
         compute='_compute_stock_product'
     )
+    partner_vat = fields.Char('Identificación')
+    partner_mobile = fields.Char('Celular')
+
+    @api.model
+    def create(self, vals):
+        if vals.get('partner_id'):
+            partner_obj = self.env['res.partner']
+            partner_id = partner_obj.browse(vals.get('partner_id'))
+            vals['partner_vat'] = partner_id and partner_id.vat or ''
+            vals['partner_mobile'] = partner_id and partner_id.mobile or ''
+        res = super(HelpdeskTicket, self).create(vals)
+        # for record in res:
+        #     partner_id = record.partner_id or False
+        #     record.partner_vat = partner_id and partner_id.vat or '',
+        #     record.partner_mobile = partner_id and partner_id.mobile or ''
+        return res
+
+    @api.onchange('partner_id')
+    def _onchange_partner_vat_mobile(self):
+        partner_id = self.partner_id or False
+        return {
+            'value': {
+                'partner_vat': partner_id and partner_id.vat or '',
+                'partner_mobile': partner_id and partner_id.mobile or ''                
+            }
+        }
 
     def _compute_stock_product(self):
         for record in self:

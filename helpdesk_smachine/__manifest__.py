@@ -15,6 +15,7 @@
     'version': '15.0.0.0.7',
     'depends': [
         'helpdesk',
+        'resource',
         'helpdesk_repair',
     ],
     'data': [
