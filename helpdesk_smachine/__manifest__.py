@@ -16,7 +16,8 @@
     'depends': [
         'helpdesk',
         'resource',
-        'helpdesk_repair',
+        'helpdesk_stock',
+        # 'helpdesk_repair',
     ],
     'data': [
         'security/ir.model.access.csv',
@@ -24,10 +25,10 @@
         'views/res_partner_views.xml',
         'views/helpdesk_team_views.xml',
         'views/helpdesk_ticket_views.xml',
-        'views/repair_order_views.xml',
+        # 'views/repair_order_views.xml',
         'views/stock_picking_views.xml',
-        'reports/repair_order_reports.xml',
-        'reports/repair_order_templates.xml',
-        'data/denial_letter_mail_template_data.xml',
+        # 'reports/repair_order_reports.xml',
+        # 'reports/repair_order_templates.xml',
+        # 'data/denial_letter_mail_template_data.xml',
     ],
 }

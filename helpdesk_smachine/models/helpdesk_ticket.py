@@ -29,8 +29,10 @@ class HelpdeskTicket(models.Model):
                                      compute="_compute_days_after_init")
     days_after_init_str = fields.Char('Alert management days',
                                       compute="_compute_days_after_init")
-    guide_number = fields.Char('Guide number')
-    url_guide = fields.Char('URL guide', compute='_compute_url_guide')
+    guide_number = fields.Char('Guía de salida')
+    url_guide = fields.Char('URL guía de salida', compute='_compute_url_guide')
+    guide_number_in = fields.Char('Guía de entrada')
+    url_guide_in = fields.Char('URL guía de entrada', compute='_compute_url_guide')
     date_in_ctb = fields.Date('CTB entry date')
     date_out_ctb = fields.Date('CTB departure date')
     # warehouse_product_id = fields.Many2one(
@@ -64,6 +66,8 @@ class HelpdeskTicket(models.Model):
     )
     partner_vat = fields.Char('Identificación')
     partner_mobile = fields.Char('Celular')
+    product_categ_id = fields.Many2one('product.category', 'Categoría de producto')
+    product_brand_id = fields.Many2one('product.brand', 'Fabricante')
 
     @api.model
     def create(self, vals):
@@ -72,6 +76,11 @@ class HelpdeskTicket(models.Model):
             partner_id = partner_obj.browse(vals.get('partner_id'))
             vals['partner_vat'] = partner_id and partner_id.vat or ''
             vals['partner_mobile'] = partner_id and partner_id.mobile or ''
+        if vals.get('product_id'):
+            product_obj = self.env['product.product']
+            product_id = product_obj.browse(vals.get('product_id'))
+            vals['product_categ_id'] = product_id and product_id.categ_id and product_id.categ_id.id or ''
+            vals['product_brand_id'] = product_id and product_id.product_brand_id and product_id.product_brand_id.id or ''
         res = super(HelpdeskTicket, self).create(vals)
         # for record in res:
         #     partner_id = record.partner_id or False
@@ -86,6 +95,16 @@ class HelpdeskTicket(models.Model):
             'value': {
                 'partner_vat': partner_id and partner_id.vat or '',
                 'partner_mobile': partner_id and partner_id.mobile or ''                
+            }
+        }
+    
+    @api.onchange('product_id')
+    def _onchange_product_category_brand(self):
+        product_id = self.product_id or False
+        return {
+            'value': {
+                'product_categ_id': product_id and product_id.categ_id and product_id.categ_id.id or '',
+                'product_brand_id': product_id and product_id.product_brand_id and product_id.product_brand_id.id or ''                
             }
         }
 
@@ -107,7 +126,7 @@ class HelpdeskTicket(models.Model):
                 )
             )
 
-    @api.depends('guide_number')
+    @api.depends('guide_number', 'guide_number_in')
     def _compute_url_guide(self):
         for record in self:
             url = 'https://mobile.servientrega.com/' \
@@ -116,6 +135,10 @@ class HelpdeskTicket(models.Model):
                 record.url_guide = url % record.guide_number or ''
             else:
                 record.url_guide = False
+            if record.guide_number_in:
+                record.url_guide_in = url % record.guide_number_in or ''
+            else:
+                record.url_guide_in = False
 
     def _compute_days_after_init(self):
         for record in self:
