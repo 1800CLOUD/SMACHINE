@@ -12,7 +12,7 @@
     'website': 'https://www.1-800cloud.com',
     'category': 'Services/Helpdesk',
     'license': 'OPL-1',
-    'version': '15.0.0.0.7',
+    'version': '15.0.0.0.8',
     'depends': [
         'helpdesk',
         'resource',
