@@ -5,6 +5,7 @@ from odoo import fields, models, _
 
 class BankPaymentLine(models.Model):
     _name = 'bank.payment.line'
+    _inherit = 'bank.payment.line'
 
 class DamageTypeSm(models.Model):
     _name = 'damage.type.sm'
