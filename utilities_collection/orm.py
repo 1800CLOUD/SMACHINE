@@ -26,21 +26,7 @@ def create_cursor(cursor: odoo.sql_db.Cursor) -> psycopg2.extensions.cursor:
     @return:
         cursor (psycopg2.extensions.cursor)
     """
-    cursor_info = cursor._cnx._original_dsn
-    db_host = cursor_info.get('host')
-    db_port = cursor_info.get('port')
-    db_user = cursor_info.get('user')
-    db_name = cursor_info.get('database')
-    db_password = cursor_info.get('password')
-
-    try:
-        conn = psycopg2.connect(
-            user=db_user, host=db_host, port=db_port, password=db_password,
-            dbname=db_name
-        )
-        return conn.cursor()
-    except psycopg2.OperationalError as err:
-        raise Warning('Could not create cursor: ' + str(err))
+    return cursor
 
 
 def commit_cursor(cursor: psycopg2.extensions.cursor):
