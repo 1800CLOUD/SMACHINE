@@ -20,13 +20,14 @@
     'website': "https://1-800cloud.com/",
     'license': 'OPL-1',
     'category': 'Inventory/Sale',
-    'version': '15.0.0.1.4',
+    'version': '15.0.0.1.5',
     'depends': [
         'sale_baseline',
         'account_voucher',
         'mrp',
         'point_of_sale',
-        'l10n_co_pos'
+        'l10n_co_pos',
+        'account_baseline'
     ],
     'data': [
         'security/ir.model.access.csv',
@@ -38,6 +39,7 @@
         'views/res_config_settings_views.xml',
         'views/sale_order_templates.xml',
         'views/stock_picking_views.xml',
+        'views/account_views.xml',
     ],
     'assets': {
         'web.assets_qweb': [

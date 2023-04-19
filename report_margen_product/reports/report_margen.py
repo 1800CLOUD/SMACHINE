@@ -54,9 +54,9 @@ class ReportInvoice(models.TransientModel):
                             INNER JOIN sale_order so ON sol.order_id = so.id 
                             INNER JOIN product_product pp ON sol.product_id = pp.id 
                             INNER JOIN product_template pt ON pt.id = pp.product_tmpl_id
-                            INNER JOIN product_brand pb ON pb.id = pt.product_brand_id
                             INNER JOIN stock_move sm ON sol.id = sm.sale_line_id 
                             INNER JOIN stock_valuation_layer svl ON sm.id = svl.stock_move_id
+                            LEFT JOIN product_brand pb ON pb.id = pt.product_brand_id
 
 
                         WHERE

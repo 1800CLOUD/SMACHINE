@@ -84,12 +84,12 @@ class ReportInvoice(models.TransientModel):
                             INNER JOIN account_move_line aml ON so.id = aml.order_sale_id AND pp.id = aml.product_id
                             INNER JOIN account_move am ON aml.move_id = am.id
                             INNER JOIN product_category pc ON pt.categ_id = pc.id
-                            INNER JOIN product_brand pb ON pt.product_brand_id = pb.id
                             INNER JOIN uom_uom uu ON pt.uom_id = uu.id                          
                             INNER JOIN res_partner rp ON so.partner_id = rp.id
                             INNER JOIN res_users ru ON so.user_id = ru.id
                             INNER JOIN res_partner rp2 ON ru.partner_id = rp2.id
                             INNER JOIN crm_team cm ON so.team_id = cm.id 
+                            LEFT JOIN product_brand pb ON pt.product_brand_id = pb.id
                             LEFT JOIN res_city rc ON so.city_id = rc.id 
                             LEFT JOIN res_city rc2 ON rp.city_id = rc2.id
                              

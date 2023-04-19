@@ -14,7 +14,6 @@
     'version': '15.0.0.0.0',
     'depends': [
         'product_brand',
-        'Stock_Agromark',
         'stock',
         'sale'
     ],
