@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_report_facturados"
+              name="Informe de Facturados"
+              parent="account_report.menu_partner_report_ar_in_sales"
+              action="action_report_invoice"
+              sequence="50"/>
+
+</odoo>
