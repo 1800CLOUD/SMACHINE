@@ -12,7 +12,7 @@
     'website': 'https://www.1-800cloud.com',
     'category': 'Services/Helpdesk',
     'license': 'OPL-1',
-    'version': '15.0.0.1.1',
+    'version': '15.0.0.1.2',
     'depends': [
         'helpdesk',
         'resource',
@@ -20,6 +20,8 @@
         # 'helpdesk_repair',
     ],
     'data': [
+        'data/ir_module_category_data.xml',
+        'security/security.xml',
         'security/ir.model.access.csv',
         'views/damage_type_sm_views.xml',
         'views/res_partner_views.xml',

@@ -81,12 +81,20 @@ class HelpdeskTicket(models.Model):
             product_id = product_obj.browse(vals.get('product_id'))
             vals['product_categ_id'] = product_id and product_id.categ_id and product_id.categ_id.id or ''
             vals['product_brand_id'] = product_id and product_id.product_brand_id and product_id.product_brand_id.id or ''
+        if vals.get('technician_id') and self.env.user.has_group('helpdesk_smachine.group_helpdesk_sales_sm'):
+            raise ValidationError(_("No esta autorizado para seleccionar el técnico encargado de la revisión del caso"))
         res = super(HelpdeskTicket, self).create(vals)
         # for record in res:
         #     partner_id = record.partner_id or False
         #     record.partner_vat = partner_id and partner_id.vat or '',
         #     record.partner_mobile = partner_id and partner_id.mobile or ''
         return res
+    
+    def write(self, vals):
+        user = self.env.user
+        if user.has_group('helpdesk_smachine.group_helpdesk_sales_sm'):
+            raise ValidationError(_("No esta autorizado para editar el ticket, contacte a soporte si cree que deberia tener el permiso"))
+        return super(HelpdeskTicket, self).write(vals)
 
     @api.onchange('partner_id')
     def _onchange_partner_vat_mobile(self):
@@ -107,6 +115,15 @@ class HelpdeskTicket(models.Model):
                 'product_brand_id': product_id and product_id.product_brand_id and product_id.product_brand_id.id or ''                
             }
         }
+
+    @api.onchange('stage_id')
+    def _onchange_stage(self):
+        if not self.stage_id.is_restricted: 
+            warning = ''
+            if not self.env.user.has_group('helpdesk_smachine.group_helpdesk_sales_sm'):
+                warning += 'Lo sentimos, usted no esta autorizado para realizar cambios en esta Etapa.\n\n'
+            if warning:
+                raise ValidationError(warning)
 
     def _compute_stock_product(self):
         for record in self:
