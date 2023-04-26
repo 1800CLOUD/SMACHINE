@@ -20,6 +20,8 @@
         # 'helpdesk_repair',
     ],
     'data': [
+        'data/ir_module_category_data.xml',
+        'security/security.xml',
         'security/ir.model.access.csv',
         'views/damage_type_sm_views.xml',
         'views/res_partner_views.xml',
