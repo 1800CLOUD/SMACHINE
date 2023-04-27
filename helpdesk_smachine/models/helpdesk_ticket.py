@@ -92,7 +92,7 @@ class HelpdeskTicket(models.Model):
     
     
     def write(self, vals):
-        if self.id and self.stage_id.id != 49 or 59:
+        if self.id and self.stage_id.id != 49:
             user = self.env.user
             if user.has_group('helpdesk_smachine.group_helpdesk_sales_sm'):
                 raise UserError(_("No esta autorizado para editar el ticket, contacte a soporte si cree que deberia tener el permiso"))
