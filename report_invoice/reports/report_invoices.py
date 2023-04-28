@@ -18,8 +18,8 @@ class ReportInvoice(models.TransientModel):
 
 
     name = fields.Char('Nombre', default='Informe de Facturados', readonly=True)
-    date_from = fields.Datetime('Desde', required=True, default=(fields.Datetime.now() - relativedelta(month=1)))
-    date_to = fields.Datetime('Hasta', required=True, default=(fields.Datetime.now()))
+    date_from = fields.Date('Desde', required=True, default=(fields.Date.today() - relativedelta(month=1)))
+    date_to = fields.Date('Hasta', required=True, default=(fields.Date.today()))
     partner_ids = fields.Many2many('res.partner', string='Clientes') 
     xls_file = fields.Binary(string="XLS file")
     xls_filename = fields.Char()
@@ -52,7 +52,7 @@ class ReportInvoice(models.TransientModel):
         dt_from = str(self.date_from)
         dt_to = str(self.date_to)
         cr.execute(f'''SELECT
-                            so.date_order, 
+                            am.invoice_date, 
                             so.name,
                             am.name, 
                             aa.name,
@@ -63,10 +63,10 @@ class ReportInvoice(models.TransientModel):
                             uu.name,
                             CASE 
                             WHEN am.move_type = 'out_refund' THEN aml.quantity * (-1)
-                            ELSE sol.product_uom_qty END,
+                            ELSE aml.quantity END AS total_quantity,
                             CASE
                             WHEN am.move_type = 'out_refund' THEN aml.price_subtotal * (-1)
-                            ELSE sol.price_subtotal END,
+                            ELSE aml.price_subtotal END AS total_price_subtotal,
                             rp.vat,
                             rp.name,
                             rc2.name,
@@ -76,13 +76,13 @@ class ReportInvoice(models.TransientModel):
                             
                             
 
-                        FROM sale_order_line sol
-                            INNER JOIN sale_order so ON sol.order_id = so.id
-                            INNER JOIN account_analytic_account aa ON so.analytic_account_id = aa.id
-                            INNER JOIN product_product pp ON sol.product_id = pp.id
-                            INNER JOIN product_template pt ON pt.id = pp.product_tmpl_id
-                            INNER JOIN account_move_line aml ON so.id = aml.order_sale_id AND pp.id = aml.product_id
+                        FROM account_move_line aml
                             INNER JOIN account_move am ON aml.move_id = am.id
+                            INNER JOIN sale_order so ON am.sale_id = so.id
+                            INNER JOIN product_product pp ON aml.product_id = pp.id
+                            INNER JOIN product_template pt ON pt.id = pp.product_tmpl_id
+                            INNER JOIN sale_order_line sol ON so.id = sol.order_id AND sol.product_id = pp.id 
+                            INNER JOIN account_analytic_account aa ON aml.analytic_account_id = aa.id
                             INNER JOIN product_category pc ON pt.categ_id = pc.id
                             INNER JOIN uom_uom uu ON pt.uom_id = uu.id                          
                             INNER JOIN res_partner rp ON so.partner_id = rp.id
@@ -96,32 +96,29 @@ class ReportInvoice(models.TransientModel):
 
                         WHERE
                             pt.detailed_type = 'product' AND
-                            sol.product_uom_qty = sol.qty_invoiced AND
                             so.state = 'done' AND
                             am.state = 'posted' AND
-                            so.date_order BETWEEN   '{dt_from}' AND '{dt_to}' {wh}
+                            am.invoice_date BETWEEN   '{dt_from}' AND '{dt_to}' {wh}
                         
                         GROUP BY
+                        am.invoice_date,
                         so.name,
                         am.name,
-                        pc.name,
                         pt.default_code,
                         pt.name,
-                        so.date_order,
+                        pc.name,
                         aa.name,
                         pb.name,
                         uu.name,
-                        sol.product_uom_qty,
-                        aml.quantity,
-                        sol.price_subtotal,
-                        aml.price_subtotal,
                         rp.vat,
                         rp.name,
                         rc2.name,
                         rc.name,
                         rp2.name,
                         cm.name,
-                        am.move_type
+                        am.move_type,
+                        aml.quantity,
+                        aml.price_subtotal
                         
                     
                       ''')
