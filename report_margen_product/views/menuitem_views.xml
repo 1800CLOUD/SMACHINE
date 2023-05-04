@@ -13,4 +13,14 @@
               action="action_report_margen"
               sequence="15"/>
 
+    <menuitem id="menu_report_account_voucher"
+              name="Reporte de pagos"
+              parent="report_margen_product.menu_partner_report_account"
+              action="account_voucher_report.account_voucher_report_action"
+              sequence="25"/>
+
+    <record id="account_voucher_report.menu_account_voucher_report" model="ir.ui.menu">
+        <field name="active">False</field>
+    </record>
+
 </odoo>
