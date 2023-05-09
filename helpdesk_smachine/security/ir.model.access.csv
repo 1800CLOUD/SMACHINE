@@ -7,5 +7,5 @@ access_helpdesk_tag,helpdesk.tag,helpdesk.model_helpdesk_tag,helpdesk_smachine.g
 access_helpdesk_sla_status,helpdesk.sla.status,helpdesk.model_helpdesk_sla_status,helpdesk_smachine.group_helpdesk_sales_sm,1,0,0,0
 access_helpdesk_sla,helpdesk.sla,helpdesk.model_helpdesk_sla,helpdesk_smachine.group_helpdesk_sales_sm,1,0,0,0
 access_helpdesk_stage,helpdesk.stage,model_helpdesk_stage,helpdesk_smachine.group_helpdesk_sales_sm,1,0,0,0
-access_helpdesk_ticket,helpdesk.ticket,model_helpdesk_ticket,helpdesk_smachine.group_helpdesk_sales_sm,1,0,1,0
+access_helpdesk_ticket,helpdesk.ticket,model_helpdesk_ticket,helpdesk_smachine.group_helpdesk_sales_sm,1,1,1,0
 access_helpdesk_team_public,helpdesk.team,helpdesk_smachine.model_helpdesk_team,helpdesk_smachine.group_helpdesk_sales_sm,1,0,0,0

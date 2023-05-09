@@ -2,7 +2,7 @@
 
 from cmath import pi
 from odoo import api, fields, models, _
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 
 
 class HelpdeskTicket(models.Model):
@@ -71,6 +71,8 @@ class HelpdeskTicket(models.Model):
 
     @api.model
     def create(self, vals):
+        if vals.get('technician_id') and self.env.user.has_group('helpdesk_smachine.group_helpdesk_sales_sm'):
+            raise UserError(_("No esta autorizado para seleccionar el técnico encargado de la revisión del caso"))
         if vals.get('partner_id'):
             partner_obj = self.env['res.partner']
             partner_id = partner_obj.browse(vals.get('partner_id'))
@@ -81,8 +83,6 @@ class HelpdeskTicket(models.Model):
             product_id = product_obj.browse(vals.get('product_id'))
             vals['product_categ_id'] = product_id and product_id.categ_id and product_id.categ_id.id or ''
             vals['product_brand_id'] = product_id and product_id.product_brand_id and product_id.product_brand_id.id or ''
-        if vals.get('technician_id') and self.env.user.has_group('helpdesk_smachine.group_helpdesk_sales_sm'):
-            raise ValidationError(_("No esta autorizado para seleccionar el técnico encargado de la revisión del caso"))
         res = super(HelpdeskTicket, self).create(vals)
         # for record in res:
         #     partner_id = record.partner_id or False
@@ -90,14 +90,14 @@ class HelpdeskTicket(models.Model):
         #     record.partner_mobile = partner_id and partner_id.mobile or ''
         return res
     
-    #@api.model
-    #def write(self, vals):
-    #    res = super(HelpdeskTicket, self).write(vals)
-    #    user = self.env.user
-    #    if not user.has_group('	helpdesk.group_helpdesk_manager'):
-    #        raise ValidationError(_("No esta autorizado para editar el ticket, contacte a soporte si cree que deberia tener el permiso"))
-    #    res = super(HelpdeskTicket, self).write(vals)
-    #    return res
+    
+    def write(self, vals):
+        if self.id and self.stage_id.id != 49:
+            user = self.env.user
+            if user.has_group('helpdesk_smachine.group_helpdesk_sales_sm'):
+                raise UserError(_("No esta autorizado para editar el ticket, contacte a soporte si cree que deberia tener el permiso"))
+
+        return super(HelpdeskTicket, self).write(vals)
 
     @api.onchange('partner_id')
     def _onchange_partner_vat_mobile(self):
@@ -119,14 +119,14 @@ class HelpdeskTicket(models.Model):
             }
         }
 
-    #@api.onchange('stage_id')
-    #def _onchange_stage(self):
-    #    if not self.stage_id.is_restricted: 
-    #        warning = ''
-    #        if not self.env.user.has_group('helpdesk_smachine.group_helpdesk_sales_sm'):
-    #            warning += 'Lo sentimos, usted no esta autorizado para realizar cambios en esta Etapa.\n\n'
-    #        if warning:
-    #            raise ValidationError(warning)
+    @api.onchange('stage_id')
+    def _onchange_stage(self):
+        if not self.stage_id.is_restricted: 
+            warning = ''
+            if  self.env.user.has_group('helpdesk_smachine.group_helpdesk_sales_sm'):
+                warning += 'Lo sentimos, usted no esta autorizado para realizar cambios en esta Etapa.\n\n'
+            if warning:
+                raise ValidationError(warning)
 
     def _compute_stock_product(self):
         for record in self:
