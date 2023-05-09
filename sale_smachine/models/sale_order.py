@@ -135,25 +135,25 @@ class SaleOrder(models.Model):
                 #                 discount += partner.discount_fin or 0.0
         return discount*100
 
-    # @api.onchange('partner_id')
-    # def onchange_discount_partner(self):
-    #     self._compute_editable_line_discount()
-    #     if self.company_id.calculate_partner_discount:
-    #         order_line_val = []
-    #         lines = self.order_line.filtered(lambda x: not x.display_type)
-    #         for line in lines:
-    #             discount = self._calculate_partner_discount(line)
-    #             if line.no_calc_discount:
-    #                 order_line_val.append((1, line.id, {'no_calc_discount': False}))
-    #             else:
-    #                 order_line_val.append((1, line.id, {'discount': discount}))
-    #         if order_line_val:
-    #             return {
-    #                 'value': {
-    #                     'order_line': order_line_val
-    #                 }
-    #             }
-    #         else:
-    #             pass
-    #     else:
-    #         pass
+    @api.onchange('partner_id')
+    def onchange_discount_partner(self):
+        self._compute_editable_line_discount()
+        if self.company_id.calculate_partner_discount:
+            order_line_val = []
+            lines = self.order_line.filtered(lambda x: not x.display_type)
+            for line in lines:
+                discount = self._calculate_partner_discount(line)
+                if line.no_calc_discount:
+                    order_line_val.append((1, line.id, {'no_calc_discount': False}))
+                else:
+                    order_line_val.append((1, line.id, {'discount': discount}))
+            if order_line_val:
+                return {
+                    'value': {
+                        'order_line': order_line_val
+                    }
+                }
+            else:
+                pass
+        else:
+            pass
