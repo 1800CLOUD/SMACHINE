@@ -63,6 +63,7 @@
                    <field name="city_partner_id" optional="hide"/>
                    <field name="invoice_date" optional="show"/>
                    <field name="invoice_user_id" optional="hide" widget="many2one_avatar_user"/>
+                   <field name="equipment" optional="hide"/>
                    <field name="categ_id" optional="hide"/>
                    <field name="analytic_account_id" optional="hide"/>
                    <field name="product_id" optional="show"/>                

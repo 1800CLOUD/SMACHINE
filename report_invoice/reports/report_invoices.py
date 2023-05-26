@@ -46,7 +46,7 @@ class ReportInvoice(models.TransientModel):
             
         qry = f'''
             INSERT INTO invoice_report_line (invoice_date, sale_id, move_id, analytic_account_id, product_id, default_code, categ_id, product_uom_id, 
-                quantity, price_subtotal,partner_vat, partner_id, city_partner_id, invoice_user_id, move_type, product_type, create_date, write_date)
+                quantity, price_subtotal,partner_vat, partner_id, city_partner_id, invoice_user_id, move_type, product_type, equipment, create_date, write_date)
                 SELECT
             
                     am.invoice_date, 
@@ -71,6 +71,7 @@ class ReportInvoice(models.TransientModel):
                     am.invoice_user_id,
                     am.move_type,
                     pt.detailed_type,
+                    cm.name,
                     '{dt_now}', 
                     '{dt_now}'
 
@@ -80,6 +81,7 @@ class ReportInvoice(models.TransientModel):
                     INNER JOIN product_product pp ON aml.product_id = pp.id
                     LEFT JOIN product_template pt ON pt.id = pp.product_tmpl_id                        
                     LEFT JOIN res_partner rp ON am.partner_id = rp.id
+                    LEFT JOIN crm_team cm ON am.team_id = cm.id 
                     
                                          
 
@@ -106,6 +108,7 @@ class ReportInvoice(models.TransientModel):
                     aml.quantity,
                     aml.balance,
                     pt.detailed_type,
+                    cm.name,
                     aml.id
         '''
         cr.execute(qry)
@@ -174,7 +177,7 @@ class ReportInvoice(models.TransientModel):
                             LEFT JOIN res_partner rp ON so.partner_id = rp.id
                             LEFT JOIN res_users ru ON so.user_id = ru.id
                             LEFT JOIN res_partner rp2 ON ru.partner_id = rp2.id
-                            LEFT JOIN crm_team cm ON so.team_id = cm.id 
+                            LEFT JOIN crm_team cm ON am.team_id = cm.id 
                             LEFT JOIN product_brand pb ON pt.product_brand_id = pb.id
                             LEFT JOIN res_city rc ON am.city_id = rc.id 
                             LEFT JOIN res_city rc2 ON rp.city_id = rc2.id
@@ -275,6 +278,7 @@ class InvoiceReportLine(models.TransientModel):
     sale_id = fields.Many2one('sale.order', string='Orden de Venta', readonly=True, copy=False)
     partner_id = fields.Many2one('res.partner', string='cliente', readonly=True, copy=False)
     invoice_user_id = fields.Many2one('res.users', string='Vendedor', readonly=True, copy=False)
+    equipment = fields.Char('Equipo de ventas', readonly=True, copy=False)
     move_type = fields.Selection([
         ('out_invoice', 'Factura Cliente'),
         ('out_refund', 'Factura rectificativa'),
@@ -290,6 +294,7 @@ class InvoiceReportLine(models.TransientModel):
     price_subtotal = fields.Float(string='V. antes Impuesto', readonly=True, required=True, index=True, copy=False )
     partner_vat = fields.Char('NIT', readonly=True, index=True, copy=False)
     default_code = fields.Char('Referencia interna', copy=False, readonly=True, index=True)
+    equipment = fields.Char('Equipo de ventas', readonly=True, copy=False)
     city_partner_id = fields.Many2one('res.city', string="Ciudad Cliente", readonly=True, copy=False)
     product_brand_id = fields.Many2one(comodel_name="product.brand", string="Marca", copy=False, readonly=True, index=True)
     product_type = fields.Selection([
