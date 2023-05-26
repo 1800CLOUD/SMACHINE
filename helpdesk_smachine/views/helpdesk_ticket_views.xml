@@ -15,7 +15,7 @@
                     <attribute name="string">INFORMACION CASO</attribute>
                 </xpath>
                 <xpath expr="//field[@name='team_id']" position="after">
-                    <field name="technician_id" options="{'no_create': True, 'no_create_edit': True}" domain="[('is_technician','=',True)]"/>
+                    <field name="technician_id" options="{'no_create': True, 'no_create_edit': True}" domain="[('is_technician','=',True)]" groups="helpdesk.group_helpdesk_manager,helpdesk.group_helpdesk_user"/>
                     <field name="tech_city_id" options="{'no_create': True, 'no_create_edit': True}"/>
                 </xpath>
                 <xpath expr="//field[@name='priority']" position="after">
