@@ -147,6 +147,11 @@ class ReportInvoice(models.TransientModel):
                             aa.name,
                             pt.default_code,
                             pt.name,
+                            CASE 
+                                WHEN pt.detailed_type = 'product' THEN 'Almacenable'
+                                WHEN pt.detailed_type = 'consu' THEN 'Consumible'
+                                ELSE 'Servicio'
+                            END,
                             pc.name,
                             pb.name,
                             uu.name,
@@ -168,14 +173,14 @@ class ReportInvoice(models.TransientModel):
                         FROM account_move_line aml
                             LEFT JOIN account_move am ON aml.move_id = am.id
                             LEFT JOIN sale_order so ON am.sale_id = so.id
-                            LEFT JOIN product_product pp ON aml.product_id = pp.id
+                            INNER JOIN product_product pp ON aml.product_id = pp.id
                             LEFT JOIN product_template pt ON pt.id = pp.product_tmpl_id
                             LEFT JOIN sale_order_line sol ON so.id = sol.order_id AND sol.product_id = pp.id 
                             LEFT JOIN account_analytic_account aa ON aml.analytic_account_id = aa.id
                             LEFT JOIN product_category pc ON pt.categ_id = pc.id
                             LEFT JOIN uom_uom uu ON pt.uom_id = uu.id                          
-                            LEFT JOIN res_partner rp ON so.partner_id = rp.id
-                            LEFT JOIN res_users ru ON so.user_id = ru.id
+                            LEFT JOIN res_partner rp ON am.partner_id = rp.id
+                            LEFT JOIN res_users ru ON am.user_id = ru.id
                             LEFT JOIN res_partner rp2 ON ru.partner_id = rp2.id
                             LEFT JOIN crm_team cm ON am.team_id = cm.id 
                             LEFT JOIN product_brand pb ON pt.product_brand_id = pb.id
@@ -184,7 +189,6 @@ class ReportInvoice(models.TransientModel):
                              
 
                         WHERE
-                            pt.detailed_type IN ('product', 'service', 'consu') AND
                             am.move_type IN ('out_invoice', 'out_refund') AND
                             am.state = 'posted' AND
                             am.invoice_date BETWEEN   '{dt_from}' AND '{dt_to}' {wh}
@@ -208,6 +212,7 @@ class ReportInvoice(models.TransientModel):
                         am.move_type,
                         aml.quantity,
                         aml.balance,
+                        pt.detailed_type,
                         aml.id
                         
                     
@@ -225,6 +230,7 @@ class ReportInvoice(models.TransientModel):
                 'Cuenta analítica', 
                 'Referencia Interna',
                 'Producto',
+                'Tipo de producto',
                 'Categoria',
                 'Marca',
                 'Unidad de medida', 
