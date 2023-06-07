@@ -284,8 +284,8 @@ class InvoiceReportLine(models.TransientModel):
     invoice_user_id = fields.Many2one('res.users', string='Vendedor', readonly=True, copy=False)
     equipment = fields.Char('Equipo de ventas', readonly=True, copy=False)
     move_type = fields.Selection([
-        ('out_invoice', 'Factura Cliente'),
-        ('out_refund', 'Factura rectificativa'),
+        ('out_invoice', 'Facturas Cliente'),
+        ('out_refund', 'Facturas rectificativas'),
         ], string='Tipo de Factura', readonly=True)
     invoice_date = fields.Date(readonly=True, string="Fecha de Factura", copy=False)
 
