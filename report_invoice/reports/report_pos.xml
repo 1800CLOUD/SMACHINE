@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="report_pos_form" model="ir.ui.view">
+            <field name="name">report.pos.form</field>
+            <field name="model">report.pos</field>
+            <field name="arch" type="xml">
+                <form string="Informe de Reclamaciones">
+                    <sheet>
+                        <div class="oe_button_box">                        
+                            <button name="get_xlsx_report" string="Excel" type="object" class="oe_highlight" icon="fa-file-excel-o" />
+                            <button name="analysis" type="object" class="oe_stat_button" icon="fa-sort-amount-asc" string="Analisis"/>
+                        </div>
+                        <h1>
+                            <strong>Informe de Facturados POS</strong>
+                        </h1>
+                        <group col="2" string="Fechas de Corte">
+                            <group colspan="1">
+                                <field name="date_from"/>
+                            </group>
+                            <group colspan="1">
+                                <field name="date_to"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="partner_ids" widget="many2many_tags"/>
+                                <field name="xls_filename" invisible="1"/>
+                            </group>
+                            <div>
+                                <p attrs="{'invisible': [('xls_file', '=', False)]}" class="oe_inline" name="xls_file">
+                                    Download the XLSX details file: <field name="xls_file" readonly="1" filename="xls_filename"/>
+                                </p>
+                            </div>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_pos_report_line_pivot" model="ir.ui.view">
+            <field name="name">account.invoice.report.pivot</field>
+            <field name="model">pos.report.line</field>
+            <field name="arch" type="xml">
+                <pivot string="Analisis de Facturados POS" sample="1">
+                    <field name="product_id" type="col"/>
+                    <field name="date_order" type="row"/>
+                    <field name="price_subtotal" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="pos_report_view_line_tree" model="ir.ui.view">
+            <field name="name">account.invoice.report.view.tree</field>
+            <field name="model">pos.report.line</field>
+            <field name="arch" type="xml">
+                <tree string="Invoices Analysis">
+                   <field name="order_id" optional="hide"/>
+                   <field name="session_id" optional="hide"/>
+                   <field name="partner_id" optional="show"/>
+                   <field name="partner_vat" optional="hide"/>
+                   <field name="date_order" optional="show"/>
+                   <field name="employee_id" optional="hide"/>
+                   <field name="categ_id" optional="hide"/>
+                   <field name="product_id" optional="show"/>                
+                   <field name="default_code" optional="hide"/>              
+                   <field name="product_uom_id" optional="hide"/>                      
+                   <field name="product_brand_id" optional="hide"/>                      
+                   <field name="quantity" optional="hide" sum="Total"/>
+                   <field name="price_subtotal" optional="show" sum="Total"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="filter_invoice_report_employees" model="ir.filters">
+            <field name="name">Cajeros</field>
+            <field name="model_id">pos.report.line</field>
+            <field name="domain">[]</field>
+            <field name="user_id" eval="False"/>
+            <field name="context">{'group_by': ['date_order:month', 'employee_id']}</field>
+        </record>
+        <record id="filter_invoice_products" model="ir.filters">
+            <field name="name">Producto</field>
+            <field name="model_id">pos.report.line</field>
+            <field name="domain">[]</field>
+            <field name="user_id" eval="False"/>
+            <field name="context">{'group_by': ['date_order:month', 'product_id'], 'set_visible':True, 'residual_invisible':True}</field>
+        </record>
+        <record id="filter_invoice_category" model="ir.filters">
+            <field name="name">Categoria de producto</field>
+            <field name="model_id">pos.report.line</field>
+            <field name="domain">[]</field>
+            <field name="user_id" eval="False"/>
+            <field name="context">{'group_by': ['date_order:month', 'categ_id'], 'residual_invisible':True}</field>
+        </record>
+
+        
+        <record id="view_pos_report_line_search" model="ir.ui.view">
+            <field name="name">pos.report.line.search</field>
+            <field name="model">pos.report.line</field>
+            <field name="arch" type="xml">
+                <search string="Analisis Facturados pos">
+                    <separator/>
+                    <field name="date_order"/>
+                    <separator/>
+                    <filter name="filter_invoice_date" date="date_order"/>
+                    <field name="product_id" />
+                    <field name="categ_id" filter_domain="[('categ_id', 'child_of', self)]"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Cliente" name="partner_id" context="{'group_by':'partner_id','residual_visible':True}"/>
+                        <filter string="Categoria producto" name="category_product" context="{'group_by':'categ_id','residual_invisible':True}"/>
+                        <filter string="Marca" name='product_brand_id' context="{'group_by':'product_brand_id'}"/>
+                        <separator orientation="vertical" />
+                        <filter string="Fecha Factura" name="date_order" context="{'group_by':'date_order'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_report_pos" model="ir.actions.act_window">
+            <field name="name">Informe de Facturados POS</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">report.pos</field>
+            <field name="view_mode">form</field>
+            <field name="target">current</field>
+        </record>   
+
+    </data>
+</odoo>
+

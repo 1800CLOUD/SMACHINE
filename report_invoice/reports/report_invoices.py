@@ -178,7 +178,7 @@ class ReportInvoice(models.TransientModel):
                             LEFT JOIN product_category pc ON pt.categ_id = pc.id
                             LEFT JOIN uom_uom uu ON pt.uom_id = uu.id                          
                             LEFT JOIN res_partner rp ON am.partner_id = rp.id
-                            LEFT JOIN res_users ru ON am.user_id = ru.id
+                            LEFT JOIN res_users ru ON am.invoice_user_id = ru.id
                             LEFT JOIN res_partner rp2 ON ru.partner_id = rp2.id
                             LEFT JOIN crm_team cm ON am.team_id = cm.id 
                             LEFT JOIN product_brand pb ON pt.product_brand_id = pb.id
