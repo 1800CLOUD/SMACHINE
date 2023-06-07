@@ -6,14 +6,14 @@
             <field name="name">report.pos.form</field>
             <field name="model">report.pos</field>
             <field name="arch" type="xml">
-                <form string="Informe de Reclamaciones">
+                <form string="Informe de Ordenes POS">
                     <sheet>
                         <div class="oe_button_box">                        
                             <button name="get_xlsx_report" string="Excel" type="object" class="oe_highlight" icon="fa-file-excel-o" />
                             <button name="analysis" type="object" class="oe_stat_button" icon="fa-sort-amount-asc" string="Analisis"/>
                         </div>
                         <h1>
-                            <strong>Informe de Facturados POS</strong>
+                            <strong>Informe de Ordenes POS</strong>
                         </h1>
                         <group col="2" string="Fechas de Corte">
                             <group colspan="1">
@@ -43,7 +43,7 @@
             <field name="name">account.invoice.report.pivot</field>
             <field name="model">pos.report.line</field>
             <field name="arch" type="xml">
-                <pivot string="Analisis de Facturados POS" sample="1">
+                <pivot string="Analisis de Ordenes POS" sample="1">
                     <field name="product_id" type="col"/>
                     <field name="date_order" type="row"/>
                     <field name="price_subtotal" type="measure"/>
@@ -119,7 +119,7 @@
         </record>
 
         <record id="action_report_pos" model="ir.actions.act_window">
-            <field name="name">Informe de Facturados POS</field>
+            <field name="name">Informe de Ordenes POS</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">report.pos</field>
             <field name="view_mode">form</field>
