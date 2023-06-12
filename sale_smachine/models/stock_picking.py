@@ -9,6 +9,7 @@ class StockPicking(models.Model):
     destination_city_id = fields.Many2one('res.city', 'Ciudad destino')
     source_id = fields.Many2one('utm.source', 'Canal de venta')
     guide_number = fields.Char('Guide number')
+    team_sale_id = fields.Many2one('crm.team', 'Equipo de Ventas', related='sale_id.team_id', store=True)
 
     @api.model
     def create(self, vals):
