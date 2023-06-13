@@ -18,9 +18,9 @@
         "Bernardo D. Lara Guevara <bernardo.lara@1-800cloud.com>"
     ],
     'website': "https://1-800cloud.com/",
-    'license': 'OPL-1',
+    'license': 'LGPL-3',
     'category': 'Inventory/Sale',
-    'version': '15.0.0.2.4',
+    'version': '15.0.0.2.5',
     'depends': [
         'sale_baseline',
         'account_voucher',
