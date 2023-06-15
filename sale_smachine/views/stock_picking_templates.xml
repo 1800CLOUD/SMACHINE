@@ -13,6 +13,16 @@
                     </td>
                 </tr>
             </xpath>
+            <xpath expr="//div[hasclass('page')]/div/div/div[2]/table/tr[3]" position="after">
+                <tr t-if="doc.picking_type_code == 'outgoing'">
+                    <td class="relleno-verde">
+                        <b>EQUIPO VENTAS</b>
+                    </td>
+                    <td class="sin-relleno text-center">
+                        <span t-field="doc.team_sale_id"/>
+                    </td>
+                </tr>
+            </xpath>
             <!-- <xpath expr="//td[@name='td_name']/span" position="after">
                 <img t-if="line.product_id.image_1920" t-att-src="image_data_uri(line.product_id.image_1920)" style="max-height: 2cm; max-width: 2cm;" />
             </xpath> -->

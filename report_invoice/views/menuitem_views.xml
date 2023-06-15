@@ -6,5 +6,10 @@
               parent="account_report.menu_partner_report_ar_in_sales"
               action="action_report_invoice"
               sequence="50"/>
+    <menuitem id="menu_report_pos"
+              name="Informe de Facturados POS"
+              parent="account_report.menu_partner_report_ar_in_sales"
+              action="action_report_pos"
+              sequence="51"/>
 
 </odoo>
