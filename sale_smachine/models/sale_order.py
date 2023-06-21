@@ -34,7 +34,8 @@ class SaleOrder(models.Model):
                 raise UserError(_(
                     'El cliente %s está bloqueado por grupo comercial.\n'
                     'Este pedido debe ser aprobado por '
-                    'cartera antes de confirmalo.'
+                    'cartera antes de confirmalo.',
+                    record.partner_id.name
                 ))
         res = super(SaleOrder, self).action_confirm()
         return res
