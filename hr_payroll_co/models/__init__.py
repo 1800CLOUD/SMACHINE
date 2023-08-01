@@ -20,3 +20,4 @@ from . import hr_contribution_form
 from . import res_company
 
 from . import hr_days_off
+from . import res_users

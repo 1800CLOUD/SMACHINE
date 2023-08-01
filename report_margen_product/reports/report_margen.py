@@ -47,7 +47,7 @@ class ReportInvoice(models.TransientModel):
             
         qry = f'''
                 INSERT INTO margen_report_line (product_id, default_code, product_brand_id, quantity, price_subtotal, cost, utility, 
-                                                percentage_uti, percentage_renta, create_date, write_date)
+                                                percentage_uti, percentage_renta, product_type, create_date, write_date)
 
                 SELECT
                     aml.product_id, 
@@ -61,6 +61,7 @@ class ReportInvoice(models.TransientModel):
                     NULLIF(SUM(aml.price_subtotal * (CASE WHEN am.move_type = 'out_invoice' THEN 1 ELSE -1 END)),0)) AS utility,
                     ((SUM(aml.price_subtotal * (CASE WHEN am.move_type = 'out_invoice' THEN 1 ELSE -1 END)) - (svl.cost_off)) / 
                     NULLIF((svl.cost_off),0)) AS renta,
+                    pt.detailed_type,
                     '{dt_now}', 
                     '{dt_now}'
 
@@ -81,7 +82,7 @@ class ReportInvoice(models.TransientModel):
                                 WHERE 
                                     aml2.product_id = pp.id AND
                                     aa2.code LIKE '6135%' AND
-                                    am.date BETWEEN  '{dt_from}' AND '{dt_to}' 
+                                    aml2.date BETWEEN  '{dt_from}' AND '{dt_to}' 
 
 
                                 LIMIT 1
@@ -89,7 +90,7 @@ class ReportInvoice(models.TransientModel):
 
                     WHERE
                         am.move_type IN ('out_invoice', 'out_refund') AND
-                        pt.detailed_type = 'product' AND
+                        pt.detailed_type IN ('product', 'consu', 'service') AND
                         am.state = 'posted' AND
                         am.invoice_date BETWEEN   '{dt_from}' AND '{dt_to}' 
                         {wh}
@@ -97,7 +98,8 @@ class ReportInvoice(models.TransientModel):
                         aml.product_id,
                         pt.default_code,
                         pt.product_brand_id,
-                        svl.cost_off
+                        svl.cost_off,
+                        pt.detailed_type
                         
                    '''     
         cr.execute(qry)
@@ -158,7 +160,7 @@ class ReportInvoice(models.TransientModel):
                                 WHERE 
                                     aml2.product_id = pp.id AND
                                     aa2.code LIKE '6135%' AND
-                                    am.date BETWEEN  '{dt_from}' AND '{dt_to}' 
+                                    aml2.date BETWEEN  '{dt_from}' AND '{dt_to}' 
 
 
                                 LIMIT 1
@@ -166,7 +168,7 @@ class ReportInvoice(models.TransientModel):
 
                         WHERE
                             am.move_type IN ('out_invoice', 'out_refund') AND
-                            pt.detailed_type = 'product' AND
+                            pt.detailed_type IN ('product', 'consu') AND
                             am.state = 'posted' AND
                             am.invoice_date BETWEEN   '{dt_from}' AND '{dt_to}' 
                             {wh}
