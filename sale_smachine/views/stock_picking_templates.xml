@@ -9,7 +9,7 @@
                         <b>CIUDAD</b>
                     </td>
                     <td class="sin-relleno text-center">
-                        <span t-field="doc.destination_city_id"/>
+                        <span t-field="doc.sale_id.city_id"/>
                     </td>
                 </tr>
             </xpath>
