@@ -26,17 +26,6 @@ class SaleOrder(models.Model):
     )
     destination_city_id = fields.Many2one('res.city', 'Ciudad destino', related='partner_shipping_id.city_id')
 
-    partner_id = fields.Many2one(
-        'res.partner', string='Customer', readonly=True,
-        states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},
-        required=True, change_default=True, index=True, tracking=1,
-        domain="[('type', '!=', 'private'), ('company_id', 'in', (False, company_id))]",)
-
-    partner_shipping_id = fields.Many2one(
-        'res.partner',
-        string='Dirección de Entrega',
-        domain=[('parent_id', '=', partner_id)]
-    )
 
     def action_confirm(self):
         for record in self:
