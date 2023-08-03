@@ -20,7 +20,7 @@
     'website': "https://1-800cloud.com/",
     'license': 'LGPL-3',
     'category': 'Inventory/Sale',
-    'version': '15.0.0.2.7',
+    'version': '15.0.0.2.8',
     'depends': [
         'sale_baseline',
         'account_voucher',
