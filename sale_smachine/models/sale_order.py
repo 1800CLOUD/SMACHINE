@@ -24,7 +24,8 @@ class SaleOrder(models.Model):
         default=False,
         copy=False
     )
-    destination_city_id = fields.Many2one('res.city', 'Ciudad destino')
+    destination_city_id = fields.Many2one('res.city', 'Ciudad destino', related='partner_shipping_id.city_id')
+
 
     def action_confirm(self):
         for record in self:
