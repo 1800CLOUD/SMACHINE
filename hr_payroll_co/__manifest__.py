@@ -10,7 +10,7 @@
     'website': "",
 
     'category': 'Human Resources/Payroll',
-    'version': '15.0.0.0.8',
+    'version': '15.0.0.0.9',
     'license': 'LGPL-3',
 
     # any module necessary for this one to work correctly

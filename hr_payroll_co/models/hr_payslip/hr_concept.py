@@ -1110,7 +1110,7 @@ class HrConceptType(models.Model):
         total = layoff - provision_layoff
 
         rate_worked_days = worked_days_year / 360
-        interest = layoff * 0.12 * rate_worked_days
+        interest = layoff * 0.12
         data_payslip['PRV_ICES'] = (
             interest, date_from, date_to, rate_worked_days)
 
