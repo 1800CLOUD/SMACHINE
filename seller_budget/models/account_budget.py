@@ -84,9 +84,6 @@ class CrossoveredBudgetLines(models.Model):
 
     name = fields.Char(compute='_compute_line_name')
     crossovered_budget_id = fields.Many2one('crossovered.budget.seller', 'Presupuesto', ondelete='cascade', index=True, required=True)
-    analytic_account_id = fields.Many2one('account.analytic.account', 'Analytic Account')
-    analytic_group_id = fields.Many2one('account.analytic.group', 'Analytic Group', related='analytic_account_id.group_id', readonly=True)
-    general_budget_id = fields.Many2one('account.budget.post', 'Budgetary Position')
     date_from = fields.Date('Fecha inicial', required=True)
     date_to = fields.Date('Fecha Limite', required=True)
     paid_date = fields.Date('Fecha de pago')
