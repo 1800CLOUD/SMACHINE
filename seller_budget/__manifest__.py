@@ -16,5 +16,5 @@ Presupuesto de ventas por vendedor y marca
         #'views/account_analytic_account_views.xml',
     ],
     'license': 'LGPL-3',
-    'version': '15.0.0.0.1',
+    'version': '15.0.0.0.2',
 }
