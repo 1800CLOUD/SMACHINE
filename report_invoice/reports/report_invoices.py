@@ -45,7 +45,7 @@ class ReportInvoice(models.TransientModel):
         cr.execute(f'DELETE FROM invoice_report_line')
             
         qry = f'''
-            INSERT INTO invoice_report_line (invoice_date, sale_id, move_id, analytic_account_id, product_id, default_code, categ_id, product_uom_id, 
+            INSERT INTO invoice_report_line (invoice_date, sale_id, move_id, analytic_account_id, product_id, default_code, product_brand_id, categ_id, product_uom_id, 
                 quantity, price_subtotal,partner_vat, partner_id, city_partner_id, invoice_user_id, move_type, product_type, equipment, medium_id, source_id, create_date, write_date)
                 SELECT
             
@@ -55,6 +55,7 @@ class ReportInvoice(models.TransientModel):
                     aml.analytic_account_id, 
                     pp.id,
                     pt.default_code,
+                    pt.product_brand_id,
                     pt.categ_id,
                     pt.uom_id,
                     CASE 
@@ -106,6 +107,7 @@ class ReportInvoice(models.TransientModel):
                     am.partner_id,
                     rp.city_id,
                     am.invoice_user_id,
+                    pt.product_brand_id,
                     am.move_type,
                     aml.quantity,
                     aml.balance,
