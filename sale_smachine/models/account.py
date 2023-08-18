@@ -35,3 +35,4 @@ class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
     order_sale_id = fields.Many2one('sale.order', 'Orden de Venta', related='sale_line_ids.order_id', readonly=True, store=True, copy=False)
+    product_brand_id = fields.Many2one(comodel_name="product.brand", related='product_id.product_brand_id', string="Marca", copy=False, readonly=True, store=True)

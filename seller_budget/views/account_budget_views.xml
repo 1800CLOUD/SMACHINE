@@ -58,7 +58,7 @@ Budgets
                                     <field name="brand_id" />
                                     <field name="date_from"/>
                                     <field name="date_to"/>
-                                    <field name="paid_date" groups="base.group_no_one"/>
+                                    <field name="paid_date" groups="base.group_no_one" invisible="1"/>
                                     <field name="currency_id" invisible="1"/>
                                     <field name="planned_amount" sum="Planned Amount"/>
                                     <field name="practical_amount" sum="Practical Amount"/>
@@ -216,11 +216,11 @@ Budgets
         <field name="arch" type="xml">
             <search string="Budget Lines">
                 <field name="crossovered_budget_id"/>
-                <filter name="filter_not_cancelled" string="Not Cancelled" domain="[('crossovered_budget_state','!=','cancel')]"/>
+                <filter name="filter_not_cancelled" string="No Cancelados" domain="[('crossovered_budget_state','!=','cancel')]"/>
                 <separator/>
                 <filter string="Date" name="filter_date_from" date="date_from"/>
                 <group expand="0" string="Group By">
-                    <filter name="group_crossevered_budgdet_id" string="Budgets" domain="[]" context="{'group_by':'crossovered_budget_id'}"/>
+                    <filter name="group_crossevered_budgdet_id" string="Presupuestos" domain="[]" context="{'group_by':'crossovered_budget_id'}"/>
                 </group>
             </search>
 
@@ -235,6 +235,8 @@ Budgets
                 <field name="currency_id" invisible="1"/>
                 <field name="crossovered_budget_id" invisible="1"/>
                 <!--<field name="analytic_account_id" groups="analytic.group_analytic_accounting"  />-->
+                <field name="seller_id"  />
+                <field name="brand_id"  />
                 <field name="company_id" groups="base.group_multi_company"/>
                 <field name="date_from"  />
                 <field name="date_to"  />
@@ -256,6 +258,8 @@ Budgets
                         <field name="currency_id" invisible="1"/>
                         <field name="crossovered_budget_state" invisible="1"/>
                         <field name="crossovered_budget_id"  attrs="{'readonly':[('crossovered_budget_state','!=','draft')]}"/>
+                        <field name="seller_id"  attrs="{'readonly':[('crossovered_budget_state','!=','draft')]}"/>
+                        <field name="brand_id"  attrs="{'readonly':[('crossovered_budget_state','!=','draft')]}"/>
                         <!--<field name="analytic_account_id" domain="['|', ('company_id', '=', company_id), ('company_id', '=', False)]" attrs="{'readonly':[('crossovered_budget_state','!=','draft')]}" groups="analytic.group_analytic_accounting"/>-->
                         <field name="date_from"  attrs="{'readonly':[('crossovered_budget_state','!=','draft')]}"/>
                         <field name="date_to"  attrs="{'readonly':[('crossovered_budget_state','!=','draft')]}"/>
@@ -315,5 +319,15 @@ Budgets
         <field name="res_model">crossovered.budget.lines.sellers</field>
         <field name="context">{'search_default_analytic_account_id': [active_id], 'default_analytic_account_id': active_id}</field>
     </record>
+
+    <!--<record model="ir.ui.view" id="account_move_line_balance_tree_sellers">
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_tree_grouped" />
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="brand_id"  optional="hide" />
+            </field>
+        </field>
+    </record>-->
 
 </odoo>

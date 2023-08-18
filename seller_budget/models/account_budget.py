@@ -190,8 +190,9 @@ class CrossoveredBudgetLines(models.Model):
             where_query = aml_obj._where_calc(domain)
             aml_obj._apply_ir_rules(where_query, 'read')
             from_clause, where_clause, where_clause_params = where_query.get_sql()
-            select = "SELECT SUM(credit)-SUM(debit) from " + from_clause + " where " + where_clause
-
+            select = """
+                        SELECT SUM(price_subtotal * (CASE WHEN (SELECT move_type FROM account_move WHERE account_move.id = account_move_line.move_id) = 'out_invoice' THEN 1 ELSE -1 END))
+                        FROM """ + from_clause + """ WHERE """ + where_clause
             self.env.cr.execute(select, where_clause_params)
             practical_amount = self.env.cr.fetchone()[0] or 0.0
             line.practical_amount = practical_amount
