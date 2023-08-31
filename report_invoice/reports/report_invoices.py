@@ -45,8 +45,8 @@ class ReportInvoice(models.TransientModel):
         cr.execute(f'DELETE FROM invoice_report_line')
             
         qry = f'''
-            INSERT INTO invoice_report_line (invoice_date, sale_id, move_id, analytic_account_id, product_id, default_code, categ_id, product_uom_id, 
-                quantity, price_subtotal,partner_vat, partner_id, city_partner_id, invoice_user_id, move_type, product_type, equipment, create_date, write_date)
+            INSERT INTO invoice_report_line (invoice_date, sale_id, move_id, analytic_account_id, product_id, default_code, product_brand_id, categ_id, product_uom_id, 
+                quantity, price_subtotal,partner_vat, partner_id, city_partner_id, invoice_user_id, move_type, product_type, equipment, medium_id, source_id, create_date, write_date)
                 SELECT
             
                     am.invoice_date, 
@@ -55,6 +55,7 @@ class ReportInvoice(models.TransientModel):
                     aml.analytic_account_id, 
                     pp.id,
                     pt.default_code,
+                    pt.product_brand_id,
                     pt.categ_id,
                     pt.uom_id,
                     CASE 
@@ -72,6 +73,8 @@ class ReportInvoice(models.TransientModel):
                     am.move_type,
                     pt.detailed_type,
                     cm.name,
+                    am.medium_id,
+                    am.source_id, 
                     '{dt_now}', 
                     '{dt_now}'
 
@@ -104,11 +107,14 @@ class ReportInvoice(models.TransientModel):
                     am.partner_id,
                     rp.city_id,
                     am.invoice_user_id,
+                    pt.product_brand_id,
                     am.move_type,
                     aml.quantity,
                     aml.balance,
                     pt.detailed_type,
                     cm.name,
+                    am.medium_id,
+                    am.source_id,
                     aml.id
         '''
         cr.execute(qry)
@@ -166,7 +172,9 @@ class ReportInvoice(models.TransientModel):
                             rc2.name,
                             rc.name,
                             rp2.name,
-                            cm.name
+                            cm.name,
+                            um.name,
+                            us.name
 
                         FROM account_move_line aml
                             LEFT JOIN account_move am ON aml.move_id = am.id
@@ -184,6 +192,8 @@ class ReportInvoice(models.TransientModel):
                             LEFT JOIN product_brand pb ON pt.product_brand_id = pb.id
                             LEFT JOIN res_city rc ON am.city_id = rc.id 
                             LEFT JOIN res_city rc2 ON rp.city_id = rc2.id
+                            LEFT JOIN utm_medium um ON am.medium_id = um.id
+                            LEFT JOIN utm_source us ON am.source_id = us.id
                              
 
                         WHERE
@@ -211,6 +221,8 @@ class ReportInvoice(models.TransientModel):
                         aml.quantity,
                         aml.balance,
                         pt.detailed_type,
+                        um.name,
+                        us.name,
                         aml.id
                         
                     
@@ -239,7 +251,9 @@ class ReportInvoice(models.TransientModel):
                 'Ciudad Cliente',
                 'Ciudad Factura',
                 'Vendedor',
-                'Equipo de ventas'
+                'Equipo de ventas',
+                'Medio',
+                'Origen'
                 ]
         workbook = xlsxwriter.Workbook(output, {"in_memory": True})
         worksheet = workbook.add_worksheet()
@@ -295,6 +309,8 @@ class InvoiceReportLine(models.TransientModel):
     product_uom_id = fields.Many2one('uom.uom', string='Unidad de Medida', readonly=True)
     categ_id = fields.Many2one('product.category', string='Categoria Producto', readonly=True)
     analytic_account_id = fields.Many2one('account.analytic.account', string='Cuenta analítica', copy=False)
+    medium_id = fields.Many2one('utm.medium', string='Medio', copy=False)
+    source_id = fields.Many2one('utm.source', string='Origen', readonly=True, copy=False )
     price_subtotal = fields.Float(string='V. antes Impuesto', readonly=True, required=True, index=True, copy=False )
     partner_vat = fields.Char('NIT', readonly=True, index=True, copy=False)
     default_code = fields.Char('Referencia interna', copy=False, readonly=True, index=True)

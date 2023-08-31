@@ -68,7 +68,10 @@
                    <field name="analytic_account_id" optional="hide"/>
                    <field name="product_id" optional="show"/>                
                    <field name="default_code" optional="hide"/>              
-                   <field name="product_uom_id" optional="hide"/>                      
+                   <field name="product_uom_id" optional="hide"/>                     
+                   <field name="product_brand_id" optional="hide"/>                      
+                   <field name="medium_id" optional="hide"/>                      
+                   <field name="source_id" optional="hide"/>                      
                    <field name="product_brand_id" optional="hide"/>                      
                    <field name="quantity" optional="hide" sum="Total"/>
                    <field name="price_subtotal" optional="show" sum="Total"/>

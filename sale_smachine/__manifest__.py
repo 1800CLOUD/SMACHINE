@@ -20,7 +20,7 @@
     'website': "https://1-800cloud.com/",
     'license': 'LGPL-3',
     'category': 'Inventory/Sale',
-    'version': '15.0.0.2.9',
+    'version': '15.0.0.3.1',
     'depends': [
         'sale_baseline',
         'account_voucher',
@@ -28,7 +28,8 @@
         'point_of_sale',
         'l10n_co_pos',
         'account_baseline',
-        'stock_report'
+        'stock_report',
+        'product_brand'
     ],
     'data': [
         'security/ir.model.access.csv',
