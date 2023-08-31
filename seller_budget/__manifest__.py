@@ -8,6 +8,8 @@
 Presupuesto de ventas por vendedor y marca
 --------------------------------------------------------------
 """,
+    'license': 'LGPL-3',
+    'version': '15.0.0.0.4',
     'depends': ['account', 'sale', 'base_setup',],
     'data': [
         'security/ir.model.access.csv',
@@ -15,6 +17,5 @@ Presupuesto de ventas por vendedor y marca
         'views/account_budget_views.xml',
         
     ],
-    'license': 'LGPL-3',
-    'version': '15.0.0.0.3',
+    
 }
