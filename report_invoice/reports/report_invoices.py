@@ -36,7 +36,7 @@ class ReportInvoice(models.TransientModel):
         dt_from = str(self.date_from)
         dt_to = str(self.date_to)
         if self.partner_ids:
-            wh += _add_where('rp', 'partner_id', self.partner_ids)
+            wh += _add_where('rp', 'id', self.partner_ids)
 
 
             
