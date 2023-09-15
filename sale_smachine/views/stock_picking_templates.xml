@@ -26,6 +26,16 @@
             <!-- <xpath expr="//td[@name='td_name']/span" position="after">
                 <img t-if="line.product_id.image_1920" t-att-src="image_data_uri(line.product_id.image_1920)" style="max-height: 2cm; max-width: 2cm;" />
             </xpath> -->
+            <xpath expr="//div[hasclass('page')]/div[2]/div/div/table[hasclass('tabla-smachine')]/tr/td[3]" position="after">
+                <td class="relleno-verde">
+                    <b>CODIGO DE PRODUCTO</b>
+                </td>
+            </xpath>
+            <xpath expr="//div[hasclass('page')]/div[2]/div/div/table[hasclass('tabla-smachine')]/t/tr/td[3]" position="after">
+                <td class="sin-relleno text-center">
+                    <span t-esc="mi.product_id.seller_ids and mi.product_id.seller_ids[0].product_code or '-'"/>
+                </td>
+            </xpath>
         </template>
 
     </data>
