@@ -1,0 +1,35 @@
+<odoo>
+    <record model="ir.ui.view" id="view_stock_valuation_wizard_form">
+        <field name="name">view.stock.valuation.wizard.form</field>
+        <field name="model">stock.valuation.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Stock valuation report">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="range_id" />
+                            <field name="date_start" required="True" />
+                            <field name="date_end" required="True" />
+                        </group>
+                        <group>
+                            <field name="companies_ids" groups="base.group_multi_company" required="True" widget="many2many_tags" />
+                            <field name="products_ids" domain="[('type','=','product'),'|',('company_id','=',False),('company_id','in',companies_ids)]" widget="many2many_tags" />
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Generate XLSX report" name="generate_report" type="object" class="oe_highlight" context="{'report_type': 'xlsx'}" />
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_stock_valuation_wizard" model="ir.actions.act_window">
+        <field name="name">Report valuation</field>
+        <field name="res_model">stock.valuation.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

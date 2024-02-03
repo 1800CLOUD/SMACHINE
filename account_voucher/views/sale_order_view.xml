@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherit_sale_order_account_advance" model="ir.ui.view">
+        <field name="name">sale.order.account.advance</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="unlock_for_credit_limit" groups="account_voucher.group_block_credit_limit"
+                       attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                <field name="unlock_for_overdue_invoices" groups="account_voucher.group_block_expired_invoice"
+                       attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                <field name="advance_payment_manually" groups="account_voucher.group_account_advance_validate_manually"
+                       attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+                    <field name="check_immediate_payment" invisible="True"/>
+            </xpath>
+            <xpath expr="//form/sheet/notebook/page[@name='other_information']" position="after">
+                <page string="Anticipos" name="account_advance" attrs="{'invisible': ['|',('advance_payment_manually', '!=', False),('check_immediate_payment', '!=', True)]}">  
+                    <group>
+                        <field name="account_advance_id" invisible="True" domain="[('voucher_type','=','advance'),('partner_id','=',partner_id)]"/>
+                        <field name="account_voucher_ids"
+                            domain="[('voucher_type','=','advance'),('state','=','posted'),('partner_id','=',partner_id)]"
+                            options="{'no_create': True, 'no_create_edit': True}"
+                        />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

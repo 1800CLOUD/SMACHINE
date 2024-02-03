@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_account_move_tree" model="ir.ui.view">
+        <field name="name">view.account.move.tree</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='ref']" position="after">
+                <field name="import_id" optional="hide" invisible="context.get('default_import_type') != 'expense'" />
+                <field name="import_type" optional="show" invisible="context.get('default_import_type') != 'expense'" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_move_form" model="ir.ui.view">
+        <field name="name">view.account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@id='other_tab_group']" position="inside">
+                <group string="Import" attrs="{'invisible': [('move_type','!=','in_invoice')]}">
+                    <field name="imports_ids" widget="many2many_tags" readonly="True" groups="base.group_no_one" />
+                    <field name="import_id" />
+                    <field name="import_type" attrs="{'required': [('import_id','!=',False)]}" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_account_move" model="ir.actions.act_window">
+        <field name="name">Bills</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_id" ref="account.view_in_invoice_bill_tree" />
+        <field name="search_view_id" ref="account.view_account_invoice_filter" />
+        <field name="domain">[('move_type', '=', 'in_invoice'), ('import_type', '!=', False)]</field>
+        <field name="context">{'default_move_type': 'in_invoice', 'default_import_type': 'expense'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a vendor bill
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_account_move" parent="menu_purchase_import_parent" action="action_account_move" sequence="10" />
+</odoo>

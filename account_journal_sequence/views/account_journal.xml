@@ -1,0 +1,33 @@
+<odoo>
+
+    <record id="view_account_journal_form" model="ir.ui.view">
+        <field name="name">account.journal.form</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='advanced_settings']" position="after">
+                <page name="sequence" string="Sequence">
+                    <group>
+                        <group name="sequence" string="Sequence">
+                            <label for="sequence_number_next"/>
+                            <div>
+                                <field name="sequence_number_next" style="padding-right: 1.0em"/>
+                                <field name="sequence_id" required="0" attrs="{'readonly': 1}" groups="base.group_no_one"/>
+                            </div>
+                            <button name="create_journal_sequence" string="Set Sequence" type="object" class="oe_highlight"
+                                    attrs="{'invisible': [('sequence_id','!=',False),('refund_sequence_id','!=',False)]}"/>
+                        </group>
+                        <group name="refund_sequence" string="Credit Note Sequence">
+                            <label for="refund_sequence_number_next" attrs="{'invisible': [('refund_sequence', '!=', True)]}"/>
+                            <div attrs="{'invisible': [('refund_sequence', '!=', True)]}">
+                                <field name="refund_sequence_number_next" style="padding-right: 1.0em"/>
+                                <field name="refund_sequence_id" required="0" attrs="{'readonly': 1}" groups="base.group_no_one"/>
+                            </div>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

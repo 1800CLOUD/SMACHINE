@@ -1,0 +1,54 @@
+<odoo>
+    <record model="ir.ui.view" id="view_account_balance_form">
+        <field name="name">view.account.balance.form</field>
+        <field name="model">account.balance.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Balance">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="report_type" />
+                            <label for="date_from" string="Date" />
+                            <div class="o_row">
+                                <div class="o_row">
+                                    <field name="date_from" required="True" />
+                                </div>
+                                <field name="date_to" required="True" />
+                            </div>
+                        </group>
+                        <group>
+                            <field name="line_state" />
+                            <field name="no_zero" />
+                            <field name="group_by" />
+                            <field name="partner_by" />
+                        </group>
+                    </group>
+                    <group string="Filters">
+                        <group string="Accounts">
+                            <field name="accounts_ids" widget="many2many_tags" />
+                        </group>
+                        <group string="Partners" attrs="{'invisible': [('partner_by','=',False)]}">
+                            <field name="partners_ids" widget="many2many_tags" />
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="View" class="btn-primary" name="preview_html" type="object"/>
+                    or
+                    <button string="Confirm" class="btn-primary" name="action_confirm" type="object" />
+                    or
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_account_balance" model="ir.actions.act_window">
+        <field name="name">Trial Balance"</field>
+        <field name="res_model">account.balance.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_uom_form_view_inherit_dian" model="ir.ui.view">
+            <field name="name">uom.uom.form.dian</field>
+            <field name="model">uom.uom</field>
+            <field name="inherit_id" ref="uom.product_uom_form_view"/>
+            <field name="arch" type="xml">
+                <field name="rounding" position="before">
+                    <field name="dian_country_code" invisible="1"/>
+                    <field name="dian_uom_id" options="{'no_create': True, 'no_create_edit': True}" attrs="{'required': [('dian_country_code', '=', 'CO')]}"/>
+                </field>
+                <xpath expr="//field[@name='uom_type']" position="after">
+                    <field name="unspsc_code_id" domain="[('applies_to','=','uom')]" options="{'no_create': True, 'no_create_edit': True}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+    <record id="action_account_report_accounts_states" model="ir.actions.client">
+        <field name="name">Account states</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'model': 'account.accounts.states'}" />
+    </record>
+
+    <menuitem id="menu_action_account_report_accounts_states" name="Account states" action="action_account_report_accounts_states" 
+        parent="account_reports.account_reports_partners_reports_menu"/>
+        
+    </data>
+</odoo>

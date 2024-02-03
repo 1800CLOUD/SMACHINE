@@ -1,0 +1,589 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-10 18:43+0000\n"
+"PO-Revision-Date: 2023-03-10 18:43+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_report
+#: model_terms:ir.ui.view,arch_db:account_report.search_template_sales
+msgid "<span class=\"fa fa-folder-open\"/> Sales"
+msgstr "<span class=\"fa fa-folder-open\"/> Ventas"
+
+#. module: account_report
+#: model_terms:ir.ui.view,arch_db:account_report.account_balance_inventory_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_balance_major_wizard_form
+msgid "<span class=\"oe_inline\">A</span>"
+msgstr ""
+
+#. module: account_report
+#: model:ir.actions.report,name:account_report.action_report_account_auxiliary_html
+msgid "Account Auxiliary HTML"
+msgstr "Libro Auxiliar HTML"
+
+#. module: account_report
+#: model:ir.actions.report,name:account_report.action_report_account_auxiliary_qweb
+msgid "Account Auxiliary PDF"
+msgstr "Libro Auxiliar PDF"
+
+#. module: account_report
+#: model:ir.actions.report,name:account_report.action_report_account_balance_html
+msgid "Account Balance HTML"
+msgstr "Balance HTML"
+
+#. module: account_report
+#: model:ir.actions.report,name:account_report.action_report_account_balance_major_html
+msgid "Account Balance Major HTML"
+msgstr "Libro Mayor y Balance HTML"
+
+#. module: account_report
+#: model:ir.actions.report,name:account_report.action_report_account_balance_major_pdf
+#: model:ir.actions.report,name:account_report.action_report_account_balance_major_qweb
+msgid "Account Balance Major PDF"
+msgstr "Libro Mayor y Balance PDF"
+
+#. module: account_report
+#: model:ir.model,name:account_report.model_account_balance_major_wizard
+msgid "Account Balance Major Wizard"
+msgstr "Libro Mayor y Balance Wizard"
+
+#. module: account_report
+#: model:ir.actions.report,name:account_report.action_report_account_balance_qweb
+msgid "Account Balance PDF"
+msgstr "Balance PDF"
+
+#. module: account_report
+#: model:ir.model,name:account_report.model_report_account_report_account_balance_inventory
+msgid "Account Balance inventory"
+msgstr "Libro Oficial de Inventario y Balance"
+
+#. module: account_report
+#: model:ir.actions.report,name:account_report.action_report_account_balance_inventory_html
+msgid "Account Balance inventory HTML"
+msgstr "Libro Oficial Inventario y Balance HTML"
+
+#. module: account_report
+#: model:ir.actions.report,name:account_report.action_report_account_balance_inventory_qweb
+msgid "Account Balance inventory PDF"
+msgstr "Libro Oficial Inventario y Balance PDF"
+
+#. module: account_report
+#: model:ir.model,name:account_report.model_account_balance_inventory_wizard
+msgid "Account Balance inventory Wizard"
+msgstr "Libro Oficial Inventario y Balance Wizard"
+
+#. module: account_report
+#: model:ir.model,name:account_report.model_account_group
+msgid "Account Group"
+msgstr "Grupo de cuenta"
+
+#. module: account_report
+#: model:ir.model,name:account_report.model_account_journal_wizard
+msgid "Account Jornal Wizard"
+msgstr "Libro Oficial Diario"
+
+#. module: account_report
+#: model:ir.actions.report,name:account_report.action_report_account_journal_qweb
+msgid "Account Journal PDF"
+msgstr "Libro Oficial Diario PDF"
+
+#. module: account_report
+#: model:ir.actions.report,name:account_report.action_report_account_journal_html
+msgid "Account journal HTML"
+msgstr "Libro Oficial Diario HTML"
+
+#. module: account_report
+#: model:ir.actions.report,name:account_report.action_report_account_journal_pdf
+msgid "Account journal PDF"
+msgstr "Libro Oficial Diario PDF"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_invoices_wizard__accounts_ids
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_wizard__accounts_ids
+#: model:ir.model.fields,field_description:account_report.field_account_balance_inventory_wizard__accounts_ids
+#: model:ir.model.fields,field_description:account_report.field_account_balance_major_wizard__accounts_ids
+#: model:ir.model.fields,field_description:account_report.field_account_balance_wizard__accounts_ids
+#: model:ir.model.fields,field_description:account_report.field_account_journal_wizard__accounts_ids
+#: model_terms:ir.ui.view,arch_db:account_report.account_auxiliary_invoices_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_balance_inventory_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_balance_major_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_journal_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.view_account_auxiliary_form
+#: model_terms:ir.ui.view,arch_db:account_report.view_account_balance_form
+msgid "Accounts"
+msgstr "Cuentas"
+
+#. module: account_report
+#: model:ir.actions.client,name:account_report.action_account_report_ar_per_vendor
+#: model:ir.model,name:account_report.model_account_aged_receivable
+#: model:ir.ui.menu,name:account_report.menu_action_account_report_ar_per_vendor_in_sales
+msgid "Aged Receivable"
+msgstr "Vencido por cobrar"
+
+#. module: account_report
+#: model:ir.model,name:account_report.model_reports_assistant_report
+msgid "Asistente de reportes"
+msgstr ""
+
+#. module: account_report
+#: model:ir.actions.act_window,name:account_report.action_account_auxiliary
+#: model:ir.actions.report,name:account_report.report_account_auxiliary
+#: model:ir.actions.report,name:account_report.report_account_auxiliary_invoices
+#: model:ir.ui.menu,name:account_report.menu_account_auxiliary
+msgid "Auxiliary"
+msgstr "Auxiliar"
+
+#. module: account_report
+#: model:ir.model,name:account_report.model_report_account_report_account_auxiliary
+#: model:ir.model,name:account_report.model_report_account_report_account_auxiliary_invoices
+msgid "Auxiliary Report"
+msgstr "Reporte Auxiliar"
+
+#. module: account_report
+#: model:ir.model,name:account_report.model_account_auxiliary_invoices_wizard
+msgid "Auxiliary Report Invoices Wizard"
+msgstr "Reporte Auxiliar de Impuestos Wizard"
+
+#. module: account_report
+#: model:ir.model,name:account_report.model_account_auxiliary_wizard
+msgid "Auxiliary Report Wizard"
+msgstr "Asistente Reporte Auxiliar"
+
+#. module: account_report
+#: model:ir.actions.act_window,name:account_report.action_account_auxiliary_invoices
+#: model:ir.ui.menu,name:account_report.menu_account_auxiliary_invoices
+msgid "Auxiliary invoices"
+msgstr "Auxiliar de impuestos"
+
+#. module: account_report
+#: model:ir.actions.report,name:account_report.report_account_balance
+#: model_terms:ir.ui.view,arch_db:account_report.account_auxiliary_invoices_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_balance_inventory_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_balance_major_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.view_account_auxiliary_form
+#: model_terms:ir.ui.view,arch_db:account_report.view_account_balance_form
+msgid "Balance"
+msgstr "Balance de pruebas"
+
+#. module: account_report
+#: model:ir.model,name:account_report.model_report_account_report_account_balance
+#: model:ir.model,name:account_report.model_report_account_report_account_journal
+msgid "Balance Report"
+msgstr "Reporte Balance"
+
+#. module: account_report
+#: model:ir.model,name:account_report.model_account_balance_wizard
+msgid "Balance Report Wizard"
+msgstr "Asistente Reporte Balance"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_wizard__account_by
+msgid "By account"
+msgstr "Por cuenta"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_wizard__group_by
+msgid "By account and partner"
+msgstr "Por cuenta y contacto"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_invoices_wizard__partner_by
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_wizard__partner_by
+#: model:ir.model.fields,field_description:account_report.field_account_balance_inventory_wizard__partner_by
+#: model:ir.model.fields,field_description:account_report.field_account_balance_major_wizard__partner_by
+#: model:ir.model.fields,field_description:account_report.field_account_balance_wizard__partner_by
+#: model:ir.model.fields,field_description:account_report.field_account_journal_wizard__partner_by
+msgid "By partner"
+msgstr "Por contacto"
+
+#. module: account_report
+#: model_terms:ir.ui.view,arch_db:account_report.account_auxiliary_invoices_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_balance_inventory_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_balance_major_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_journal_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.view_account_auxiliary_form
+#: model_terms:ir.ui.view,arch_db:account_report.view_account_balance_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_account_group__child_ids
+msgid "Child"
+msgstr "Hijo"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_account_group__code
+msgid "Code"
+msgstr "Código"
+
+#. module: account_report
+#: model:ir.ui.menu,name:account_report.menu_account_report
+msgid "Colombian reports"
+msgstr "Informes Colombianos"
+
+#. module: account_report
+#: model_terms:ir.ui.view,arch_db:account_report.account_auxiliary_invoices_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.view_account_auxiliary_form
+#: model_terms:ir.ui.view,arch_db:account_report.view_account_balance_form
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: account_report
+#: model:ir.model,name:account_report.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_invoices_wizard__create_uid
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_wizard__create_uid
+#: model:ir.model.fields,field_description:account_report.field_account_balance_inventory_wizard__create_uid
+#: model:ir.model.fields,field_description:account_report.field_account_balance_major_wizard__create_uid
+#: model:ir.model.fields,field_description:account_report.field_account_balance_wizard__create_uid
+#: model:ir.model.fields,field_description:account_report.field_account_journal_wizard__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_invoices_wizard__create_date
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_wizard__create_date
+#: model:ir.model.fields,field_description:account_report.field_account_balance_inventory_wizard__create_date
+#: model:ir.model.fields,field_description:account_report.field_account_balance_major_wizard__create_date
+#: model:ir.model.fields,field_description:account_report.field_account_balance_wizard__create_date
+#: model:ir.model.fields,field_description:account_report.field_account_journal_wizard__create_date
+msgid "Created on"
+msgstr "Creado"
+
+#. module: account_report
+#: model_terms:ir.ui.view,arch_db:account_report.account_auxiliary_invoices_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_balance_inventory_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_balance_major_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_journal_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.view_account_auxiliary_form
+#: model_terms:ir.ui.view,arch_db:account_report.view_account_balance_form
+msgid "Date"
+msgstr "Fecha"
+
+#. module: account_report
+#: model_terms:ir.ui.view,arch_db:account_report.account_balance_inventory_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_balance_major_wizard_form
+msgid "Defina el rango"
+msgstr ""
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_invoices_wizard__display_name
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_wizard__display_name
+#: model:ir.model.fields,field_description:account_report.field_account_balance_inventory_wizard__display_name
+#: model:ir.model.fields,field_description:account_report.field_account_balance_major_wizard__display_name
+#: model:ir.model.fields,field_description:account_report.field_account_balance_wizard__display_name
+#: model:ir.model.fields,field_description:account_report.field_account_journal_wizard__display_name
+msgid "Display Name"
+msgstr "Nombre Público"
+
+#. module: account_report
+#: model:ir.actions.client,name:account_report.action_report_payment_days
+#: model:ir.ui.menu,name:account_report.menu_action_report_payment_days
+msgid "Días de pago"
+msgstr ""
+
+#. module: account_report
+#: model_terms:ir.ui.view,arch_db:account_report.account_balance_inventory_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_balance_major_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_journal_wizard_form
+msgid "EXCEL"
+msgstr ""
+
+#. module: account_report
+#: model_terms:ir.ui.view,arch_db:account_report.account_auxiliary_invoices_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_balance_inventory_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_balance_major_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_journal_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.view_account_auxiliary_form
+#: model_terms:ir.ui.view,arch_db:account_report.view_account_balance_form
+msgid "Filters"
+msgstr "Filtros"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_invoices_wizard__date_from
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_wizard__date_from
+#: model:ir.model.fields,field_description:account_report.field_account_balance_inventory_wizard__date_from
+#: model:ir.model.fields,field_description:account_report.field_account_balance_major_wizard__date_from
+#: model:ir.model.fields,field_description:account_report.field_account_balance_wizard__date_from
+#: model:ir.model.fields,field_description:account_report.field_account_journal_wizard__date_from
+msgid "From"
+msgstr "Desde"
+
+#. module: account_report
+#: model:ir.actions.report,name:account_report.report_account_balance_inventory
+msgid "General Balance inventory"
+msgstr "Balance Inventario General"
+
+#. module: account_report
+#: model:ir.actions.report,name:account_report.report_account_journal
+msgid "General Journal"
+msgstr "Diario General"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_wizard__group_by_partner
+msgid "Group by partner"
+msgstr "Agrupar por tercero"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_invoices_wizard__id
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_wizard__id
+#: model:ir.model.fields,field_description:account_report.field_account_balance_inventory_wizard__id
+#: model:ir.model.fields,field_description:account_report.field_account_balance_major_wizard__id
+#: model:ir.model.fields,field_description:account_report.field_account_balance_wizard__id
+#: model:ir.model.fields,field_description:account_report.field_account_journal_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: account_report
+#: model:ir.model.fields.selection,name:account_report.selection__account_auxiliary_invoices_wizard__report_type__ifrs
+#: model:ir.model.fields.selection,name:account_report.selection__account_auxiliary_wizard__report_type__ifrs
+#: model:ir.model.fields.selection,name:account_report.selection__account_balance_inventory_wizard__report_type__ifrs
+#: model:ir.model.fields.selection,name:account_report.selection__account_balance_major_wizard__report_type__ifrs
+#: model:ir.model.fields.selection,name:account_report.selection__account_balance_wizard__report_type__ifrs
+#: model:ir.model.fields.selection,name:account_report.selection__account_journal_wizard__report_type__ifrs
+msgid "IFRS"
+msgstr "NIIF"
+
+#. module: account_report
+#: model_terms:ir.ui.view,arch_db:account_report.account_journal_wizard_form
+msgid "Journal"
+msgstr "Diario"
+
+#. module: account_report
+#: model:ir.model,name:account_report.model_report_account_report_account_balance_major
+msgid "Journal general Report"
+msgstr "Reporte general de diario"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_invoices_wizard____last_update
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_wizard____last_update
+#: model:ir.model.fields,field_description:account_report.field_account_balance_inventory_wizard____last_update
+#: model:ir.model.fields,field_description:account_report.field_account_balance_major_wizard____last_update
+#: model:ir.model.fields,field_description:account_report.field_account_balance_wizard____last_update
+#: model:ir.model.fields,field_description:account_report.field_account_journal_wizard____last_update
+msgid "Last Modified on"
+msgstr "Última Modificación el"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_invoices_wizard__write_uid
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_wizard__write_uid
+#: model:ir.model.fields,field_description:account_report.field_account_balance_inventory_wizard__write_uid
+#: model:ir.model.fields,field_description:account_report.field_account_balance_major_wizard__write_uid
+#: model:ir.model.fields,field_description:account_report.field_account_balance_wizard__write_uid
+#: model:ir.model.fields,field_description:account_report.field_account_journal_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Actualizado por"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_invoices_wizard__write_date
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_wizard__write_date
+#: model:ir.model.fields,field_description:account_report.field_account_balance_inventory_wizard__write_date
+#: model:ir.model.fields,field_description:account_report.field_account_balance_major_wizard__write_date
+#: model:ir.model.fields,field_description:account_report.field_account_balance_wizard__write_date
+#: model:ir.model.fields,field_description:account_report.field_account_journal_wizard__write_date
+msgid "Last Updated on"
+msgstr "Actualizado"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_account_balance_inventory_wizard__group_by
+#: model:ir.model.fields,field_description:account_report.field_account_balance_major_wizard__group_by
+#: model:ir.model.fields,field_description:account_report.field_account_balance_wizard__group_by
+#: model:ir.model.fields,field_description:account_report.field_account_journal_wizard__group_by
+msgid "Levels?"
+msgstr "¿Niveles?"
+
+#. module: account_report
+#: model:ir.actions.act_window,name:account_report.action_account_balance_major_wizard
+#: model:ir.actions.report,name:account_report.report_account_balance_major
+#: model:ir.ui.menu,name:account_report.menu_account_balance_major_wizard
+msgid "Libro Mayor y Balance"
+msgstr ""
+
+#. module: account_report
+#: model:ir.actions.act_window,name:account_report.action_account_journal_wizard
+#: model:ir.ui.menu,name:account_report.menu_account_journal_wizard
+msgid "Libro Oficial Diario"
+msgstr ""
+
+#. module: account_report
+#: model:ir.actions.act_window,name:account_report.action_account_balance_inventory_wizard
+#: model:ir.ui.menu,name:account_report.menu_account_balance_inventory_wizard
+msgid "Libro oficial inventario y balance"
+msgstr ""
+
+#. module: account_report
+#: model:ir.ui.menu,name:account_report.menu_oficial_accounts__reports
+msgid "Libros oficiales"
+msgstr ""
+
+#. module: account_report
+#: model:ir.model.fields.selection,name:account_report.selection__account_auxiliary_invoices_wizard__report_type__local
+#: model:ir.model.fields.selection,name:account_report.selection__account_auxiliary_wizard__report_type__local
+#: model:ir.model.fields.selection,name:account_report.selection__account_balance_inventory_wizard__report_type__local
+#: model:ir.model.fields.selection,name:account_report.selection__account_balance_major_wizard__report_type__local
+#: model:ir.model.fields.selection,name:account_report.selection__account_balance_wizard__report_type__local
+#: model:ir.model.fields.selection,name:account_report.selection__account_journal_wizard__report_type__local
+msgid "Local"
+msgstr ""
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_invoices_wizard__currency_by
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_wizard__currency_by
+msgid "Multi-currency?"
+msgstr "¿Multi moneda?"
+
+#. module: account_report
+#: model:ir.ui.menu,name:account_report.menu_partner_report_ar_in_sales
+msgid "Partner Reports"
+msgstr "Informes 1-800CLOUD"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_invoices_wizard__partners_ids
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_wizard__partners_ids
+#: model:ir.model.fields,field_description:account_report.field_account_balance_inventory_wizard__partners_ids
+#: model:ir.model.fields,field_description:account_report.field_account_balance_major_wizard__partners_ids
+#: model:ir.model.fields,field_description:account_report.field_account_balance_wizard__partners_ids
+#: model:ir.model.fields,field_description:account_report.field_account_journal_wizard__partners_ids
+#: model_terms:ir.ui.view,arch_db:account_report.account_auxiliary_invoices_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_balance_inventory_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_balance_major_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_journal_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.view_account_auxiliary_form
+#: model_terms:ir.ui.view,arch_db:account_report.view_account_balance_form
+msgid "Partners"
+msgstr "Contactos"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_invoices_wizard__line_state
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_wizard__line_state
+#: model:ir.model.fields,field_description:account_report.field_account_balance_inventory_wizard__line_state
+#: model:ir.model.fields,field_description:account_report.field_account_balance_major_wizard__line_state
+#: model:ir.model.fields,field_description:account_report.field_account_balance_wizard__line_state
+#: model:ir.model.fields,field_description:account_report.field_account_journal_wizard__line_state
+msgid "Posted?"
+msgstr "¿Publicado?"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_invoices_wizard__report_type
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_wizard__report_type
+#: model:ir.model.fields,field_description:account_report.field_account_balance_inventory_wizard__report_type
+#: model:ir.model.fields,field_description:account_report.field_account_balance_major_wizard__report_type
+#: model:ir.model.fields,field_description:account_report.field_account_balance_wizard__report_type
+#: model:ir.model.fields,field_description:account_report.field_account_journal_wizard__report_type
+msgid "Report Type"
+msgstr "Tipo de reporte"
+
+#. module: account_report
+#: model:ir.model,name:account_report.model_report_payment_days
+msgid "Reporte de días de pago"
+msgstr ""
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_invoices_wizard__no_zero
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_wizard__no_zero
+#: model:ir.model.fields,field_description:account_report.field_account_balance_inventory_wizard__no_zero
+#: model:ir.model.fields,field_description:account_report.field_account_balance_major_wizard__no_zero
+#: model:ir.model.fields,field_description:account_report.field_account_balance_wizard__no_zero
+#: model:ir.model.fields,field_description:account_report.field_account_journal_wizard__no_zero
+msgid "Skip zero balances"
+msgstr "Omitir saldos en cero"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_account_balance_inventory_wizard__len_code_max
+#: model:ir.model.fields,field_description:account_report.field_account_balance_major_wizard__len_code_max
+msgid "Tamaño max"
+msgstr ""
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_account_balance_inventory_wizard__len_code_min
+#: model:ir.model.fields,field_description:account_report.field_account_balance_major_wizard__len_code_min
+msgid "Tamaño min"
+msgstr ""
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_invoices_wizard__date_to
+#: model:ir.model.fields,field_description:account_report.field_account_auxiliary_wizard__date_to
+#: model:ir.model.fields,field_description:account_report.field_account_balance_inventory_wizard__date_to
+#: model:ir.model.fields,field_description:account_report.field_account_balance_major_wizard__date_to
+#: model:ir.model.fields,field_description:account_report.field_account_balance_wizard__date_to
+#: model:ir.model.fields,field_description:account_report.field_account_journal_wizard__date_to
+msgid "To"
+msgstr "Hasta"
+
+#. module: account_report
+#: model:ir.model.fields,help:account_report.field_account_auxiliary_wizard__group_by
+msgid "Totals per account"
+msgstr "Totalizado por cuenta"
+
+#. module: account_report
+#: model:ir.model.fields,help:account_report.field_account_auxiliary_wizard__partner_by
+msgid "Totals per partner"
+msgstr "Totalizado por tercero"
+
+#. module: account_report
+#: model:ir.ui.menu,name:account_report.menu_account_balance
+msgid "Trial Balance"
+msgstr "Balance de Pruebas"
+
+#. module: account_report
+#: model:ir.actions.act_window,name:account_report.action_account_balance
+msgid "Trial Balance\""
+msgstr "Balance"
+
+#. module: account_report
+#: model_terms:ir.ui.view,arch_db:account_report.account_balance_inventory_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_balance_major_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_journal_wizard_form
+msgid "VER"
+msgstr ""
+
+#. module: account_report
+#: model_terms:ir.ui.view,arch_db:account_report.view_account_auxiliary_form
+#: model_terms:ir.ui.view,arch_db:account_report.view_account_balance_form
+msgid "View"
+msgstr "Ver"
+
+#. module: account_report
+#: model_terms:ir.ui.view,arch_db:account_report.account_auxiliary_invoices_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_balance_inventory_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_balance_major_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.account_journal_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_report.view_account_auxiliary_form
+#: model_terms:ir.ui.view,arch_db:account_report.view_account_balance_form
+msgid "or"
+msgstr "ó"
+
+#. module: account_report
+#: model:ir.model.fields,field_description:account_report.field_account_balance_inventory_wizard__filter_code
+#: model:ir.model.fields,field_description:account_report.field_account_balance_major_wizard__filter_code
+msgid "¿Filtrar por niveles?"
+msgstr ""
+
+#. module: account_report
+#. openerp-web
+#: code:account_report/static/src/js/account_aged_receivable.js:0
+#: code:account_report/static/src/js/account_aged_receivable.js:0
+#, python-format
+msgid "Sale Team"
+msgstr "Equipo de ventas"
+
+#. module: account_report
+#. openerp-web
+#: code:account_report/static/src/js/account_aged_receivable.js:0
+#: code:account_report/static/src/js/account_aged_receivable.js:0
+#, python-format
+msgid "Salesman"
+msgstr "Vendedor"

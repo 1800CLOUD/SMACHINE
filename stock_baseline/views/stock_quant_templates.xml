@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <template id="report_inventory" inherit_id="stock.report_inventory">
+            <xpath expr="//div[hasclass('page')]/table/thead/tr/th[5]" position="attributes">
+                <attribute name="t-if">not docs.mapped('company_id.counting_sheet_without_columns')[0]</attribute>
+            </xpath>
+            <xpath expr="//div[hasclass('page')]/table/thead/tr/th[6]" position="attributes">
+                <attribute name="t-if">not docs.mapped('company_id.counting_sheet_without_columns')[0]</attribute>
+            </xpath>
+            <xpath expr="//div[hasclass('page')]/table/tbody/t/tr[2]/td[5]" position="attributes">
+                <attribute name="t-if">not docs.mapped('company_id.counting_sheet_without_columns')[0]</attribute>
+            </xpath>
+            <xpath expr="//div[hasclass('page')]/table/tbody/t/tr[2]/td[6]" position="attributes">
+                <attribute name="t-if">not docs.mapped('company_id.counting_sheet_without_columns')[0]</attribute>
+            </xpath>
+        </template>
+    </data>
+</odoo>

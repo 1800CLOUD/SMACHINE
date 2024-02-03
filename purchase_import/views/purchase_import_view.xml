@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_purchase_import_search">
+        <field name="name">view.purchase.import.search</field>
+        <field name="model">purchase.import</field>
+        <field name="arch" type="xml">
+            <search string="Imports">
+                <field name="name" />
+                <field name="partner_id" />
+                <field name="company_id" groups="base.group_multi_company" />
+                <field name="currency_id" groups="base.group_multi_currency" />
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_purchase_import_tree">
+        <field name="name">view.purchase.import.tree</field>
+        <field name="model">purchase.import</field>
+        <field name="arch" type="xml">
+            <tree string="Imports">
+                <field name="name" readonly="1" decoration-bf="1" />
+                <field name="partner_ref" readonly="1" string="Reference" />
+                <field name="partner_id" readonly="1" />
+                <field name="company_id" readonly="1" options="{'no_create': True}" groups="base.group_multi_company" optional="show" />
+                <field name="user_id" readonly="1" optional="show" widget="many2one_avatar_user" />
+                <field name="currency_id" readonly="1" groups="base.group_multi_currency" optional="hide" />
+                <field name="state" readonly="1" widget="badge" decoration-info="state == 'draft'" decoration-warning="state == 'confirm'" decoration-success="state == 'done'" decoration-danger="state == 'cancel'" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_purchase_import_form">
+        <field name="name">view.purchase.import.form</field>
+        <field name="model">purchase.import</field>
+        <field name="arch" type="xml">
+            <form string="Import">
+                <header>
+                    <button name="action_draft" type="object" string="Draft" states="confirm" />
+                    <button name="action_confirm" type="object" string="Confirm" states="draft" class="oe_highlight" />
+                    <button name="action_moves" type="object" string="Products" states="confirm" class="oe_highlight" />
+                    <button name="action_lines" type="object" string="Costs" class="oe_highlight" attrs="{'invisible': ['|',('state','!=','confirm'),('moves_ids','=',[])]}" />
+                    <button name="action_validate" type="object" string="Done" states="confirm" class="oe_highlight" />
+                    <button name="action_cancel" type="object" string="Cancel" states="draft,confirm" class="btn-secondary" />
+                    <field name="state" widget="statusbar" readonly="1" />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="import_type" attrs="{'readonly': [('state','in',('done','cancel'))]}" />
+                            <field name="incoterms_id" attrs="{'readonly': [('state','in',('done','cancel'))]}" />
+                            <field name="incoterms_insurance" invisible="1" />
+                            <field name="incoterms_freight" invisible="1" />
+                            <field name="partner_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'supplier', 'show_vat': True}" attrs="{'readonly': [('state','in',('done','cancel'))]}" />
+                            <field name="partner_ref" attrs="{'readonly': [('state','in',('done','cancel'))]}" />
+                            <field name="country_id" options="{'no_open': True}" attrs="{'readonly': [('state','in',('done','cancel'))]}" />
+                            <label for="currency_id" />
+                            <div class="o_row">
+                                <field name="currency_id" groups="base.group_multi_currency" attrs="{'readonly': [('state','!=','draft')]}" />
+                                <field name="rate_currency" groups="base.group_multi_currency" />
+                                <span>/</span>
+                                <field name="rate_inverse" groups="base.group_multi_currency" />
+                            </div>
+                        </group>
+                        <group>
+                            <field name="date_load" attrs="{'readonly': [('state','in',('done','cancel'))]}" />
+                            <field name="date_origin" attrs="{'readonly': [('state','in',('done','cancel'))]}" />
+                            <field name="date_port" attrs="{'readonly': [('state','in',('done','cancel'))]}" />
+                            <field name="date_import" attrs="{'readonly': [('state','in',('done','cancel'))]}" />
+                            <field name="date_destination" attrs="{'readonly': [('state','in',('done','cancel'))]}" />
+                        </group>
+                        <group string="Cost">
+                            <field name="cost_type" attrs="{'readonly': [('state','in',('done','cancel'))]}" />
+                            <field name="price_cost" readonly="1" />
+                            <field name="manual_insurance" string="Insurance" attrs="{'readonly': [('state','in',('done','cancel'))], 'invisible': [('incoterms_insurance', '=', False)]}" />
+                            <field name="manual_freight" string="Freight" attrs="{'readonly': [('state','in',('done','cancel'))], 'invisible': [('incoterms_freight', '=', False)]}" />
+                            <field name="price_insurance" invisible="1" />
+                            <field name="price_freight" invisible="1" />
+                            <field name="price_tariff" invisible="1" />
+                            <field name="price_total" invisible="1" />
+                        </group>
+                        <group string="Expenses">
+                            <field name="expense_insurance" string="Insurance" attrs="{'invisible': [('incoterms_insurance', '=', True)]}" />
+                            <field name="expense_freight" string="Freight" attrs="{'invisible': [('incoterms_freight', '=', True)]}" />
+                            <field name="price_expense" readonly="1" attrs="{'invisible': [('state','!=','done')]}" />
+                            <field name="price_expenses" attrs="{'invisible': [('state','=','done')]}" />
+                            <field name="cost_id" attrs="{'invisible': [('cost_id','=',False)]}" readonly="1" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Purchases" attrs="{'invisible': [('import_type','!=','purchase')]}">
+                            <field name="purchases_ids" attrs="{'readonly': [('state','!=','draft')]}" domain="[('partner_id','=',partner_id),('currency_id','=',currency_id),('state','in',('purchase','done'))]" />
+                        </page>
+                        <page string="Pickings" attrs="{'invisible': [('import_type','!=','picking')]}">
+                            <field name="pickings_ids" attrs="{'readonly': [('state','!=','draft')]}" domain="[('state','not in',('done','cancel'))]" />
+                        </page>
+                        <page string="Products">
+                            <field name="moves_ids" nolabel="1" options="{'no_create': True}" attrs="{'readonly': [('state','in',('done','cancel'))]}">
+                                <tree editable="bottom">
+                                    <field name="company_id" invisible="1" />
+                                    <field name="name" invisible="1" />
+                                    <field name="state" invisible="1" readonly="0" />
+                                    <field name="picking_type_id" invisible="1" />
+                                    <field name="location_id" invisible="1" />
+                                    <field name="location_dest_id" invisible="1" />
+                                    <field name="partner_id" invisible="1" />
+                                    <field name="scrapped" invisible="1" />
+                                    <field name="picking_code" invisible="1" />
+                                    <field name="product_type" invisible="1" />
+                                    <field name="show_details_visible" invisible="1" />
+                                    <field name="show_reserved_availability" invisible="1" />
+                                    <field name="show_operations" invisible="1" readonly="1" />
+                                    <field name="additional" invisible="1" />
+                                    <field name="move_lines_count" invisible="1" />
+                                    <field name="is_locked" invisible="1" />
+                                    <field name="product_uom_category_id" invisible="1" />
+                                    <field name="has_tracking" invisible="1" />
+                                    <field name="display_assign_serial" invisible="1" />
+                                    <field name="product_id" required="1" context="{'default_detailed_type': 'product'}" attrs="{'readonly': ['|', '&amp;', ('state', '!=', 'draft'), ('additional', '=', False), ('move_lines_count', '&gt;', 0)]}" />
+                                    <field name="description_picking" string="Description" optional="hide" />
+                                    <field name="date" optional="hide" />
+                                    <field name="date_deadline" optional="hide" />
+                                    <field name="is_initial_demand_editable" invisible="1" />
+                                    <field name="is_quantity_done_editable" invisible="1" />
+                                    <field name="product_packaging_id" groups="product.group_stock_packaging" />
+                                    <field name="product_uom_qty" string="Demand" attrs="{'readonly': ['|', ('is_initial_demand_editable', '=', False), '&amp;', '&amp;', ('show_operations', '=', True), ('is_locked', '=', True), ('is_initial_demand_editable', '=', False)]}" />
+                                    <field name="forecast_expected_date" invisible="1" />
+                                    <field name="product_qty" invisible="1" readonly="1" />
+                                    <field name="quantity_done" string="Done" attrs="{'readonly': [('is_quantity_done_editable', '=', False)]}" />
+                                    <field name="product_uom" attrs="{'readonly': [('state', '!=', 'draft'), ('additional', '=', False)]}" options="{'no_open': True, 'no_create': True}" string="Unit of Measure" groups="uom.group_uom" />
+                                    <button name="action_show_details" type="object" icon="fa-list" width="0.1" attrs="{'invisible': [('show_details_visible', '=', False)]}" options="{&quot;warn&quot;: true}" />
+                                    <button name="action_assign_serial" type="object" icon="fa-plus-square" width="0.1" role="img" title="Assign Serial Numbers" attrs="{'invisible': ['|', ('display_assign_serial', '=', False), ('show_operations', '=', False)]}" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Costs">
+                            <field name="line_ids" nolabel="1" readonly="1">
+                                <form string="Line">
+                                    <sheet>
+                                        <group>
+                                            <group>
+                                                <field name="import_id" invisible="1" />
+                                                <field name="move_id" invisible="1" />
+                                                <field name="line_id" invisible="1" />
+                                                <field name="currency_id" invisible="1" />
+                                                <field name="product_id" />
+                                                <field name="name" />
+                                                <field name="product_qty" />
+                                                <field name="product_uom" groups="uom.group_uom" />
+                                                <field name="product_equal" invisible="1" />
+                                                <field name="product_weight" />
+                                                <field name="product_volume" />
+                                            </group>
+                                            <group>
+                                                <field name="price_unit" />
+                                                <field name="price_cost" />
+                                                <field name="price_insurance" />
+                                                <field name="price_freight" />
+                                                <field name="price_cif" />
+                                                <field name="tariffes_ids" widget="many2many_tags" />
+                                                <field name="price_tariff" />
+                                                <field name="taxes_ids" widget="many2many_tags" />
+                                                <field name="price_tax" />
+                                                <field name="price_expense" />
+                                                <field name="price_subtotal" />
+                                                <field name="price_total" />
+                                            </group>
+                                        </group>
+                                    </sheet>
+                                </form>
+                                <tree editable="bottom" string="Lines">
+                                    <field name="import_id" invisible="1" />
+                                    <field name="move_id" invisible="1" />
+                                    <field name="line_id" invisible="1" />
+                                    <field name="currency_id" invisible="1" />
+                                    <field name="product_id" />
+                                    <field name="name" optional="hide" />
+                                    <field name="product_qty" sum="Quantity" />
+                                    <field name="product_uom" groups="uom.group_uom" />
+                                    <field name="product_equal" invisible="1" />
+                                    <field name="product_weight" optional="hide" sum="Weight" />
+                                    <field name="product_volume" optional="hide" sum="Volume" />
+                                    <field name="price_unit" />
+                                    <field name="price_cost" sum="Cost" />
+                                    <field name="price_insurance" optional="hide" sum="Insurance" />
+                                    <field name="price_freight" optional="hide" sum="Freight" />
+                                    <field name="price_cif" sum="CIF" />
+                                    <field name="tariffes_ids" widget="many2many_tags" optional="show" />
+                                    <field name="price_tariff" sum="Tariff" />
+                                    <field name="taxes_ids" widget="many2many_tags" optional="show" />
+                                    <field name="price_tax" sum="Tax" />
+                                    <field name="price_expense" sum="Expenses" />
+                                    <field name="price_subtotal" sum="Subtotal" optional="hide" />
+                                    <field name="price_total" sum="Total" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Invoices" attrs="{'invisible': [('state','in',('draft','cancel'))]}">
+                            <field name="invoices_ids" attrs="{'readonly': [('state','in',('done','cancel'))]}" domain="[('move_type','=','in_invoice'),('state','!=','cancel')]" context="{'default_move_type': 'in_invoice'}" />
+                        </page>
+                        <page string="Other Information">
+                            <group>
+                                <group name="other_info">
+                                    <field name="user_id" widget="many2one_avatar_user" readonly="True" />
+                                    <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}" />
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="act_purchase_import">
+        <field name="name">Imports</field>
+        <field name="res_model">purchase.import</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_purchase_import" parent="menu_purchase_import_parent" action="act_purchase_import" sequence="5" />
+</odoo>

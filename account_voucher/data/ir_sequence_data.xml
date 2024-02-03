@@ -1,0 +1,10 @@
+<odoo>
+    <data noupdate="True">
+        <record model="ir.sequence" id="sequence_voucher">
+            <field name="name">Accounting Voucher</field>
+            <field name="code">account.voucher</field>
+            <field name="padding" eval="5" />
+            <field name="prefix">AV</field>
+        </record>
+    </data>
+</odoo>

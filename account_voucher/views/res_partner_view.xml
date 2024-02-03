@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_partner_account_advance_inherit" model="ir.ui.view">
+        <field name="name">view.res.partner.account.advance.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='accounting_entries']" position="after">
+                <group>
+                    <field name="block_expired_invoice" groups="account_voucher.group_block_expired_invoice"/>
+                    <field name="block_credit_limit" groups="account_voucher.group_block_credit_limit"/>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='property_account_payable_id']" position="after">
+                <field name="account_advance_id" string="Account advance"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_res_partner_initial_credit_form" model="ir.ui.view">
+        <field name="name">view_res_partner_initial_credit_form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account_baseline.view_res_partner_account_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='credit_limit']" position="after">
+                    <field name="quota_limit_initial"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_res_partner_history_credit_inherit" model="ir.ui.view">
+        <field name="name">view.res.partner.history.credit.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/notebook/page[3]" position="after">
+                <page string="Credit limit History" name="credit_history">
+                    <group>
+                        <field name="credit_limit_history_ids"
+                                nolabel="1"
+                                create="false"
+                                edit="false">
+        
+                            <tree >
+                                <field name="date"/>
+                                <field name="user_id"/>
+                                <field name="credit"/>
+                            </tree>
+        
+                        </field>
+                    </group>
+
+                    <group>
+            </group>
+                </page>
+                
+            </xpath>
+        </field>
+    </record>
+</odoo>

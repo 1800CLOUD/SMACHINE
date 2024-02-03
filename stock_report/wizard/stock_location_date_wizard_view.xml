@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="stock_location_date_wizard_form" model="ir.ui.view">
+            <field name="name">stock.location.date.wizard.form</field>
+            <field name="model">stock.location.date.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="date"/>
+                            </group>
+                            <group></group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Ver" name="generate_report" type="object" class="oe_highlight"/>
+                        <!-- <button string="Generate XLSX report" name="generate_report" type="object" class="oe_highlight" context="{'report_type': 'xlsx'}" />
+                        <button string="Generate PDF report" name="generate_report" type="object" class="oe_highlight" context="{'report_type': 'pdf'}" /> -->
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_stock_location_date_wizard" model="ir.actions.act_window">
+            <field name="name">Inventario por ubicación</field>
+            <field name="res_model">stock.location.date.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_stock_move_line_detailed_operation_tree" model="ir.ui.view">
+            <field name="name">view.stock.move.line.detailed.operation.tree</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_stock_move_line_detailed_operation_tree" />
+            <field name="arch" type="xml">
+                <field name="owner_id" position="attributes">
+                    <attribute name="attrs">{'column_invisible': [('parent.picking_type_code', '=', 'incoming')], 'required': [('parent.owner_required','=',True),('parent.picking_type_code', 'in', ('outgoing','internal'))]}</attribute>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

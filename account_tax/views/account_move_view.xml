@@ -1,0 +1,15 @@
+<odoo>
+    <record id="view_account_move_form" model="ir.ui.view">
+        <field name="name">view.account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@id='header_left_group']/field[@name='partner_id']" position="after">
+                <field name="city_id" options="{'no_create': True}" groups="account.group_account_user" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))], 'readonly': [('state', 'in', ('posted','cancel'))]}" />
+            </xpath>
+            <xpath expr="//group[@id='header_right_group']" position="inside">
+                <field name="base_calculate" groups="account.group_account_user" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))], 'readonly': [('state', 'in', ('posted','cancel'))]}" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

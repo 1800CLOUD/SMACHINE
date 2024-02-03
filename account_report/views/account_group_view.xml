@@ -1,0 +1,22 @@
+<odoo>
+    <record id="view_account_group_form" model="ir.ui.view">
+        <field name="name">view.account.group.form</field>
+        <field name="model">account.group</field>
+        <field name="inherit_id" ref="account.view_account_group_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="code" required="True" />
+            </xpath>
+            <xpath expr="//group" position="after">
+                <group>
+                    <group id="c_acc_ids">
+                        <button name="update_compute_accounts_ids" string="Actualizar cuentas" type="object" class="oe_link"/>
+                        <newline/>
+                        <label for="compute_account_ids"/>
+                        <field name="compute_account_ids" nolabel="1" options="{'no_create_edit': True}"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

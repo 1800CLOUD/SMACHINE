@@ -1,0 +1,64 @@
+<odoo>
+    <record id="view_res_config_settings" model="ir.ui.view">
+        <field name="name">view.res.config.settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="80" />
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <div id="invoicing_settings" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box" id="salesperson_not_editable">
+                    <div class="o_setting_left_pane">
+                        <field name="salesperson_not_editable" />
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="salesperson_not_editable" />
+                        <div class="text-muted">
+                            Allows to restrict the edition of the salesperson field in sales and invoices.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 o_setting_box" id="tag_non_buyers">
+                    <div class="o_setting_left_pane">
+                        <field name="add_tag_to_non_buyers" />
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="add_tag_to_non_buyers" />
+                        <div class="text-muted">
+                            Allows you to add a tag and block to the customer who has not purchased in the last few months.
+                        </div>
+                        <div class="mt16 row" id="non_buyers_configuration_settings" attrs="{'invisible': [('add_tag_to_non_buyers', '=', False)]}">
+                            <label for="months_without_buying" class="col-3 o_light_label" />
+                            <field name="months_without_buying" />
+                            <label for="tags_to_add_ids" class="col-3 o_light_label" />
+                            <field name="tags_to_add_ids" />
+                        </div>
+                    </div>
+                    <!-- <div class="content-group" id="non_buyers_configuration_settings" attrs="{'invisible': [('add_tag_to_non_buyers', '=', False)]}">
+                        
+                    </div> -->
+                </div>
+            </div>
+        </field>
+    </record>
+
+    <record id="res_config_settings_view_form_sale" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='quotation_order_setting_container']" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box" id="sale_confirm_quantity">
+                    <div class="o_setting_left_pane">
+                        <field name="sale_confirm_quantity" />
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="sale_confirm_quantity" />
+                        <div class="text-muted">
+                            It does not allow to confirm the sales order if there are no quantities available.
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,6 @@
+<odoo>
+    <record model="res.groups" id="group_account_ifrs">
+        <field name="name">IFRS Account</field>
+        <field name="category_id" ref="base.module_category_usability" />
+    </record>
+</odoo>

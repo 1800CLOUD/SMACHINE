@@ -1,0 +1,161 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_baseline
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-12-05 17:26+0000\n"
+"PO-Revision-Date: 2022-12-05 17:26+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_baseline
+#: model:ir.actions.server,name:sale_baseline.cron_add_tag_to_non_buyers_ir_actions_server
+#: model:ir.cron,cron_name:sale_baseline.cron_add_tag_to_non_buyers
+#: model:ir.cron,name:sale_baseline.cron_add_tag_to_non_buyers
+msgid "Add tag to non buyers"
+msgstr "Agregar etiqueta a no compradores"
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_company__add_tag_to_non_buyers
+#: model:ir.model.fields,field_description:sale_baseline.field_res_config_settings__add_tag_to_non_buyers
+msgid "Add tag to non buyers and block them"
+msgstr "Agregar etiqueta a no compradores y bloquearlos"
+
+#. module: sale_baseline
+#: model:ir.model.fields,help:sale_baseline.field_res_company__salesperson_not_editable
+#: model:ir.model.fields,help:sale_baseline.field_res_config_settings__salesperson_not_editable
+#: model_terms:ir.ui.view,arch_db:sale_baseline.view_res_config_settings
+msgid ""
+"Allows to restrict the edition of the salesperson field in sales and "
+"invoices."
+msgstr ""
+"Permite restringir la edicion del campo vendedor en ventas y facturas."
+
+#. module: sale_baseline
+#: model:ir.model.fields,help:sale_baseline.field_res_company__add_tag_to_non_buyers
+#: model:ir.model.fields,help:sale_baseline.field_res_config_settings__add_tag_to_non_buyers
+#: model_terms:ir.ui.view,arch_db:sale_baseline.view_res_config_settings
+msgid ""
+"Allows you to add a tag and block to the customer who has not purchased in "
+"the last few months."
+msgstr ""
+"Permite bloquear y adicionar una etiqueta a los clientes que no han comprado en "
+"los ultimos meses."
+
+#. module: sale_baseline
+#: model:res.groups,comment:sale_baseline.group_edit_salesperson
+msgid ""
+"Allows you to edit the salesperson field in sales and invoices when this "
+"restriction is active from the company configuration settings"
+msgstr ""
+"Permite editar el campo vendedor en ventas y facturas cuando la restricción "
+"está activa desde las políticas de la compañía."
+
+#. module: sale_baseline
+#: model:res.groups,comment:sale_baseline.group_confirm_partner_locked_no_buy
+msgid ""
+"Allows you to publish sale orders to blocked partners for not buying in a "
+"certain time."
+msgstr ""
+"Le permite publicar pedidos de venta a clientes bloqueados por no comprar en "
+"determinado tiempo."
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_partner__is_blocked_not_buy
+#: model:ir.model.fields,field_description:sale_baseline.field_res_users__is_blocked_not_buy
+msgid "Blocked for time without buying"
+msgstr "Bloqueado por tiempo sin comprar"
+
+#. module: sale_baseline
+#: model:ir.model,name:sale_baseline.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: sale_baseline
+#: model:ir.model,name:sale_baseline.model_res_config_settings
+msgid "Config Settings"
+msgstr "Opciones de configuración"
+
+#. module: sale_baseline
+#: model:ir.model,name:sale_baseline.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_company__sale_confirm_quantity
+#: model:ir.model.fields,field_description:sale_baseline.field_res_config_settings__sale_confirm_quantity
+msgid "Do not confirm without quantity"
+msgstr "No confirmar sin cantidad"
+
+#. module: sale_baseline
+#: model:res.groups,name:sale_baseline.group_edit_salesperson
+msgid "Edit vendor in sales and invoice"
+msgstr "Editar vendedor en ventas y facturas"
+
+#. module: sale_baseline
+#: model:ir.model.fields,help:sale_baseline.field_res_company__sale_confirm_quantity
+#: model:ir.model.fields,help:sale_baseline.field_res_config_settings__sale_confirm_quantity
+#: model_terms:ir.ui.view,arch_db:sale_baseline.res_config_settings_view_form_sale
+msgid ""
+"It does not allow to confirm the sales order if there are no quantities "
+"available."
+msgstr ""
+"No permite confirmar el pedido de venta si no hay cantidades disponibles."
+
+#. module: sale_baseline
+#: model:ir.model,name:sale_baseline.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento del Libro"
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_config_settings__months_without_buying
+msgid "Months"
+msgstr "Meses"
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_company__months_without_buying
+msgid "Months without buyings"
+msgstr "Meses sin comprar"
+
+#. module: sale_baseline
+#: model:res.groups,name:sale_baseline.group_confirm_partner_locked_no_buy
+msgid "Publish sales to blocked partners for not buying"
+msgstr "Publicar pedidos a clientes bloqueados por no comprar"
+
+#. module: sale_baseline
+#: model:ir.model,name:sale_baseline.model_sale_order
+msgid "Sales Order"
+msgstr "Orden de Venta"
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_account_bank_statement_line__is_edit_salesperson
+#: model:ir.model.fields,field_description:sale_baseline.field_account_move__is_edit_salesperson
+#: model:ir.model.fields,field_description:sale_baseline.field_account_payment__is_edit_salesperson
+#: model:ir.model.fields,field_description:sale_baseline.field_sale_order__is_edit_salesperson
+msgid "Salesperson editable"
+msgstr "Vendedor editable"
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_company__salesperson_not_editable
+#: model:ir.model.fields,field_description:sale_baseline.field_res_config_settings__salesperson_not_editable
+msgid "Salesperson field not editable"
+msgstr "Campo vendedor no editable"
+
+#. module: sale_baseline
+#: model:ir.model.fields,field_description:sale_baseline.field_res_company__tags_to_add_ids
+#: model:ir.model.fields,field_description:sale_baseline.field_res_config_settings__tags_to_add_ids
+msgid "Tag"
+msgstr "Etiqueta"
+
+#. module: sale_baseline
+#: model:ir.model.fields,help:sale_baseline.field_res_company__months_without_buying
+#: model:ir.model.fields,help:sale_baseline.field_res_config_settings__months_without_buying
+msgid "months required to add tag."
+msgstr "Meses requeridos para adicionar etiqueta"

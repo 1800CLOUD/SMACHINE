@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="customer_sale_person_view" model="ir.ui.view">
+        <field name="name">customer.sale.person.view</field>
+        <field name="model">customer.sale.person</field>
+        <field name="arch" type="xml">
+            <form string="Customer Sale Person Assign">
+                <p> Are sour you want to assign Multipal customer sales person</p>
+                <group>
+                    <group>
+                        <field name="user_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                    </group>
+                </group>
+                
+                <footer>
+                    <button name="update_sales_Person" string="Assign Sales Person" type="object" class="btn-primary"/>
+                    or
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    
+     <record id="sale_person_assign_id" model="ir.actions.act_window">
+            <field name="name">Assign Sales Person</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">customer.sale.person</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="base.model_res_partner" />
+        </record>
+        
+     
+
+</odoo>

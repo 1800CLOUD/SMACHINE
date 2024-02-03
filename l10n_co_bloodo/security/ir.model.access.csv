@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+l10n_co_bloodo.access_edi_document_log,access_edi_document_log,l10n_co_bloodo.model_edi_document_log,base.group_user,1,0,1,0
+invoice_import_wizard_all,invoice_import_wizard_all,model_invoice_import_wizard,base.group_user,1,1,1,1
+history_dian_event_all,history_dian_event_all,model_history_dian_event,base.group_user,1,1,1,1

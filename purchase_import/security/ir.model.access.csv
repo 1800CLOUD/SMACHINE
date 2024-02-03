@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_purchase_import,access.purchase.import,model_purchase_import,purchase.group_purchase_user,1,1,1,0
+access_purchase_import_line,access.purchase.import.line,model_purchase_import_line,purchase.group_purchase_user,1,1,1,1
+access_product_template_tariff,access.product.template.tariff,model_product_template_tariff,purchase.group_purchase_user,1,1,1,1

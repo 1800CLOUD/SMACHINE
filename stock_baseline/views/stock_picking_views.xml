@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_picking_form_stock" model="ir.ui.view">
+        <field name="name">stock.picking.view.form.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='other_infos']" position="inside">
+                <field name="analytic_account_id" context="{'default_partner_id':partner_id, 'default_name':name}" attrs="{'readonly': [('state','!=','draft')]}" groups="analytic.group_analytic_accounting" />
+            </xpath>
+            <field name="owner_id" position="after">
+                <field name="owner_required" invisible="1"/>
+            </field>
+            <field name="owner_id" position="attributes">
+                <attribute name="attrs">{'invisible': [('picking_type_code','!=','incoming')], 'required': [('picking_type_code','=','incoming'),('owner_required','=',True)]}</attribute>
+            </field>
+            <xpath expr="//sheet/group/group/field[@name='partner_id']" position="attributes">
+                <attribute name="attrs">{'required': [('picking_type_code','=','incoming'),('owner_required','=',True)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
